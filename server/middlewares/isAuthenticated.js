@@ -14,3 +14,14 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   req.user = user;
   next();
 });
+
+exports.authorizedRoles = (...roles) => {
+  return function (req, res, next) {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorHandler("You are not authorized to perform this action", 403)
+      );
+    }
+    next();
+  };
+};
