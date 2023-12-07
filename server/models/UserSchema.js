@@ -56,5 +56,14 @@ userSchema.methods.getJwtToken = async function () {
 userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
+userSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.resetPasswordExpire = Date.now() + 3600000; //expires in one hour
+  return resetToken;
+};
 
 module.exports = mongoose.model("User", userSchema);
