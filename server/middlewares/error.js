@@ -9,6 +9,11 @@ module.exports = (e, req, res, next) => {
     e.message = message;
   }
 
+  if (e.code === 1100) {
+    const message = `Duplicate ${Object.keys(e.keyValue)}  value entered`;
+    e.message = message;
+  }
+
   res.status(e.statusCode).json({
     success: false,
     err: e.message,
