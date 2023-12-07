@@ -117,3 +117,90 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   await user.save();
   jwtToken("Success", 200, user, res);
 });
+
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.user;
+  const user = await User.findById(id).select("+password");
+  const oldPassword = req.body.oldPassword;
+  const isPasswordCorrect = await user.comparePassword(oldPassword);
+  if (!isPasswordCorrect) {
+    return next(new ErrorHandler("Incorrect password", 401));
+  }
+  if (req.body.newPassword != req.body.confirmPassword) {
+    return next(
+      new ErrorHandler(
+        "New Password and confirm password are not the same",
+        400
+      )
+    );
+  }
+  user.password = req.body.newPassword;
+  await user.save();
+  jwtToken("successfully updated your password", 200, user, res);
+});
+
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.user;
+  const data = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+  const user = await User.findByIdAndUpdate(id, data, {
+    new: true,
+    runValidators: true,
+    findAndModify: false,
+  });
+  res.status(200).json({
+    success: true,
+  });
+});
+
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("No such user found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("No such user found", 404));
+  }
+
+  await User.findByIdAndDelete(id);
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+exports.updateUser = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("No such user found", 404));
+  }
+
+  user.role = req.body.role;
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+  });
+});
