@@ -5,7 +5,9 @@ const cors = require("cors");
 const dbConnection = require("./config/db");
 const PORT = process.env.PORT;
 const productRoute = require("./router/productRoute");
+const userRoute = require("./router/userRoute");
 const error = require("./middlewares/error");
+const cookie = require("cookie-parser");
 
 process.on("uncaughtException", (e) => {
   console.log(`Error : ${e}`);
@@ -16,7 +18,9 @@ process.on("uncaughtException", (e) => {
 });
 
 app.use(express.json());
+app.use(cookie());
 app.use("/api", productRoute);
+app.use("/api", userRoute);
 app.use(cors());
 app.use(error);
 dbConnection(productRoute);
