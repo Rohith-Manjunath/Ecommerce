@@ -8,6 +8,7 @@ body,html{
     width: 100%;
     height: 100%;
     overflow-x: hidden;
+    scroll-behavior: smooth;
     font-family: "poppins";
 }
 
@@ -15,3 +16,4 @@ body,html{
     font-family: 'Caveat', cursive;
 
 }
+
