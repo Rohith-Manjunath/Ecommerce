@@ -19,11 +19,15 @@ const productSchema = new mongoose.Schema({
     {
       public_id: {
         type: String,
-        required: [true, "Please provide a valid cloudinary url for the image"],
+        required: [
+          true,
+          "Please provide a valid cloudinary public_id for the image",
+        ],
       },
-    },
-    {
-      url: { type: String, required: [true, "Please provide image url"] },
+      url: {
+        type: String,
+        required: [true, "Please provide image url"],
+      },
     },
   ],
   ratings: {
@@ -65,8 +69,8 @@ const productSchema = new mongoose.Schema({
 
   createdAt: {
     type: Date,
-    deafult: Date.now,
+    default: Date.now, // Fixed typo in the default property name
   },
 });
 
-module.exports = mongoose.model("Products", productSchema);
+module.exports = mongoose.model("Product", productSchema); // Changed model name to singular "Product"

@@ -19,9 +19,9 @@ process.on("uncaughtException", (e) => {
 
 app.use(express.json());
 app.use(cookie());
+app.use(cors());
 app.use("/api", productRoute);
 app.use("/api", userRoute);
-app.use(cors());
 app.use(error);
 dbConnection(productRoute);
 const server = app.listen(PORT, () => {
