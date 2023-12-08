@@ -3,6 +3,7 @@ import Product from "../components/Product";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
+import Loader from "../components/Loader";
 
 const Home = () => {
   const { products } = useSelector((state) => state.products);
@@ -13,7 +14,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   // Check if products is undefined before mapping
   const productsToDisplay = products || [];
@@ -42,7 +43,7 @@ const Home = () => {
             <Product key={product._id} product={product} />
           ))
         ) : (
-          <h2>Loading...</h2>
+          <Loader />
         )}
       </div>
     </div>

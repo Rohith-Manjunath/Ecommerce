@@ -56,45 +56,57 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   }
   res.status(200).json({ success: true, message: "Product created", product });
 });
-
 exports.createReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
   const { _id, name } = req.user;
-  const review = {
-    name: name,
-    rating: Number(rating),
-    comment: String(comment),
-    user: _id,
-  };
-  const product = await Product.findById(productId);
 
-  const isReviewed = product.reviews.find(
-    (rev) => rev.user.toString() === _id.toString()
-  );
+  try {
+    let product = await Product.findById(productId);
 
-  if (isReviewed) {
-    product.reviews.find((rev) => {
-      if (rev.user.toString() === _id.toString()) {
-        (rev.comment = comment), (rev.rating = rating);
-      }
+    if (!product) {
+      return res.status(404).json({ success: false, err: "Product not found" });
+    }
+
+    const review = {
+      name: name,
+      rating: Number(rating),
+      comment: String(comment),
+      user: _id,
+    };
+
+    const isReviewed = product.reviews.find(
+      (rev) => rev.user.toString() === _id.toString()
+    );
+
+    if (isReviewed) {
+      product.reviews.find((rev) => {
+        if (rev.user.toString() === _id.toString()) {
+          (rev.comment = comment), (rev.rating = rating);
+        }
+      });
+    } else {
+      product.reviews.push(review);
+      product.numOfReviews = product.reviews.length;
+    }
+
+    // Calculate average rating
+    let totalAvg = 0;
+    product.reviews.forEach((rev) => {
+      totalAvg += rev.rating;
     });
-  } else {
-    product.reviews.push(review);
-    product.numOfReviews = product.reviews.length;
+
+    product.ratings = (totalAvg / product.reviews.length).toFixed(1);
+
+    await product.save();
+    res
+      .status(200)
+      .json({ success: true, message: "Review added successfully!" });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ success: false, err: "Internal Server Error" });
   }
-
-  // Calculate average rating
-  let totalAvg = 0;
-  product.reviews.forEach((rev) => {
-    totalAvg += rev.rating;
-  });
-
-  product.ratings = (totalAvg / product.reviews.length).toFixed(1);
-
-  await product.save();
-  res
-    .status(200)
-    .json({ success: true, message: "Review added successfully!" });
 });
 
 exports.singleProductReview = catchAsyncErrors(async (req, res, next) => {
