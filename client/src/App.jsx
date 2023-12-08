@@ -6,6 +6,8 @@ import Contact from "./pages/Contact";
 import Search from "./pages/Search";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
+import Product from "./components/Product";
+import ProductDetails from "./components/ProductDetails";
 
 const App = () => {
   return (
