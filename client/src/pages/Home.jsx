@@ -1,21 +1,26 @@
 import { CiDesktopMouse1 } from "react-icons/ci";
 import Product from "../components/Product";
-
-const products = {
-  name: "Blue t-shirt",
-  price: "12000",
-  _id: 1,
-  images: [
-    {
-      url: "https://thehouseofrare.com/cdn/shop/products/BLUERABBIT.jpg?v=1645448597",
-    },
-  ],
-};
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../Redux/ProductSlice";
 
 const Home = () => {
+  const { products } = useSelector((state) => state.products);
+
+  const loading = useSelector((state) => state.loading);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
+
+  // Check if products is undefined before mapping
+  const productsToDisplay = products || [];
+
   return (
     <div className="w-full h-auto overflow-scroll flex items-center justify-center flex-col gap-10 banner relative">
-      <div className="w-full flex items-center justify-center flex-col  gap-10 h-[100vh]">
+      <div className="w-full flex items-center justify-center flex-col gap-10 h-[100vh]">
         <h2 className="text-xl font-semibold">Welcome To Ecommerce</h2>
         <h3 className="text-4xl font-extrabold">Find Amazing Products</h3>
         <a
@@ -32,14 +37,13 @@ const Home = () => {
         className="w-[80%] flex items-center justify-between flex-wrap gap-5 mx-auto"
         id="container"
       >
-        <Product product={products} />
-        <Product product={products} />
-        <Product product={products} />
-        <Product product={products} />
-        <Product product={products} />
-        <Product product={products} />
-        <Product product={products} />
-        <Product product={products} />
+        {!loading ? (
+          productsToDisplay.map((product) => (
+            <Product key={product._id} product={product} />
+          ))
+        ) : (
+          <h2>Loading...</h2>
+        )}
       </div>
     </div>
   );
