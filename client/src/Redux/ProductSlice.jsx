@@ -5,10 +5,10 @@ const LOCAL_STORAGE_KEY = "productsData";
 
 export const fetchProducts = createAsyncThunk(
   "fetchProducts",
-  async ({ keyword, currentPage }, { rejectWithValue }) => {
+  async ({ keyword, currentPage, priceRange }, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `http://localhost:4000/api/products?keyword=${keyword}&page=${currentPage}`
+        `http://localhost:4000/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}`
       );
       let jsonData = await response.json();
 

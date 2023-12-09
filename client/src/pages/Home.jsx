@@ -1,21 +1,27 @@
 import { CiDesktopMouse1 } from "react-icons/ci";
 import Product from "../components/Product";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
 import Loader from "../components/Loader";
+import { useAlert } from "react-alert"; // Import the hook
 
 const Home = () => {
   const { products } = useSelector((state) => state.products);
 
+  const [priceRange] = useState([10000, 50000]);
   const loading = useSelector((state) => state.loading);
 
   const dispatch = useDispatch();
+  const alert = useAlert(); // Initialize the hook
 
   useEffect(() => {
-    dispatch(fetchProducts({ keyword: "" }));
-  }, [dispatch]);
-
+    // Dispatch the fetchProducts action
+    dispatch(fetchProducts({ keyword: "", priceRange })).catch((err) => {
+      // Show an alert if an error occurs
+      alert.error(`Error: ${err.message}`);
+    });
+  }, [dispatch, alert]);
   // Check if products is undefined before mapping
   const productsToDisplay = products || [];
 
