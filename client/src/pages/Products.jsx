@@ -5,6 +5,9 @@ import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
+import { useAlert } from "react-alert";
+import Typography from "@mui/material/Typography";
+import Slider from "@mui/material/Slider";
 
 const Products = () => {
   const { productsPerPage, productsCount } = useSelector(
@@ -23,22 +26,31 @@ const Products = () => {
   const products = useSelector((state) => state.products.products);
   const loading = useSelector((state) => state.products.loading);
   const [currentPage, setCurrentPage] = useState(1);
+  const alert = useAlert(); // Initialize the hook
+  const [priceRange, setPriceRange] = useState([10000, 40000]);
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
-  console.log(currentPage);
+
+  const handlePriceChange = (event, newValue) => {
+    setPriceRange(newValue);
+  };
 
   useEffect(() => {
-    dispatch(fetchProducts({ keyword: "", currentPage }));
-  }, [dispatch, currentPage]);
-
+    dispatch(fetchProducts({ keyword: "", currentPage, priceRange })).catch(
+      (err) => {
+        // Show an alert if an error occurs
+        alert.error(`Error: ${err.message}`);
+      }
+    );
+  }, [dispatch, currentPage, alert, priceRange]);
   return (
     <div className="container mx-auto my-16">
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-center gap-5 flex-wrap">
+        <div className="flex items-center justify-end gap-5 flex-wrap w-[80%]">
           {products.map((product) => (
             <Link
               to={`/product/${product._id}`}
@@ -78,6 +90,33 @@ const Products = () => {
           activeClass="pageItemActive"
           activeLinkClass="pageLinkActive"
         />
+      </div>
+      <div className="flex items-center justify-start gap-5 flex-wrap w-[10rem] absolute top-[8rem] left-10 bg-white p-4 rounded-md shadow-md">
+        <div className="w-full">
+          <Typography variant="h6" className="mb-2 text-gray-700">
+            Price Range
+          </Typography>
+          <Slider
+            value={priceRange}
+            onChange={handlePriceChange}
+            valueLabelDisplay="auto"
+            valueLabelFormat={(value) => `₹${value}`}
+            min={10000}
+            max={50000}
+            step={1000}
+            sx={{
+              color: "tomato", // Customize the color
+            }}
+          />
+          <div className="flex justify-between mt-2">
+            <Typography variant="body2" className="text-gray-600">
+              Min: ₹{priceRange[0]}
+            </Typography>
+            <Typography variant="body2" className="text-gray-600">
+              Max: ₹{priceRange[1]}
+            </Typography>
+          </div>
+        </div>
       </div>
     </div>
   );
