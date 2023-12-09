@@ -47,3 +47,45 @@ body,html{
     100% { transform: rotate(360deg); }
   }
   
+  .paginationBox {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 6vmax ;
+
+  }
+  
+  /* Pagination Styles */
+  .page-item {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.5s;
+    padding: 1rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+  
+  .page-item:hover {
+    color: #007bff;
+    border: 1px solid grey;
+    border-radius: 5px;
+  }
+  
+  .page-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .pageItemActive {
+    color: #007bff;
+  }
+  
+  .pageLinkActive {
+    text-decoration: underline;
+  }
+
+

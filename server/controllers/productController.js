@@ -4,18 +4,21 @@ const ApiFeatures = require("../utils/ApiFeatures");
 const ErrorHandler = require("../utils/ErrorHandler");
 
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
-  const productsPerPage = 5;
+  const productsPerPage = 3;
   const apifeatures = new ApiFeatures(Product.find(), req.query)
     .search()
     .filter()
     .pagination(productsPerPage);
   const products = await apifeatures.query;
+  const productsCount = products.length;
 
   if (!products) {
     return next(new ErrorHandler("Products not found", 404));
   }
 
-  res.status(200).json({ success: true, products });
+  res
+    .status(200)
+    .json({ success: true, products, productsPerPage, productsCount });
 });
 
 exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {

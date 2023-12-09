@@ -13,7 +13,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ keyword: "" }));
   }, [dispatch]);
 
   // Check if products is undefined before mapping
