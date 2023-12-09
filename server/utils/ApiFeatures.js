@@ -23,10 +23,24 @@ class ApiFeatures {
     for (let key of removeFields) {
       delete queryCopy[key];
     }
-    let queryStr = JSON.stringify(queryCopy);
+
+    // Handle rating separately
+    const { ratings, ...rest } = queryCopy;
+
+    let queryStr = JSON.stringify(rest);
 
     queryStr = queryStr.replace(/\b(gt|lt|gte|lte)\b/g, (key) => `$${key}`);
+
+    // Parse the rest of the query
     this.query = this.query.find(JSON.parse(queryStr));
+
+    // Handle ratings
+    if (ratings) {
+      // Assuming ratings is an object with gte and lte properties
+      const { gte, lte } = ratings;
+      if (gte) this.query = this.query.where("ratings").gte(gte);
+      if (lte) this.query = this.query.where("ratings").lte(lte);
+    }
 
     return this;
   }
