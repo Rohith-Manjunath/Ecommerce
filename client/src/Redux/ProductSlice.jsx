@@ -1,11 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+// Create a unique key for storing data in local storage
+const LOCAL_STORAGE_KEY = "productsData";
+
 export const fetchProducts = createAsyncThunk(
   "fetchProducts",
-  async (_, { rejectWithValue }) => {
+  async ({ keyword, currentPage }, { rejectWithValue }) => {
     try {
-      let response = await fetch("http://localhost:4000/api/products");
+      let response = await fetch(
+        `http://localhost:4000/api/products?keyword=${keyword}&page=${currentPage}`
+      );
       let jsonData = await response.json();
+
+      // Save the fetched data to local storage
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(jsonData));
+
       return jsonData;
     } catch (e) {
       return rejectWithValue({ message: e.message });
@@ -13,8 +22,10 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+// Try to get initial state from local storage
+const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
 const initialState = {
-  products: [],
+  products: storedData ? JSON.parse(storedData) : [],
   loading: false,
   error: null,
 };
@@ -33,7 +44,7 @@ export const Slice = createSlice({
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       });
   },
 });
