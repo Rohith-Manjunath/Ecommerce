@@ -5,7 +5,7 @@ import { LuUserSquare } from "react-icons/lu";
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-center p-2 bg-slate-500">
+    <header className="flex items-center justify-center p-2 bg-slate-500 fixed top-0 left-0 w-full z-20">
       <div className="w-1/3">
         <Link to={"/"}>
           <h1 className="ecommerce text-4xl text-white font-semibold hover:cursor-pointer hover:text-green-400 transition-all duration-300">

@@ -14,6 +14,8 @@ const Products = () => {
     (state) => state.products
   );
 
+  console.log(productsCount);
+
   const options = {
     edit: false,
     color: "rgba(20,20,20,0.1)",
@@ -23,11 +25,15 @@ const Products = () => {
   };
 
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.products);
-  const loading = useSelector((state) => state.products.loading);
+  const productsData = useSelector((state) => state.products);
+  const loading = productsData.loading;
   const [currentPage, setCurrentPage] = useState(1);
   const alert = useAlert(); // Initialize the hook
-  const [priceRange, setPriceRange] = useState([10000, 40000]);
+  const [priceRange, setPriceRange] = useState([10000, 50000]);
+  const [productName, setProductName] = useState("");
+  const categories = ["Laptop", "Shoe", "Outfit", "Mobile"];
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [ratingsRange, setRatingsRange] = useState([0, 5]); // Default ratings range
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
@@ -37,21 +43,39 @@ const Products = () => {
     setPriceRange(newValue);
   };
 
+  const handleCategoryClick = (category) => {
+    setProductName(category);
+    setActiveCategory(category);
+  };
+
+  const handleRatingsChange = (event, newValue) => {
+    setRatingsRange(newValue);
+  };
+
   useEffect(() => {
-    dispatch(fetchProducts({ keyword: "", currentPage, priceRange })).catch(
-      (err) => {
-        // Show an alert if an error occurs
-        alert.error(`Error: ${err.message}`);
-      }
-    );
-  }, [dispatch, currentPage, alert, priceRange]);
+    dispatch(
+      fetchProducts({
+        keyword: "",
+        currentPage,
+        priceRange,
+        category: productName,
+        ratingsRange,
+      })
+    ).catch((err) => {
+      // Show an alert if an error occurs
+      alert.error(`Error: ${err.message}`);
+    });
+  }, [dispatch, currentPage, alert, priceRange, productName, ratingsRange]);
+
+  console.log(ratingsRange);
+
   return (
     <div className="container mx-auto my-16">
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-end gap-5 flex-wrap w-[80%]">
-          {products.map((product) => (
+        <div className="flex items-center justify-center gap-5 flex-wrap w-[80%] mx-auto">
+          {productsData.products.map((product) => (
             <Link
               to={`/product/${product._id}`}
               key={product._id}
@@ -75,23 +99,25 @@ const Products = () => {
           ))}
         </div>
       )}
-      <div className="paginationBox flex items-center justify-center">
-        <Pagination
-          activePage={currentPage}
-          itemsCountPerPage={productsPerPage}
-          onChange={setCurrentPageNo}
-          totalItemsCount={5}
-          nextPageText={"next"}
-          prevPageText={"prev"}
-          firstPageText={"first"}
-          lastPageText={"last"}
-          itemClass="page-item"
-          linkClass="page-link"
-          activeClass="pageItemActive"
-          activeLinkClass="pageLinkActive"
-        />
-      </div>
-      <div className="flex items-center justify-start gap-5 flex-wrap w-[10rem] absolute top-[8rem] left-10 bg-white p-4 rounded-md shadow-md">
+      {productsPerPage < productsCount && (
+        <div className="paginationBox flex items-center justify-center">
+          <Pagination
+            activePage={currentPage}
+            itemsCountPerPage={productsPerPage}
+            onChange={setCurrentPageNo}
+            totalItemsCount={productsCount}
+            nextPageText={"next"}
+            prevPageText={"prev"}
+            firstPageText={"first"}
+            lastPageText={"last"}
+            itemClass="page-item"
+            linkClass="page-link"
+            activeClass="pageItemActive"
+            activeLinkClass="pageLinkActive"
+          />
+        </div>
+      )}
+      <div className="flex items-center justify-start gap-5 flex-wrap w-[10rem] absolute top-[6rem] left-10 bg-white p-4 rounded-md shadow-md">
         <div className="w-full">
           <Typography variant="h6" className="mb-2 text-gray-700">
             Price Range
@@ -116,6 +142,37 @@ const Products = () => {
               Max: ₹{priceRange[1]}
             </Typography>
           </div>
+        </div>
+        <div className="w-full mb-4">
+          <Typography variant="h6" className="mb-2 text-gray-700 ">
+            Ratings Range
+          </Typography>
+          <Slider
+            value={ratingsRange}
+            onChange={handleRatingsChange}
+            valueLabelDisplay="auto"
+            valueLabelFormat={(value) => `${value}+`}
+            min={0}
+            max={5}
+          />
+        </div>
+        <div>
+          <h2 className="font-bold text-blue-500 underline underline-offset-2">
+            Products
+          </h2>
+          <ul>
+            {categories.map((category) => (
+              <li
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                className={`${
+                  activeCategory === category ? "text-blue-500 underline" : ""
+                } hover:underline-offset-4 transition-all duration-200 hover:underline hover:text-blue-400 hover:cursor-pointer mt-2`}
+              >
+                {category}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
