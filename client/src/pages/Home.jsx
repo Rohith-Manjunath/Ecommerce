@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 import { useAlert } from "react-alert"; // Import the hook
 
 const Home = () => {
-  const { products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products.products);
 
   const [priceRange] = useState([10000, 50000]);
   const loading = useSelector((state) => state.loading);
@@ -21,7 +21,7 @@ const Home = () => {
       // Show an alert if an error occurs
       alert.error(`Error: ${err.message}`);
     });
-  }, [dispatch, alert]);
+  }, [dispatch, alert, priceRange]);
   // Check if products is undefined before mapping
   const productsToDisplay = products || [];
 

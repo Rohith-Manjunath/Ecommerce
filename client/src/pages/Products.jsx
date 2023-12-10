@@ -11,10 +11,8 @@ import Slider from "@mui/material/Slider";
 
 const Products = () => {
   const { productsPerPage, productsCount } = useSelector(
-    (state) => state.products
+    (state) => state.products.products
   );
-
-  console.log(productsCount);
 
   const options = {
     edit: false,
@@ -25,7 +23,7 @@ const Products = () => {
   };
 
   const dispatch = useDispatch();
-  const productsData = useSelector((state) => state.products);
+  const productsData = useSelector((state) => state.products.products);
   const loading = productsData.loading;
   const [currentPage, setCurrentPage] = useState(1);
   const alert = useAlert(); // Initialize the hook
@@ -66,8 +64,6 @@ const Products = () => {
       alert.error(`Error: ${err.message}`);
     });
   }, [dispatch, currentPage, alert, priceRange, productName, ratingsRange]);
-
-  console.log(ratingsRange);
 
   return (
     <div className="container mx-auto my-16">
