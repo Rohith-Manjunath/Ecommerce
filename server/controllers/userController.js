@@ -4,25 +4,38 @@ const ErrorHandler = require("../utils/ErrorHandler.js");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors.js");
 const { sendEmail } = require("../router/sendEmail.js");
 const crypto = require("crypto");
+const cloudinary = require("cloudinary");
 
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  const { name, email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (user) {
-    return next(new ErrorHandler("User already exists", 400));
+  try {
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      height: 150,
+      crop: "scale",
+    });
+
+    const { name, email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      return next(new ErrorHandler("User already exists", 400));
+    }
+
+    const newuser = await User.create({
+      name,
+      email,
+      password,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
+    });
+
+    jwtToken("Registration successful", 200, newuser, res);
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
   }
-
-  const newuser = await User.create({
-    name,
-    email,
-    password,
-    avatar: {
-      public_id: "sample id",
-      url: "sample url",
-    },
-  });
-
-  jwtToken("Registration successful", 200, newuser, res);
 });
 
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {

@@ -13,7 +13,7 @@ const ProductDetails = () => {
     isHalf: true,
   };
 
-  const { products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products.products);
   const params = useParams();
   const { id } = params;
   const loading = useSelector((state) => state.loading);

@@ -1,6 +1,7 @@
 exports.jwtToken = async (message, statusCode, user, res) => {
   const token = await user.getJwtToken();
   const options = {
+    secure: true,
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
@@ -12,5 +13,6 @@ exports.jwtToken = async (message, statusCode, user, res) => {
     token,
     message,
     user,
+    isAuthenticated: true,
   });
 };

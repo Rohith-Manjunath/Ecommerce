@@ -8,6 +8,8 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import ProductDetails from "./components/ProductDetails";
 import Products from "./pages/Products";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/product/:id" element={<ProductDetails />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
     </BrowserRouter>
   );
