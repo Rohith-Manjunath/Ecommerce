@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
 import Loader from "../components/Loader";
 import ReactStars from "react-rating-stars-component";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import { useAlert } from "react-alert";
@@ -32,6 +32,8 @@ const Products = () => {
   const categories = ["Laptop", "Shoe", "Outfit", "Mobile"];
   const [activeCategory, setActiveCategory] = useState(null);
   const [ratingsRange, setRatingsRange] = useState([0, 5]); // Default ratings range
+  const params = useParams();
+  const keyword = params.keyword;
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
@@ -53,7 +55,7 @@ const Products = () => {
   useEffect(() => {
     dispatch(
       fetchProducts({
-        keyword: "",
+        keyword: keyword || "",
         currentPage,
         priceRange,
         category: productName,
@@ -63,7 +65,15 @@ const Products = () => {
       // Show an alert if an error occurs
       alert.error(`Error: ${err.message}`);
     });
-  }, [dispatch, currentPage, alert, priceRange, productName, ratingsRange]);
+  }, [
+    dispatch,
+    currentPage,
+    alert,
+    priceRange,
+    productName,
+    ratingsRange,
+    keyword,
+  ]);
 
   return (
     <div className="container mx-auto my-16">

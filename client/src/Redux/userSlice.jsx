@@ -62,6 +62,41 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const loadUser = createAsyncThunk("user/me", async () => {
+  const user = localStorage.getItem(LOCAL_STORAGE_USER);
+  if (!user) {
+    return null;
+  } else {
+    return JSON.parse(user);
+  }
+});
+
+export const LogoutUser = createAsyncThunk(
+  "user/logoutUser",
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      // Make a request to the logout endpoint
+      const response = await fetch("http://localhost:4000/api/logout", {
+        method: "POST",
+        credentials: "include", // Include credentials to send cookies
+      });
+
+      const data = await response.json();
+
+      // Clear user data from localStorage
+      localStorage.removeItem(LOCAL_STORAGE_USER);
+
+      // Dispatch the action to reset the user state
+      dispatch(userSlice.actions.resetUser());
+
+      return data;
+    } catch (e) {
+      console.error({ message: e.message });
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
 const storedData = localStorage.getItem(LOCAL_STORAGE_USER);
 const initialState = {
   user: storedData ? JSON.parse(storedData) : "",
@@ -72,6 +107,11 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    resetUser: (state) => {
+      state.user = "";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -100,5 +140,7 @@ export const userSlice = createSlice({
       });
   },
 });
+
+export const { resetUser } = userSlice.actions; // Export the resetUser action
 
 export default userSlice.reducer;

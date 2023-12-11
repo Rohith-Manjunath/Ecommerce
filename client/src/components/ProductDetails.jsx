@@ -87,16 +87,16 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center flex-col gap-5">
+          <div className="flex items-center justify-center flex-col gap-5 border shadow-lg">
             <h2 className="text-center font-bold underline underline-offset-4 text-slate-500 text-xl">
               Reviews
             </h2>
             {product && product.reviews.length > 0 ? (
-              <div className="flex flex-col gap-4 items-center justify-center max-w-lg overflow-x-scroll p-4">
+              <div className="flex gap-4 items-center justify-center max-w-lg overflow-x-scroll p-4 ">
                 {product.reviews.map((rev) => {
                   return (
                     <div
-                      className="flex flex-col items-center justify-center gap-2 border p-2 rounded-md"
+                      className="flex flex-col items-center justify-center gap-2 border p-7 rounded-lg"
                       key={rev._id}
                     >
                       <h2 className="font-bold tracking-wider flex items-center justify-center ">
