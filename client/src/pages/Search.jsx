@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../Redux/ProductSlice";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const trimmedKeyword = keyword.trim();
-    dispatch(fetchProducts({ keyword: trimmedKeyword }));
+    window.location.href = `/products/${trimmedKeyword}`;
   };
 
   return (

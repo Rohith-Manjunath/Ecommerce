@@ -5,7 +5,7 @@ import { registerUser } from "../Redux/userSlice";
 import Loader from "../components/Loader";
 
 const Register = () => {
-  const { err, message } = useSelector((state) => state.user.user);
+  const { err, message, success } = useSelector((state) => state.user.user);
   const { loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     name: "",
@@ -38,6 +38,9 @@ const Register = () => {
     e.preventDefault();
 
     dispatch(registerUser({ formData, avatarPic })); // Include avatar in the object
+    if (success) {
+      window.location.href = "/";
+    }
   };
   useEffect(() => {
     if (message) {
