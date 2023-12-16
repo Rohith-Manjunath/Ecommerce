@@ -28,8 +28,12 @@ const Home = () => {
   return (
     <div className="w-full h-auto overflow-scroll flex items-center justify-center flex-col gap-10 banner relative">
       <div className="w-full flex items-center justify-center flex-col gap-10 h-[100vh]">
-        <h2 className="text-xl font-semibold">Welcome To Ecommerce</h2>
-        <h3 className="text-4xl font-extrabold">Find Amazing Products</h3>
+        <h2 className="text-[1.3rem] text-center md:text-[1.5rem] lg:text-3xl font-semibold">
+          Welcome To Ecommerce
+        </h2>
+        <h3 className="text-2xl md:text-3xl lg:text-4xl text-center font-extrabold">
+          Find Amazing Products
+        </h3>
         <a
           href="#container"
           className="text-xl font-semibold flex items-center justify-center gap-2 border p-3 hover:bg-slate-500 hover:text-white transition-all duration-300 hover:cursor-pointer shadow-md active:shadow-none active:translate-x-[1px] active:translate-y-[1px] hover:scale-105 rounded-md"

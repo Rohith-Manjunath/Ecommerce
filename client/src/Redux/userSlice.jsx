@@ -147,6 +147,43 @@ export const updateUserProfile = createAsyncThunk(
     }
   }
 );
+
+export const updatePassword = createAsyncThunk(
+  "user/password/update",
+  async ({ formData }, { rejectWithValue }) => {
+    const { oldPassword, newPassword, confirmPassword } = formData;
+    const formDataFile = new FormData();
+    formDataFile.set("oldPassword", oldPassword);
+    formDataFile.set("newPassword", newPassword);
+    formDataFile.set("confirmPassword", confirmPassword);
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/update/password",
+        {
+          method: "PUT",
+          credentials: "include",
+          body: formDataFile,
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) {
+        // Update local storage userData
+        const storedData = localStorage.getItem("userData");
+        if (storedData) {
+          const userData = JSON.parse(storedData);
+          const updatedUserData = { ...userData, password: newPassword };
+          localStorage.setItem("userData", JSON.stringify(updatedUserData));
+        }
+      }
+      return data;
+    } catch (e) {
+      console.error({ message: e.message });
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
 const storedData = localStorage.getItem("userData");
 const auth = localStorage.getItem("auth");
 
@@ -173,9 +210,10 @@ const userSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        const { user, err, message, success } = action.payload;
+        const { user, err, message } = action.payload;
 
         if (err) {
           state.error = err;
@@ -185,19 +223,21 @@ const userSlice = createSlice({
           state.user = user;
           state.message = message;
           state.loading = false;
-          state.success = success;
+          state.success = true;
         }
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.err;
+        state.success = false;
       })
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        const { user, err, message, success } = action.payload;
+        const { user, err, message } = action.payload;
 
         if (err) {
           state.error = err;
@@ -207,19 +247,21 @@ const userSlice = createSlice({
           state.user = user;
           state.message = message;
           state.loading = false;
-          state.success = success;
+          state.success = true;
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.err;
+        state.success = false;
       })
       .addCase(loadUser.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(loadUser.fulfilled, (state, action) => {
-        const { user, err, message, success } = action.payload;
+        const { user, err, message } = action.payload;
 
         if (err) {
           state.error = err;
@@ -229,19 +271,21 @@ const userSlice = createSlice({
           state.user = user;
           state.message = message;
           state.loading = false;
-          state.success = success;
+          state.success = true;
         }
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.err;
+        state.success = false;
       })
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(logoutUser.fulfilled, (state, action) => {
-        const { err, message, success } = action.payload;
+        const { err, message } = action.payload;
 
         if (err) {
           state.error = err;
@@ -251,13 +295,14 @@ const userSlice = createSlice({
           state.user = {};
           state.message = message;
           state.loading = false;
-          state.success = success;
+          state.success = true;
           resetUser(state);
         }
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.err;
+        state.success = false;
       })
       .addCase(updateUserProfile.pending, (state) => {
         state.loading = true;
@@ -265,12 +310,44 @@ const userSlice = createSlice({
         state.success = false;
       })
       .addCase(updateUserProfile.fulfilled, (state, action) => {
-        const { success } = action.payload;
+        const { err } = action.payload;
 
-        state.success = success;
+        if (err) {
+          state.error = err;
+          state.loading = false;
+        } else {
+          state.isAuthenticated = true;
+          state.message = "Profile updated successfully";
+          state.loading = false;
+          state.success = true;
+        }
       })
       .addCase(updateUserProfile.rejected, (state) => {
         state.loading = false;
+        state.success = false;
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(updatePassword.fulfilled, (state, action) => {
+        const { err, message } = action.payload;
+
+        if (err) {
+          state.error = err;
+          state.loading = false;
+        } else {
+          state.isAuthenticated = true;
+          state.message = message;
+          state.loading = false;
+          state.success = true;
+        }
+      })
+      .addCase(updatePassword.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload.err;
       });
   },
 });

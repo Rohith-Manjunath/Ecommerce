@@ -1,74 +1,132 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { LuUserSquare } from "react-icons/lu";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useState } from "react";
+import { MdClose } from "react-icons/md";
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+
+  const toggleNavbar = () => {
+    show ? setShow(false) : setShow(true);
+  };
+
   return (
-    <header className="flex items-center justify-center p-2 bg-slate-500 fixed top-0 left-0 w-full z-20">
-      <div className="w-1/3">
-        <Link to={"/"}>
-          <h1 className="ecommerce text-4xl text-white font-semibold hover:cursor-pointer hover:text-green-400 transition-all duration-300">
-            Ecommerce
-          </h1>
-        </Link>
-      </div>
-      <div className="w-1/3 flex items-center justify-center">
-        <ul className="flex items-center justify-center gap-10 font-semibold text-white">
-          <li className="relative hover:text-green-400">
-            <NavLink
-              to={"/"}
-              className="after:block after:w-full after:h-[2px] after:bg-white after:scale-0 hover:after:scale-100 after:transition-all hover:origin-center duration-500 ease-in-out hover:scale-110 hover:after:bg-green-400"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li className="relative hover:text-green-400">
-            <NavLink
-              to={"/products"}
-              className="after:block after:w-full after:h-[2px] after:bg-white after:scale-0 hover:after:scale-100 after:transition-all hover:origin-center duration-500 ease-in-out hover:scale-110 hover:after:bg-green-400"
-            >
-              Products
-            </NavLink>
-          </li>
-          <li className="relative hover:text-green-400">
-            <NavLink
-              to={"/contact"}
-              className="after:block after:w-full after:h-[2px] after:bg-white after:scale-0 hover:after:scale-100 after:transition-all hover:origin-center duration-500 ease-in-out hover:scale-110 hover:after:bg-green-400"
-            >
-              Contact
-            </NavLink>
-          </li>
-          <li className="relative hover:text-green-400">
-            <NavLink
-              to={"/about"}
-              className="after:block after:w-full after:h-[2px] after:bg-white after:scale-0 hover:after:scale-100 after:transition-all hover:origin-center duration-500 ease-in-out hover:scale-110 hover:after:bg-green-400"
-            >
-              About
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-      <div className="w-1/3 text-white flex items-center justify-center gap-5 text-xl hover:cursor-pointer">
-        <Link
-          to="/search"
-          className="hover:text-green-400 transition-all duration-300 hover:scale-110"
+    <header className="px-4 py-4 bg-slate-400 flex items-center justify-between text-white">
+      <NavLink to={"/"}>
+        <h1 className="ecommerce font-bold text-white text-3xl hover:text-green-300 transition-all duration-300 hover:cursor-pointer">
+          {" "}
+          Ecommerce{" "}
+        </h1>
+      </NavLink>
+
+      {!show ? (
+        <RxHamburgerMenu
+          className="text-3xl hover:cursor-pointer active:scale-95 md:hidden hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
+        />
+      ) : (
+        <MdClose
+          className="text-3xl hover:cursor-pointer active:scale-95 md:hidden hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
+        />
+      )}
+
+      <ul className={`hidden md:flex md:flex-row gap-10`}>
+        <li className="font-semibold hover:text-green-300 transition-all duration-300">
+          <NavLink to={"/"}>Home</NavLink>
+        </li>
+        <li className="font-semibold hover:text-green-300 transition-all duration-300">
+          <NavLink to={"/products"}>Products</NavLink>
+        </li>
+        <li className="font-semibold hover:text-green-300 transition-all duration-300">
+          <NavLink to={"/about"}>About</NavLink>
+        </li>
+        <li className="font-semibold hover:text-green-300 transition-all duration-300">
+          <NavLink to={"/contact"}>Contact</NavLink>
+        </li>
+      </ul>
+
+      <ul className={`hidden md:flex md:flex-row gap-10`}>
+        <li className="hover:text-green-300 transition-all duration-300">
+          <NavLink to={"/search"}>
+            <FaSearch className="text-2xl" />
+          </NavLink>
+        </li>
+        <li className="hover:text-green-300 transition-all duration-300">
+          <NavLink to={"/cart"}>
+            <IoBagHandleSharp className="text-2xl" />
+          </NavLink>
+        </li>
+        <li className="hover:text-green-300 transition-all duration-300">
+          <NavLink to={"/profile"}>
+            <LuUserSquare className="text-2xl" />
+          </NavLink>
+        </li>
+      </ul>
+
+      <ul
+        className={`flex flex-col items-center justify-evenly absolute left-0 top-[4.3rem] bg-slate-400 w-screen h-[55vh] z-10 ${
+          show ? "translate-x-[0%]" : "-translate-x-[100%]"
+        } transition-all duration-300 md:hidden`}
+      >
+        <li
+          className="hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
         >
-          <FaSearch />
-        </Link>
-        <Link
-          to="/cart"
-          className="hover:text-green-400 transition-all duration-300 hover:scale-110"
+          <NavLink to={"/"}>Home</NavLink>
+        </li>
+        <li
+          className="hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
         >
-          <IoBagHandleSharp />
-        </Link>
-        <Link
-          to="/profile"
-          className="hover:text-green-400 transition-all duration-300 hover:scale-110"
+          <NavLink to={"/products"}>Products</NavLink>
+        </li>
+        <li
+          className="hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
         >
-          <LuUserSquare />
-        </Link>
-      </div>
+          <NavLink to={"/about"}>About</NavLink>
+        </li>
+        <li
+          className="hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
+        >
+          <NavLink to={"/contact"}>Contact</NavLink>
+        </li>
+      </ul>
+      <ul
+        className={`absolute left-0 top-[22.8rem] z-10 w-screen h-[11rem] flex items-center justify-evenly flex-col bg-slate-400 ${
+          show ? "translate-x-[0%]" : "-translate-x-[100%]"
+        } transition-all duration-300 md:hidden`}
+      >
+        <li
+          className="hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
+        >
+          <NavLink>
+            <FaSearch className="text-xl" />
+          </NavLink>
+        </li>
+        <li
+          className="hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
+        >
+          <NavLink>
+            <IoBagHandleSharp className="text-xl" />
+          </NavLink>
+        </li>
+        <li
+          className="hover:text-green-300 transition-all duration-300"
+          onClick={toggleNavbar}
+        >
+          <NavLink>
+            <LuUserSquare className="text-xl" />
+          </NavLink>
+        </li>
+      </ul>
     </header>
   );
 };

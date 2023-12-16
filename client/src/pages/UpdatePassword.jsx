@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserProfile } from "../Redux/userSlice";
-import { useAlert } from "react-alert";
+import { updatePassword } from "../Redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "react-alert";
 import Loader from "../components/Loader";
 
-const UpdateProfile = () => {
-  const dispatch = useDispatch();
-  const { error, success, message, user, loading } = useSelector(
+const UpdatePassword = () => {
+  const { error, success, loading, message } = useSelector(
     (state) => state.user
   );
-  const alert = useAlert();
-  const navigate = useNavigate();
 
-  // Initial state for form fields
   const [formData, setFormData] = useState({
-    name: user.name,
-    email: user.email,
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const alert = useAlert();
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,12 +27,9 @@ const UpdateProfile = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Dispatch the updateUserProfile action with the form data
-    dispatch(updateUserProfile({ formData }));
+    dispatch(updatePassword({ formData }));
   };
 
   useEffect(() => {
@@ -60,37 +56,53 @@ const UpdateProfile = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-center h-screen flex-col">
-          <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
+        <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+          <h2 className="text-2xl font-semibold mb-4">Update Password</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
-                htmlFor="name"
+                htmlFor="oldPassword"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Name:
+                Old Password:
               </label>
               <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
+                type="password"
+                id="oldPassword"
+                name="oldPassword"
+                value={formData.oldPassword}
                 onChange={handleInputChange}
                 className="border border-gray-300 p-2 w-full rounded-md"
               />
             </div>
             <div className="mb-4">
               <label
-                htmlFor="email"
+                htmlFor="newPassword"
                 className="block text-gray-700 text-sm font-bold mb-2"
               >
-                Email:
+                New Password:
               </label>
               <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                value={formData.newPassword}
+                onChange={handleInputChange}
+                className="border border-gray-300 p-2 w-full rounded-md"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Confirm Password:
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
                 onChange={handleInputChange}
                 className="border border-gray-300 p-2 w-full rounded-md"
               />
@@ -99,7 +111,7 @@ const UpdateProfile = () => {
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
             >
-              Update Profile
+              Update Password
             </button>
           </form>
         </div>
@@ -108,4 +120,4 @@ const UpdateProfile = () => {
   );
 };
 
-export default UpdateProfile;
+export default UpdatePassword;
