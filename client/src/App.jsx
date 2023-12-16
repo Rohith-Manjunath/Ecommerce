@@ -12,19 +12,18 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { useEffect } from "react";
 import { store } from "./Redux/store";
-import { loadUser } from "./Redux/userSlice";
 import { useSelector } from "react-redux";
 import UserOptions from "./layouts/UserOptions";
+import { loadUser } from "./Redux/userSlice";
+import UpdateProfile from "./pages/UpdateProfile";
 
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
-  });
+  }, []);
 
-  const { isAuthenticated, user } = useSelector((state) => state.user.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
 
-  const { avatar } = useSelector((state) => state.user.user);
-  console.log(avatar);
   return (
     <BrowserRouter>
       <Header />
@@ -41,6 +40,7 @@ const App = () => {
         <Route path="/product/:id" element={<ProductDetails />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/update/profile" element={<UpdateProfile />}></Route>
       </Routes>
     </BrowserRouter>
   );

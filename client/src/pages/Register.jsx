@@ -5,8 +5,9 @@ import { registerUser } from "../Redux/userSlice";
 import Loader from "../components/Loader";
 
 const Register = () => {
-  const { err, message, success } = useSelector((state) => state.user.user);
-  const { loading } = useSelector((state) => state.user);
+  const { error, message, success, loading } = useSelector(
+    (state) => state.user
+  );
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,8 +44,8 @@ const Register = () => {
     }
   };
   useEffect(() => {
-    if (message) {
-      alert.success(message, {
+    if (success) {
+      alert.success("Registration successful", {
         timeout: 5000,
         type: "success",
       });
@@ -54,13 +55,13 @@ const Register = () => {
         password: "",
       });
       window.location.href = "/";
-    } else if (err) {
-      alert.error(err, {
+    } else if (error) {
+      alert.error(error, {
         timeout: 5000,
         type: "error",
       });
     }
-  }, [message, err, alert]);
+  }, [success, error, alert]);
 
   return (
     <>

@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../Redux/userSlice";
 import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Loader from "../components/Loader";
+import { loginUser } from "../Redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -11,8 +12,10 @@ const Login = () => {
   });
 
   const dispatch = useDispatch();
-  const { err, message } = useSelector((state) => state.user.user);
+  const { error, message } = useSelector((state) => state.user);
   const { loading } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const alert = useAlert();
 
   const handleInputChange = (e) => {
@@ -38,14 +41,14 @@ const Login = () => {
         email: "",
         password: "",
       });
-      window.location.href = "/";
-    } else if (err) {
-      alert.error(err, {
+      navigate("/");
+    } else if (error) {
+      alert.error(error, {
         timeout: 5000,
         type: "error",
       });
     }
-  }, [message, err, alert]);
+  }, [message, error, alert, navigate]);
 
   return (
     <>
