@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import UserOptions from "./layouts/UserOptions";
 import { loadUser } from "./Redux/userSlice";
 import UpdateProfile from "./pages/UpdateProfile";
+import UpdatePassword from "./pages/UpdatePassword";
 
 const App = () => {
   useEffect(() => {
@@ -41,6 +42,7 @@ const App = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/update/profile" element={<UpdateProfile />}></Route>
+        <Route path="/update/password" element={<UpdatePassword />}></Route>
       </Routes>
     </BrowserRouter>
   );
