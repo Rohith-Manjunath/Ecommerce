@@ -7,8 +7,8 @@ import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useDispatch } from "react-redux";
-import { LogoutUser } from "../Redux/userSlice";
 import { useAlert } from "react-alert";
+import { logoutUser } from "../Redux/userSlice";
 
 export default function UserOptions({ user }) {
   const [open, setOpen] = React.useState(false);
@@ -22,8 +22,8 @@ export default function UserOptions({ user }) {
     window.location.href = "/profile";
   };
   const orders = () => {};
-  const logoutUser = () => {
-    dispatch(LogoutUser());
+  const logout = () => {
+    dispatch(logoutUser());
     alert.success("You have logged out successfully");
     window.location.href = "/login";
   };
@@ -31,7 +31,7 @@ export default function UserOptions({ user }) {
   const actions = [
     { icon: <PersonIcon />, name: "Profile", func: profile },
     { icon: <ListAltIcon />, name: "Orders", func: orders },
-    { icon: <ExitToAppIcon />, name: "LogOut", func: logoutUser },
+    { icon: <ExitToAppIcon />, name: "LogOut", func: logout },
   ];
 
   if (user.role === "admin") {
