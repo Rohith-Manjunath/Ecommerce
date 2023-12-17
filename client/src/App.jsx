@@ -17,6 +17,8 @@ import UserOptions from "./layouts/UserOptions";
 import { loadUser } from "./Redux/userSlice";
 import UpdateProfile from "./pages/UpdateProfile";
 import UpdatePassword from "./pages/UpdatePassword";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 const App = () => {
   useEffect(() => {
@@ -43,6 +45,11 @@ const App = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/update/profile" element={<UpdateProfile />}></Route>
         <Route path="/update/password" element={<UpdatePassword />}></Route>
+        <Route path="/forgot/password" element={<ForgotPassword />}></Route>
+        <Route
+          path="/reset/password/:token"
+          element={<ResetPassword />}
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

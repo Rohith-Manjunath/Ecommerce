@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="px-4 py-4 bg-slate-400 flex items-center justify-between text-white fixed top-0 w-full">
+    <header className="px-4 py-4 bg-slate-400 flex items-center justify-between text-white fixed top-0 w-full z-50">
       <NavLink to={"/"}>
         <h1 className="ecommerce font-bold text-white text-3xl hover:text-green-300 transition-all duration-300 hover:cursor-pointer">
           {" "}
@@ -66,7 +66,7 @@ const Header = () => {
           </NavLink>
         </li>
         <li className="hover:text-green-300 transition-all duration-300">
-          <NavLink to={"/profile"}>
+          <NavLink to={"/login"}>
             <LuUserSquare className="text-2xl" />
           </NavLink>
         </li>
@@ -127,7 +127,7 @@ const Header = () => {
           className="hover:text-green-300 transition-all duration-300"
           onClick={toggleNavbar}
         >
-          <NavLink className={"/profile"}>
+          <NavLink className={"/login"}>
             <LuUserSquare className="text-xl" />
           </NavLink>
         </li>

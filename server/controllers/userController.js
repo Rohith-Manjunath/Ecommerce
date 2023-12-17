@@ -79,9 +79,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const resetToken = user.getResetPasswordToken();
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/password/reset/${resetToken}`;
+  const resetPasswordUrl = `http://localhost:5173/reset/password/${resetToken}`;
 
   const message = `Yout password reset token :- \n\n ${resetPasswordUrl} \n\n If You have not requested it then ,please ignore it`;
 
@@ -128,7 +126,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
   await user.save();
-  jwtToken("Success", 200, user, res);
+  jwtToken("Successfully updated password", 200, user, res);
 });
 
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {

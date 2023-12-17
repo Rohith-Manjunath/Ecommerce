@@ -36,9 +36,9 @@ app.use(error);
 
 // Cloudinary configuration
 cloudinary.config({
-  cloud_name: "dgypr3bls",
-  api_key: "438859537148419",
-  api_secret: "q_TGI4RmacVcVMW4OeirZ2mZvOk",
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // Database connection
