@@ -14,6 +14,7 @@ const dbConnection = require("./config/db");
 const productRoute = require("./router/productRoute");
 const userRoute = require("./router/userRoute");
 const error = require("./middlewares/error");
+const OrderRoute = require("./router/orderRoute");
 
 dotenv.config({ path: "server/config/config.env" });
 
@@ -32,6 +33,7 @@ app.use(cookie());
 app.use(cors(corsOptions));
 app.use("/api", productRoute);
 app.use("/api", userRoute);
+app.use("/api", OrderRoute);
 app.use(error);
 
 // Cloudinary configuration
