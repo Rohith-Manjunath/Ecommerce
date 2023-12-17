@@ -20,10 +20,6 @@ export const registerUser = createAsyncThunk(
       const data = await response.json();
       const user = data.user;
       console.log(user);
-      // Check if registration was successful before storing in localStorage
-      if (data.success) {
-        localStorage.setItem("userData", JSON.stringify(user));
-      }
 
       return data;
     } catch (e) {
@@ -184,6 +180,61 @@ export const updatePassword = createAsyncThunk(
   }
 );
 
+export const forgotPassword = createAsyncThunk(
+  "user/password/forgot",
+  async ({ email }, { rejectWithValue }) => {
+    const formData = new FormData();
+
+    formData.set("email", email);
+
+    try {
+      const response = await fetch(
+        "http://localhost:4000/api/password/forgot",
+        {
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      return data;
+    } catch (e) {
+      console.error({ message: e.message });
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "user/password/reset",
+  async ({ formData, token }, { rejectWithValue }) => {
+    const { password, confirmPassword } = formData;
+    const formDataFile = new FormData();
+
+    formDataFile.set("password", password);
+    formDataFile.set("confirmPassword", confirmPassword);
+
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/password/reset/${token}`,
+        {
+          method: "PUT",
+          body: formDataFile,
+        }
+      );
+
+      const data = await response.json();
+
+      return data;
+    } catch (e) {
+      console.error({ message: e.message });
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
 const storedData = localStorage.getItem("userData");
 const auth = localStorage.getItem("auth");
 
@@ -219,7 +270,7 @@ const userSlice = createSlice({
           state.error = err;
           state.loading = false;
         } else {
-          state.isAuthenticated = true;
+          state.isAuthenticated = false;
           state.user = user;
           state.message = message;
           state.loading = false;
@@ -291,7 +342,7 @@ const userSlice = createSlice({
           state.error = err;
           state.loading = false;
         } else {
-          state.isAuthenticated = true;
+          state.isAuthenticated = false;
           state.user = {};
           state.message = message;
           state.loading = false;
@@ -345,6 +396,51 @@ const userSlice = createSlice({
         }
       })
       .addCase(updatePassword.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload.err;
+      })
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        const { err, message } = action.payload;
+
+        if (err) {
+          state.error = err;
+          state.loading = false;
+        } else {
+          state.message = message;
+          state.loading = false;
+          state.success = true;
+        }
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.success = false;
+        state.error = action.payload.err;
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        const { err, message } = action.payload;
+
+        if (err) {
+          state.error = err;
+          state.loading = false;
+          state.success = false;
+        } else {
+          state.message = message;
+          state.loading = false;
+          state.success = true;
+        }
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
         state.success = false;
         state.error = action.payload.err;

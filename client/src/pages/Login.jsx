@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Loader from "../components/Loader";
 import { loginUser } from "../Redux/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +12,9 @@ const Login = () => {
   });
 
   const dispatch = useDispatch();
-  const { error, message } = useSelector((state) => state.user);
+  const { error, message, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
   const { loading } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -32,6 +34,10 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+
     if (message) {
       alert.success(message, {
         timeout: 5000,
@@ -48,14 +54,14 @@ const Login = () => {
         type: "error",
       });
     }
-  }, [message, error, alert, navigate]);
+  }, [message, error, alert, navigate, isAuthenticated]);
 
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-screen ">
           <form
             className="bg-white p-8 rounded shadow-md"
             onSubmit={handleSubmit}
@@ -96,13 +102,28 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-between">
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Login
               </button>
+            </div>
+            <div className="mt-5 flex items-start justify-center flex-col gap-3">
+              <Link
+                className="text-[13px] font-bold text-blue-900 hover:underline-offset-2 hover:underline "
+                to={"/forgot/password"}
+              >
+                {" "}
+                Forgot password
+              </Link>
+              <Link
+                to={"/register"}
+                className="text-[13px] font-bold text-blue-900 hover:underline-offset-2 hover:underline "
+              >
+                Register
+              </Link>
             </div>
           </form>
         </div>

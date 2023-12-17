@@ -47,7 +47,7 @@ export default function UserOptions({ user }) {
       sx={{
         position: "absolute",
         top: "5rem",
-        right: "1rem",
+        right: "3rem",
         zIndex: 1000,
       }}
     >

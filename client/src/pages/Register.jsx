@@ -3,11 +3,10 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../Redux/userSlice";
 import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const { error, message, success, loading } = useSelector(
-    (state) => state.user
-  );
+  const { error, message, loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,6 +16,7 @@ const Register = () => {
   const [avatarPic, setAvatarPic] = useState("");
   const alert = useAlert();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     if (e.target.name === "avatar") {
@@ -39,29 +39,25 @@ const Register = () => {
     e.preventDefault();
 
     dispatch(registerUser({ formData, avatarPic })); // Include avatar in the object
-    if (success) {
-      window.location.href = "/";
-    }
   };
   useEffect(() => {
-    if (success) {
-      alert.success("Registration successful", {
+    if (message) {
+      alert.success(message, {
         timeout: 5000,
         type: "success",
       });
       setFormData({
-        name: "",
         email: "",
         password: "",
       });
-      window.location.href = "/";
+      navigate("/login");
     } else if (error) {
       alert.error(error, {
         timeout: 5000,
         type: "error",
       });
     }
-  }, [success, error, alert]);
+  }, [message, error, alert, navigate]);
 
   return (
     <>
