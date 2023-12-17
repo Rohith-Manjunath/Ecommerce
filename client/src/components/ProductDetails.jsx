@@ -1,8 +1,11 @@
 import ReactStars from "react-rating-stars-component";
 import { LuUserSquare } from "react-icons/lu";
 import Loader from "./Loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { addToCart } from "../Redux/CartSlice";
+import { useAlert } from "react-alert";
 
 const ProductDetails = () => {
   const options = {
@@ -17,10 +20,17 @@ const ProductDetails = () => {
   const params = useParams();
   const { id } = params;
   const loading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+  const alert = useAlert();
 
   const product = products.find((product) => {
     return product._id === id;
   });
+
+  const AddtoCart = (product) => {
+    dispatch(addToCart(product));
+    alert.success("Product added to cart successfully");
+  };
 
   return (
     <>
@@ -61,13 +71,10 @@ const ProductDetails = () => {
                   <h3 className="text-xl font-bold">&#x20B9;{product.price}</h3>
                 )}
                 <div className="flex items-center justify-center gap-3">
-                  <button className="bg-slate-600 px-2 text-white p-1">
-                    +
-                  </button>
-                  <button className="bg-slate-600 px-2 text-white p-1">
-                    -
-                  </button>
-                  <button className="bg-red-500 text-white p-1 rounded">
+                  <button
+                    className="bg-red-500 text-white p-1 rounded"
+                    onClick={() => AddtoCart(product)}
+                  >
                     Add to Cart
                   </button>
                 </div>

@@ -5,16 +5,18 @@ import { LuUserSquare } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [show, setShow] = useState(false);
+  const items = useSelector((state) => state.cart.cart);
 
   const toggleNavbar = () => {
     show ? setShow(false) : setShow(true);
   };
 
   return (
-    <header className="px-4 py-4 bg-slate-400 flex items-center justify-between text-white">
+    <header className="px-4 py-4 bg-slate-400 flex items-center justify-between text-white fixed top-0 w-full">
       <NavLink to={"/"}>
         <h1 className="ecommerce font-bold text-white text-3xl hover:text-green-300 transition-all duration-300 hover:cursor-pointer">
           {" "}
@@ -56,8 +58,11 @@ const Header = () => {
           </NavLink>
         </li>
         <li className="hover:text-green-300 transition-all duration-300">
-          <NavLink to={"/cart"}>
+          <NavLink to={"/cart"} className="relative">
             <IoBagHandleSharp className="text-2xl" />
+            <span className="absolute bg-red-600 px-2 rounded-full -top-[0.5rem] -right-[0.8rem]">
+              {items.length}
+            </span>
           </NavLink>
         </li>
         <li className="hover:text-green-300 transition-all duration-300">
@@ -106,7 +111,7 @@ const Header = () => {
           className="hover:text-green-300 transition-all duration-300"
           onClick={toggleNavbar}
         >
-          <NavLink>
+          <NavLink to={"/search"}>
             <FaSearch className="text-xl" />
           </NavLink>
         </li>
@@ -114,7 +119,7 @@ const Header = () => {
           className="hover:text-green-300 transition-all duration-300"
           onClick={toggleNavbar}
         >
-          <NavLink>
+          <NavLink to={"/cart"}>
             <IoBagHandleSharp className="text-xl" />
           </NavLink>
         </li>
@@ -122,7 +127,7 @@ const Header = () => {
           className="hover:text-green-300 transition-all duration-300"
           onClick={toggleNavbar}
         >
-          <NavLink>
+          <NavLink className={"/profile"}>
             <LuUserSquare className="text-xl" />
           </NavLink>
         </li>
