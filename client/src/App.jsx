@@ -19,6 +19,9 @@ import UpdateProfile from "./pages/UpdateProfile";
 import UpdatePassword from "./pages/UpdatePassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import ShippingInfo from "./pages/ShippingInfo";
+import OrderConfirm from "./pages/OrderConfirm";
+import Payment from "./pages/Payment";
 
 const App = () => {
   useEffect(() => {
@@ -46,6 +49,9 @@ const App = () => {
         <Route path="/update/profile" element={<UpdateProfile />}></Route>
         <Route path="/update/password" element={<UpdatePassword />}></Route>
         <Route path="/forgot/password" element={<ForgotPassword />}></Route>
+        <Route path="/shipping" element={<ShippingInfo />}></Route>
+        <Route path="/order/confirm" element={<OrderConfirm />}></Route>
+        <Route path="/order/payment" element={<Payment />}></Route>
         <Route
           path="/reset/password/:token"
           element={<ResetPassword />}

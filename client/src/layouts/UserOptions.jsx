@@ -20,7 +20,9 @@ export default function UserOptions({ user }) {
   const profile = () => {
     window.location.href = "/profile";
   };
-  const orders = () => {};
+  const orders = () => {
+    window.location.href = "/shipping";
+  };
   const logout = () => {
     dispatch(logoutUser());
   };
