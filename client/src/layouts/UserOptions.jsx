@@ -15,7 +15,6 @@ export default function UserOptions({ user }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
-  const alert = useAlert();
 
   const dashboard = () => {};
   const profile = () => {
@@ -24,8 +23,6 @@ export default function UserOptions({ user }) {
   const orders = () => {};
   const logout = () => {
     dispatch(logoutUser());
-    alert.success("You have logged out successfully");
-    window.location.href = "/login";
   };
 
   const actions = [
@@ -48,7 +45,7 @@ export default function UserOptions({ user }) {
         position: "absolute",
         top: "5rem",
         right: "3rem",
-        zIndex: 1000,
+        zIndex: 100,
       }}
     >
       <SpeedDial

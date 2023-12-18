@@ -254,6 +254,7 @@ const userSlice = createSlice({
     resetUser: (state) => {
       state.user = {};
       state.isAuthenticated = false;
+      state.message = "";
     },
   },
   extraReducers: (builder) => {
@@ -336,7 +337,7 @@ const userSlice = createSlice({
         state.success = false;
       })
       .addCase(logoutUser.fulfilled, (state, action) => {
-        const { err, message } = action.payload;
+        const { err } = action.payload;
 
         if (err) {
           state.error = err;
@@ -344,7 +345,7 @@ const userSlice = createSlice({
         } else {
           state.isAuthenticated = false;
           state.user = {};
-          state.message = message;
+          state.message = "";
           state.loading = false;
           state.success = true;
           resetUser(state);
