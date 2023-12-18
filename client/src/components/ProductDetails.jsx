@@ -2,8 +2,7 @@ import ReactStars from "react-rating-stars-component";
 import { LuUserSquare } from "react-icons/lu";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { addToCart } from "../Redux/CartSlice";
 import { useAlert } from "react-alert";
 
@@ -38,18 +37,18 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
-          <div className="product-details w-[100vw] h-[100vh] flex items-center justify-center">
-            <div className="border rounded-lg w-[70%] h-[70%] flex items-center justify-center">
-              <div className="w-1/2 h-full flex items-center justify-center">
+          <div className="product-details w-[100vw] h-[100vh] flex items-center justify-center mt-[10rem] sm:mt-0">
+            <div className="border border-slate-300 rounded-lg w-[full] h-[full] flex flex-col items-center justify-center p-5 sm:flex-row ">
+              <div className="w-full sm:w-1/2  h-1/2 sm:h-full flex items-center justify-center">
                 {product && product.imageURLs[0] && (
                   <img
                     src={product.imageURLs[0].url}
                     alt=""
-                    className="w-[20rem] h-[25rem]"
+                    className="w-[50%] sm:w-[60%] rounded-lg md:w-[50%] lg:w-[50%] xl:w-[40%]"
                   />
                 )}
               </div>
-              <div className="w-1/2 h-full flex flex-col gap-4 items-center justify-center">
+              <div className="w-full h-1/2 sm:w-1/2 sm:h-full flex flex-col gap-4 items-center justify-center mt-5">
                 {product && (
                   <span className="text-[12px] text-slate-500">
                     product id: {product._id}
@@ -91,25 +90,34 @@ const ProductDetails = () => {
                 {product && (
                   <p className="text-slate-600">{product.description}</p>
                 )}
+                <a
+                  href={"#reviews"}
+                  className="bg-orange-500 text-white py-2 px-4 rounded-md font-semibold tracking-widest shadow-xl active:scale-90 transition-all duration-300"
+                >
+                  Reviews
+                </a>
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center flex-col gap-5 border shadow-lg">
+          <div
+            id="reviews"
+            className=" flex items-center justify-center flex-col gap-5 border shadow-lg mt-[10rem] sm:mt-0"
+          >
             <h2 className="text-center font-bold underline underline-offset-4 text-slate-500 text-xl">
               Reviews
             </h2>
             {product && product.reviews.length > 0 ? (
-              <div className="flex gap-4 items-center justify-center max-w-lg overflow-x-scroll p-4 ">
+              <div className="w-full flex flex-col sm:flex-row overflow-x-scroll gap-5">
                 {product.reviews.map((rev) => {
                   return (
                     <div
-                      className="flex flex-col items-center justify-center gap-2 border p-7 rounded-lg"
+                      className="flex flex-col items-center justify-center gap-2 border p-7 rounded-lg w-full md:w-1/3"
                       key={rev._id}
                     >
                       <h2 className="font-bold tracking-wider flex items-center justify-center ">
-                        <LuUserSquare className="text-xl text-slate-500 rounded-full" />{" "}
-                        : {rev.name}
+                        <LuUserSquare className=" text-slate-500 text-5xl rounded-lg" />{" "}
                       </h2>
+                      <h3>{rev.name}</h3>
                       <ReactStars {...options} value={rev.rating} />
                       <p>{rev.comment}</p>
                     </div>

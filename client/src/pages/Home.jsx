@@ -45,7 +45,7 @@ const Home = () => {
         Featured Products
       </h2>
       <div
-        className="w-[80%] flex items-center justify-between flex-wrap gap-5 mx-auto"
+        className="flex flex-col items-center justify-evenly w-[90%] gap-5 sm:flex-row sm:flex-wrap"
         id="container"
       >
         {!loading ? (

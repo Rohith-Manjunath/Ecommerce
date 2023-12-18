@@ -8,6 +8,8 @@ import Pagination from "react-js-pagination";
 import { useAlert } from "react-alert";
 import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
+import { IoOptionsSharp } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 
 const Products = () => {
   const { productsPerPage, productsCount } = useSelector(
@@ -34,6 +36,7 @@ const Products = () => {
   const [ratingsRange, setRatingsRange] = useState([0, 5]); // Default ratings range
   const params = useParams();
   const keyword = params.keyword;
+  const [show, setShow] = useState(false);
 
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
@@ -46,10 +49,15 @@ const Products = () => {
   const handleCategoryClick = (category) => {
     setProductName(category);
     setActiveCategory(category);
+    setShow(false);
   };
 
   const handleRatingsChange = (event, newValue) => {
     setRatingsRange(newValue);
+  };
+
+  const toggleFilter = () => {
+    setShow(!show);
   };
 
   useEffect(() => {
@@ -76,28 +84,28 @@ const Products = () => {
   ]);
 
   return (
-    <div className="container mx-auto my-16">
+    <div className="container mx-auto mt-[5rem] w-[100%]">
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-center gap-5 flex-wrap w-[80%] mx-auto">
+        <div className="flex flex-col sm:flex-row sm:justify-around items-center justify-center gap-5 flex-wrap w-[100%] mx-auto ">
           {productsData.products.map((product) => (
             <Link
               to={`/product/${product._id}`}
               key={product._id}
-              className="bg-white p-4 rounded-md shadow-md w-1/4 flex flex-col items-start justify-center"
+              className="w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white p-4 rounded-md shadow-md flex flex-col items-center justify-center gap-2 border border-slate-300"
             >
               <img
                 src={product.imageURLs[0].url}
                 alt=""
-                className="max-w-[50%] h-[50%]"
+                className="w-[80%] rounded-md"
               />
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
               <p className="text-gray-600 mb-2">{product.description}</p>
               <p className="text-green-600 font-semibold">
                 Price: &#x20B9;{product.price}
               </p>
-              <div className="flex gap-2 items-center justify-center">
+              <div className="flex flex-col md:flex-row gap-2 items-center justify-center">
                 <ReactStars {...options} value={product.ratings} />
                 <span>{product.reviews.length} Reviews</span>
               </div>
@@ -123,7 +131,23 @@ const Products = () => {
           />
         </div>
       )}
-      <div className="flex items-center justify-start gap-5 flex-wrap w-[10rem] absolute top-[6rem] left-10 bg-white p-4 rounded-md shadow-md">
+      {show ? (
+        <IoClose
+          className="absolute left-2 top-[5rem] text-4xl text-blue-500 hover:cursor-pointer active:scale-90 transition-all duration-300"
+          onClick={toggleFilter}
+        />
+      ) : (
+        <IoOptionsSharp
+          className="absolute left-2 top-[5rem] text-4xl text-blue-500 hover:cursor-pointer active:scale-90 transition-all duration-300"
+          onClick={toggleFilter}
+        />
+      )}
+
+      <div
+        className={`z-[200] ${
+          !show ? "-translate-x-[20rem]" : "translate-x-[0rem]"
+        } items-center justify-start gap-5 flex-wrap w-[15rem] h-screen absolute top-[5rem] left-10 bg-white p-8 rounded-md shadow-md transition-all duration-400`}
+      >
         <div className="w-full">
           <Typography variant="h6" className="mb-2 text-gray-700">
             Price Range
@@ -138,6 +162,7 @@ const Products = () => {
             step={1000}
             sx={{
               color: "tomato", // Customize the color
+              width: "100",
             }}
           />
           <div className="flex justify-between mt-2">
@@ -149,9 +174,9 @@ const Products = () => {
             </Typography>
           </div>
         </div>
-        <div className="w-full mb-4">
+        <div className="w-full my-4">
           <Typography variant="h6" className="mb-2 text-gray-700 ">
-            Ratings Range
+            Ratings
           </Typography>
           <Slider
             value={ratingsRange}
