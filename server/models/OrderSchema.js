@@ -18,13 +18,13 @@ const orderSchema = new mongoose.Schema({
       required: [true, "Please provide your contry name"],
     },
     pinCode: {
-      type: Number,
+      type: String,
       minlength: [6, "please enter a valid pincode"],
       required: [true, "Please provide your pincode"],
     },
   },
   phoneNo: {
-    type: Number,
+    type: String,
     required: [true, "Please provide your phone number"],
   },
   orderItems: [
