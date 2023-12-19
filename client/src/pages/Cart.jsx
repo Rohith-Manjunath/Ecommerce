@@ -7,11 +7,13 @@ import {
   removeFromCart,
 } from "../Redux/CartSlice";
 import { Link } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 const Cart = () => {
   const items = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
+  const alert = useAlert();
 
   const increaseQuantity = (item) => {
     dispatch(IncreaseQuantity(item));
@@ -22,6 +24,7 @@ const Cart = () => {
 
   const RemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
+    alert.success("Item removed successfully");
   };
 
   const TotalPrice = items.reduce(
@@ -33,62 +36,65 @@ const Cart = () => {
     <>
       {items.length > 0 ? (
         <div className="mt-[6rem] w-[90vw] h-[90vh] mx-auto">
-          <div className="flex items-center justify-around">
-            <h3 className="text-center font-semibold text-xl  text-green-600 border">
-              Total Price : &#8377;{TotalPrice}
-            </h3>
-            <Link
-              to={"/shipping"}
-              className="text-bold bg-orange-500 p-2 rounded-sm text-white hover:bg-blue-500 hover:scale-105 transition-all duration-300"
-            >
-              Proceed to pay
-            </Link>
-          </div>
-          <div className="mx-auto sm:flex sm:flex-row sm:items-start sm:justify-evenly sm:flex-wrap sm:h-auto">
-            {items.map((item) => {
-              return (
-                <div
-                  key={item._id}
-                  className="m-5 flex flex-col items-center justify-center p-4 h-auto gap-4 border border-slate-400 rounded-md mx-4 sm:w-1/2 md:w-1/3 lg:w-1/4 hover:mx-10 hover:scale-105 transition-all duration-300 hover:cursor-pointer"
-                >
+          {items.map((item) => {
+            return (
+              <div
+                key={item._id}
+                className="flex flex-col sm:flex-row items-start gap-1 justify-between px-5 border border-slate-400 mb-4 rounded-md p-3"
+              >
+                <div className="flex items-start justify-center flex-col gap-2">
                   <img
                     src={item.imageURLs[0].url}
                     alt=""
-                    className="max-sm:w-[50%] max-md:w-[70%] rounded-md md:w-[70%]"
+                    className="w-[8rem] h-[8rem] rounded-md"
                   />
-                  <p className="text-[11px] xl:text-[14px]">
-                    ProductId :{" "}
-                    <span className="text-slate-500">{item._id}</span>{" "}
-                  </p>
-                  <h2 className="font-bold text-green-500">{item.name}</h2>
-                  <span className="font-semibold text-red-400">
-                    Price :&#8377;{item.price}
+                  <span className="text-[12px] font-bold text-gray-500">
+                    product id : {item._id}
                   </span>
-                  <span>{item.quantity}</span>
+                </div>
+
+                <div className="flex items-start justify-center flex-col gap-5">
+                  <div className="flex items-start justify-center flex-col gap-1">
+                    <p className="text-green-600 font-bold">{item.name}</p>
+                    <span className="text-red-600 font-bold">
+                      Price : ₹{item.price}
+                    </span>
+                  </div>
                   <div className="flex items-center justify-center gap-3">
                     <button
-                      className="bg-slate-600 px-2 text-white p-1"
+                      className="bg-gray-700 text-white px-2 font-bold rounded-sm hover:bg-blue-500 transition-all duration-200 active:scale-95"
                       onClick={() => increaseQuantity(item)}
                     >
                       +
                     </button>
-                    <span className="font-semibold">{item.quantity}</span>
+                    <span>{item.quantity}</span>
                     <button
-                      className="bg-slate-600 px-2 text-white p-1"
+                      className="bg-gray-700 text-white px-2 font-bold rounded-sm hover:bg-blue-500 transition-all duration-200 active:scale-95"
                       onClick={() => decreaseQuantity(item)}
                     >
                       -
                     </button>
                     <button
-                      className="bg-red-500 text-white p-1 rounded"
+                      className="font-bold bg-red-600 px-2 py-1 rounded-sm text-white transition-all duration-300 hover:scale-105 active:scale-95"
                       onClick={() => RemoveFromCart(item)}
                     >
                       Remove
                     </button>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
+          <div className="flex items-end justify-end flex-col gap-4 pb-5">
+            <h2 className="text-end border-t-2 border-t-slate-300 mt-3 pt-2 pr-2 font-bold">
+              Total : ₹{TotalPrice}
+            </h2>
+            <Link
+              to={"/shipping"}
+              className="bg-orange-500 text-white p-2 rounded-sm font-bold tracking-wider transition-all duration-300 hover:bg-blue-500 hover:scale-105"
+            >
+              Proceed to pay
+            </Link>
           </div>
         </div>
       ) : (

@@ -25,8 +25,8 @@ const SIngleOrderDetails = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-full h-full flex flex-col gap-10 pt-10 px-6 pb-5 mt-[5rem]">
-          <h3 className="text-[15px] text-red-500 sm:text-3xl md:text-4xl">
+        <div className="w-full h-full flex flex-col gap-10 pt-10 mt-[4rem] p-10">
+          <h3 className="text-[15px] text-red-500 sm:text-3xl md:text-3xl">
             Order #{id}
           </h3>
           <div className="felx flex-col">
@@ -71,11 +71,17 @@ const SIngleOrderDetails = () => {
                 className={`text-gray-700 ${
                   item.orderStatus === "Delivered"
                     ? "text-green-500"
-                    : "text-blue-500"
+                    : "text-blue-400"
                 } font-bold`}
               >
                 {item.orderStatus}
               </p>
+              {item.orderStatus === "Delivered" && (
+                <p className={`text-[15px] tracking-wide`}>
+                  <span className="font-bold">Delivered on : </span>
+                  {new Date(item.deliveredAt).toString()}
+                </p>
+              )}
             </div>
           </div>
           <div className="felx flex-col items-center justify-center max-h-[200px] overflow-y-scroll">

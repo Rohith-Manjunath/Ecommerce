@@ -3,7 +3,7 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../Redux/userSlice";
 import Loader from "../components/Loader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { error, message, loading } = useSelector((state) => state.user);
@@ -66,7 +66,7 @@ const Register = () => {
       ) : (
         <div className="flex items-center justify-center h-screen">
           <form
-            className="bg-white p-8 rounded shadow-md"
+            className="bg-white p-8 rounded shadow-md w-full sm:w-1/2 lg:w-1/3"
             onSubmit={handleSubmit}
           >
             <div className="mb-4">
@@ -165,13 +165,22 @@ const Register = () => {
                 )}
               </div>
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-start justify-center flex-col gap-2">
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="w-full tracking-wider bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Register
               </button>
+              <span className="flex items-center justify-center gap-2 text-[14px] tracking-wide">
+                Already a user?{" "}
+                <Link
+                  to={"/login"}
+                  className="text-[13px] font-bold text-blue-700 hover:underline"
+                >
+                  Login
+                </Link>
+              </span>
             </div>
           </form>
         </div>

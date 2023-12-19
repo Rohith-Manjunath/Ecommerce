@@ -61,15 +61,15 @@ const Login = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-center h-screen ">
+        <div className="flex items-center justify-center h-screen bg-gray-100">
           <form
-            className="bg-white p-8 rounded shadow-md"
+            className="bg-white p-8 rounded shadow-md w-full sm:w-1/2 lg:w-1/3"
             onSubmit={handleSubmit}
           >
             <div className="mb-4">
               <label
                 htmlFor="email"
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-800 text-lg font-semibold mb-2"
               >
                 Email
               </label>
@@ -79,7 +79,7 @@ const Login = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-[16px]"
                 placeholder="Enter your email"
                 required
               />
@@ -87,7 +87,7 @@ const Login = () => {
             <div className="mb-4">
               <label
                 htmlFor="password"
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-800 text-lg font-semibold mb-2"
               >
                 Password
               </label>
@@ -97,7 +97,7 @@ const Login = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-[16px]"
                 placeholder="Enter your password"
                 required
               />
@@ -105,22 +105,21 @@ const Login = () => {
             <div className="flex items-center justify-between">
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline text-[16px]"
               >
                 Login
               </button>
             </div>
             <div className="mt-5 flex items-start justify-center flex-col gap-3">
               <Link
-                className="text-[13px] font-bold text-blue-900 hover:underline-offset-2 hover:underline "
+                className="text-[13px] font-bold text-blue-700 hover:underline"
                 to={"/forgot/password"}
               >
-                {" "}
                 Forgot password
               </Link>
               <Link
                 to={"/register"}
-                className="text-[13px] font-bold text-blue-900 hover:underline-offset-2 hover:underline "
+                className="text-[13px] font-bold text-blue-700 hover:underline"
               >
                 Register
               </Link>
