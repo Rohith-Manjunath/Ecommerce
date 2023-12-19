@@ -9,28 +9,36 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
 import { logoutUser } from "../Redux/userSlice";
+import { useNavigate } from "react-router-dom";
+import { FaCartArrowDown } from "react-icons/fa";
 
 export default function UserOptions({ user }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const dashboard = () => {};
   const profile = () => {
-    window.location.href = "/profile";
+    navigate("/profile");
   };
   const orders = () => {
-    window.location.href = "/shipping";
+    navigate("/myorders");
   };
   const logout = () => {
     dispatch(logoutUser());
+    navigate("/login");
+  };
+  const cart = () => {
+    navigate("/cart");
   };
 
   const actions = [
     { icon: <PersonIcon />, name: "Profile", func: profile },
+    { icon: <FaCartArrowDown />, name: "Cart", func: cart },
     { icon: <ListAltIcon />, name: "Orders", func: orders },
-    { icon: <ExitToAppIcon />, name: "LogOut", func: logout },
+    { icon: <ExitToAppIcon />, name: "Logout", func: logout },
   ];
 
   if (user.role === "admin") {

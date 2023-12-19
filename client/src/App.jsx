@@ -27,6 +27,8 @@ import Success from "./pages/Success";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Loader from "./components/Loader";
+import SIngleOrderDetails from "./pages/SIngleOrderDetails";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -54,49 +56,46 @@ const App = () => {
 
   return (
     <>
-      {stripeApiKey ? (
-        <Elements stripe={loadStripe(stripeApiKey)}>
-          <BrowserRouter>
-            <Header />
-            {isAuthenticated && <UserOptions user={user} />}
+      <Elements stripe={loadStripe(stripeApiKey)}>
+        <BrowserRouter>
+          <Header />
+          {isAuthenticated && <UserOptions user={user} />}
 
-            <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/about" element={<About />}></Route>
-              <Route path="/contact" element={<Contact />}></Route>
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:keyword" element={<Products />} />
-              <Route path="/search" element={<Search />}></Route>
-              <Route path="/cart" element={<Cart />}></Route>
-              <Route path="/profile" element={<Profile />}></Route>
-              <Route path="/product/:id" element={<ProductDetails />}></Route>
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/login" element={<Login />}></Route>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/contact" element={<Contact />}></Route>
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:keyword" element={<Products />} />
+            <Route path="/search" element={<Search />}></Route>
+            <Route path="/product/:id" element={<ProductDetails />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/update/password" element={<UpdatePassword />}></Route>
+            <Route path="/forgot/password" element={<ForgotPassword />}></Route>
+
+            <Route
+              path="/reset/password/:token"
+              element={<ResetPassword />}
+            ></Route>
+
+            <Route element={<ProtectedRoute />}>
               <Route path="/update/profile" element={<UpdateProfile />}></Route>
-              <Route
-                path="/update/password"
-                element={<UpdatePassword />}
-              ></Route>
-              <Route
-                path="/forgot/password"
-                element={<ForgotPassword />}
-              ></Route>
               <Route path="/shipping" element={<ShippingInfo />}></Route>
               <Route path="/order/confirm" element={<OrderConfirm />}></Route>
               <Route path="/myorders" element={<MyOrders />}></Route>
               <Route path="/success" element={<Success />}></Route>
-              <Route
-                path="/reset/password/:token"
-                element={<ResetPassword />}
-              ></Route>
-
+              <Route path="/cart" element={<Cart />}></Route>
+              <Route path="/profile" element={<Profile />}></Route>
               <Route path="/order/payment" element={<Payment />}></Route>
-            </Routes>
-          </BrowserRouter>
-        </Elements>
-      ) : (
-        <Loader />
-      )}
+              <Route
+                path="/order/details/:id"
+                element={<SIngleOrderDetails />}
+              ></Route>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Elements>
     </>
   );
 };

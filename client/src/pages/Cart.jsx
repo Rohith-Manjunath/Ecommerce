@@ -6,6 +6,7 @@ import {
   DecreaseQuantity,
   removeFromCart,
 } from "../Redux/CartSlice";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const items = useSelector((state) => state.cart.cart);
@@ -32,10 +33,17 @@ const Cart = () => {
     <>
       {items.length > 0 ? (
         <div className="mt-[6rem] w-[90vw] h-[90vh] mx-auto">
-          <h3 className="text-center mb-2 font-semibold text-xl  text-green-600 border">
-            Total Price : &#8377;{TotalPrice}
-          </h3>
-
+          <div className="flex items-center justify-around">
+            <h3 className="text-center font-semibold text-xl  text-green-600 border">
+              Total Price : &#8377;{TotalPrice}
+            </h3>
+            <Link
+              to={"/shipping"}
+              className="text-bold bg-orange-500 p-2 rounded-sm text-white hover:bg-blue-500 hover:scale-105 transition-all duration-300"
+            >
+              Proceed to pay
+            </Link>
+          </div>
           <div className="mx-auto sm:flex sm:flex-row sm:items-start sm:justify-evenly sm:flex-wrap sm:h-auto">
             {items.map((item) => {
               return (
