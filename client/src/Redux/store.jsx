@@ -3,6 +3,8 @@ import Slice from "./ProductSlice";
 import userSlice from "./userSlice";
 import CartSlice from "./CartSlice";
 import OrderSlice from "./OrderSlice";
+import MyOrderSlice from "./MyOrders";
+import SingleOrderSlice from "./SingleOrderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +12,7 @@ export const store = configureStore({
     user: userSlice,
     cart: CartSlice,
     order: OrderSlice,
-  }, // Use the correct reducer name
+    myOrders: MyOrderSlice,
+    singleorder: SingleOrderSlice,
+  },
 });

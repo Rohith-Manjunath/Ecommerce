@@ -20,7 +20,6 @@ const Payment = () => {
   const items = useSelector((state) => state.cart.cart);
   const shippingInfoData = JSON.parse(localStorage.getItem("shippingInfo"));
   const { address, phoneNo, state, country, pincode, city } = shippingInfoData;
-  const { id } = useSelector((state) => state.payment);
   const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ const Payment = () => {
     },
     orderItems: items,
     phoneNo,
-    paymentInfo: { id: String(id), status: "completed" },
+    paymentInfo: { id: "sample", status: "completed" },
     itemsPrice: TotalWithGST,
     taxPrice: 0, // Adjust according to your logic
     shippingPrice: 0, // Adjust according to your logic
