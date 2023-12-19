@@ -71,7 +71,6 @@ export const loadUser = createAsyncThunk(
 
       const data = await response.json();
       const user = data.user;
-      console.log(user);
       if (data.success) {
         localStorage.setItem("userData", JSON.stringify(user));
         localStorage.setItem("auth", JSON.stringify({ isAuthenticated: true }));
