@@ -19,7 +19,9 @@ export default function UserOptions({ user }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const dashboard = () => {};
+  const dashboard = () => {
+    navigate("/admin/dashboard");
+  };
   const profile = () => {
     navigate("/profile");
   };
@@ -52,7 +54,7 @@ export default function UserOptions({ user }) {
   return (
     <Box
       sx={{
-        position: "absolute",
+        position: "fixed", // Change to "fixed" for a consistent position
         top: "5rem",
         right: "3rem",
         zIndex: 100,
@@ -64,7 +66,7 @@ export default function UserOptions({ user }) {
         onClose={handleClose}
         onOpen={handleOpen}
         open={open}
-        direction="down"
+        direction="left"
       >
         {actions.map((action) => (
           <SpeedDialAction

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../Redux/userSlice";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,6 @@ const UpdateProfile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Dispatch the updateUserProfile action with the form data
     dispatch(updateUserProfile({ formData }));
   };
 

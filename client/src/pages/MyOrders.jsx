@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { OrdersDispatch } from "../Redux/MyOrders";
 import { useAlert } from "react-alert";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

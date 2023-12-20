@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 import { GetSingleOrder } from "../Redux/SingleOrderSlice";
 
 const SIngleOrderDetails = () => {

@@ -3,7 +3,7 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { forgotPassword } from "../Redux/userSlice";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
