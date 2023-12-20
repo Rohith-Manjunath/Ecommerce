@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 import { loginUser } from "../Redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 

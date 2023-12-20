@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 import ReactStars from "react-rating-stars-component";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";

@@ -52,6 +52,17 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({ success: true, message: "Product deleted" });
 });
 
+exports.getAllProductsAdmin = catchAsyncErrors(async (req, res, next) => {
+  const products = await Product.find();
+  const productsCount = await Product.countDocuments(); // Correct count calculation
+
+  if (!products) {
+    return next(new ErrorHandler("Products not found", 404));
+  }
+
+  res.status(200).json({ success: true, products, productsCount });
+});
+
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.create(req.body);
   if (!product) {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 import { useEffect } from "react";
 import { loadUser } from "../Redux/userSlice";
 

@@ -26,9 +26,14 @@ import MyOrders from "./pages/MyOrders";
 import Success from "./pages/Success";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import Loader from "./components/Loader";
+import Loader from "./layouts/Loader";
 import SIngleOrderDetails from "./pages/SIngleOrderDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminDashboard from "./Admin/AdminDashboard";
+import Users from "./Admin/Users";
+import Reviews from "./Admin/Reviews";
+import AdminProtected from "./components/AdminProtected";
+import ProductsAdmin from "./Admin/Products";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -73,6 +78,16 @@ const App = () => {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/update/password" element={<UpdatePassword />}></Route>
             <Route path="/forgot/password" element={<ForgotPassword />}></Route>
+
+            <Route element={<AdminProtected />}>
+              <Route
+                path="/admin/dashboard"
+                element={<AdminDashboard />}
+              ></Route>
+              <Route path="/admin/users" element={<Users />}></Route>
+              <Route path="/admin/reviews" element={<Reviews />}></Route>
+              <Route path="/admin/products" element={<ProductsAdmin />}></Route>
+            </Route>
 
             <Route
               path="/reset/password/:token"

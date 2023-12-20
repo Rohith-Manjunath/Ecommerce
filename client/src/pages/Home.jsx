@@ -3,7 +3,7 @@ import Product from "../components/Product";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 import { useAlert } from "react-alert"; // Import the hook
 
 const Home = () => {

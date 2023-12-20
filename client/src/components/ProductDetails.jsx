@@ -1,6 +1,6 @@
 import ReactStars from "react-rating-stars-component";
 import { LuUserSquare } from "react-icons/lu";
-import Loader from "./Loader";
+import Loader from "../layouts/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { addToCart } from "../Redux/CartSlice";

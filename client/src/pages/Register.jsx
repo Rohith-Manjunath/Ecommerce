@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../Redux/userSlice";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {

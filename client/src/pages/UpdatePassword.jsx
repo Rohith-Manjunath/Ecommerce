@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "../Redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
-import Loader from "../components/Loader";
+import Loader from "../layouts/Loader";
 
 const UpdatePassword = () => {
   const { error, success, loading, message } = useSelector(
