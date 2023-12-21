@@ -15,6 +15,9 @@ export const registerUser = createAsyncThunk(
       const response = await fetch("http://localhost:4000/api/register", {
         method: "POST",
         body: formDataFile,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       const data = await response.json();

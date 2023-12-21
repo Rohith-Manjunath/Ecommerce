@@ -34,6 +34,7 @@ import Users from "./Admin/Users";
 import Reviews from "./Admin/Reviews";
 import AdminProtected from "./components/AdminProtected";
 import ProductsAdmin from "./Admin/Products";
+import CreateProduct from "./Admin/Createproducts";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -87,6 +88,7 @@ const App = () => {
               <Route path="/admin/users" element={<Users />}></Route>
               <Route path="/admin/reviews" element={<Reviews />}></Route>
               <Route path="/admin/products" element={<ProductsAdmin />}></Route>
+              <Route path="/admin/create" element={<CreateProduct />}></Route>
             </Route>
 
             <Route
