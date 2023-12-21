@@ -95,11 +95,11 @@ const Products = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="container mx-auto mt-[5rem] w-[100%]">
+        <div className="container mx-auto mt-[8rem] w-[100%]">
           {loading ? (
             <Loader />
           ) : (
-            <div className="flex flex-col sm:flex-row sm:justify-around items-center justify-center gap-5 flex-wrap w-[100%] mx-auto">
+            <div className="flex flex-col sm:flex-row sm:justify-around items-start justify-center gap-5 flex-wrap w-[100%] mx-auto">
               {productsData &&
               productsData.products &&
               productsData.products.length > 0 ? (
@@ -107,14 +107,14 @@ const Products = () => {
                   <Link
                     to={`/product/${product._id}`}
                     key={product._id}
-                    className="w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white p-4 rounded-md shadow-md flex flex-col items-center justify-center gap-2 border border-slate-300"
+                    className="w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-white p-4 rounded-md shadow-md flex flex-col items-center justify-center gap-3 border border-slate-300"
                   >
                     <img
                       src={product.imageURLs[0].url}
                       alt=""
                       className="w-[80%] rounded-md"
                     />
-                    <h3 className="text-xl font-semibold mb-2">
+                    <h3 className="text-xl font-semibold mb-2 w-full whitespace-nowrap overflow-hidden text-ellipsis">
                       {product.name}
                     </h3>
                     <p className="text-gray-600 mb-2">{product.description}</p>
@@ -164,8 +164,8 @@ const Products = () => {
 
           <div
             className={`z-[200] ${
-              !show ? "-translate-x-[20rem]" : "translate-x-[0rem]"
-            } items-center justify-start gap-5 flex-wrap w-[15rem] h-screen absolute top-[5rem] left-10 bg-white p-8 rounded-md shadow-md transition-all duration-400`}
+              !show ? "-translate-x-[20rem]" : "translate-x-[-0rem]"
+            } items-center justify-start gap-5 flex-wrap w-[15rem] h-screen top-[5rem] left-10 bg-white p-8 rounded-md shadow-md transition-all duration-400 fixed`}
           >
             <div className="w-full">
               <Typography variant="h6" className="mb-2 text-gray-700">

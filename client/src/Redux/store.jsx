@@ -8,6 +8,7 @@ import SingleOrderSlice from "./SingleOrderSlice";
 import ReviewSlice from "./ReviewSlice";
 import ProductDetailSlice from "./ProductDetailSlice";
 import AdminProductsSlice from "./AdminProductsSlice";
+import DeleteOrderSlice from "./DeleteProductSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     review: ReviewSlice,
     productDetails: ProductDetailSlice,
     adminProducts: AdminProductsSlice,
+    adminDeleteProduct: DeleteOrderSlice,
   },
 });
