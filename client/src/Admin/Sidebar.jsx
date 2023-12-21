@@ -44,7 +44,10 @@ const Sidebar = () => {
             className="flex flex-col items-center justify-center gap-2"
           >
             <div className="flex items-start justify-center flex-col gap-3 p-2">
-              <Link className="sidebar-item flex items-center justify-center gap-2">
+              <Link
+                className="sidebar-item flex items-center justify-center gap-2"
+                to={"/admin/create"}
+              >
                 <TreeItem nodeId="2" label="Create" icon={<Create />} />
               </Link>
               <Link

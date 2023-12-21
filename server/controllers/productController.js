@@ -2,6 +2,7 @@ const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const Product = require("../models/productShema");
 const ApiFeatures = require("../utils/ApiFeatures");
 const ErrorHandler = require("../utils/ErrorHandler");
+const cloudinary = require("cloudinary");
 
 exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   const productsPerPage = 6;
@@ -64,6 +65,30 @@ exports.getAllProductsAdmin = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.imageURLs = imagesLinks;
+  req.body.user = req.user.id;
+
   const product = await Product.create(req.body);
   if (!product) {
     return next(new ErrorHandler("Failed to create new product", 404));

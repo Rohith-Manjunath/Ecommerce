@@ -69,6 +69,39 @@ export const fetchOrdersAdmin = createAsyncThunk(
   }
 );
 
+export const CreateProducts = createAsyncThunk(
+  "admin/create",
+  async (data, { rejectWithValue }) => {
+    const { name, stock, price, description, category, images } = data;
+    const formData = new FormData();
+    formData.set("name", name);
+    formData.set("stock", stock);
+    formData.set("price", price);
+    formData.set("description", description);
+    formData.set("category", category);
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
+
+    try {
+      let response = await fetch(`http://localhost:4000/api/product/new`, {
+        credentials: "include",
+        method: "POST",
+        body: formData,
+        headers: {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      });
+      response = await response.json();
+      return response;
+    } catch (e) {
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
 // Try to get initial state from local storage
 const storedData = localStorage.getItem("adminProducts");
 const initialState = {
@@ -77,6 +110,7 @@ const initialState = {
   error: null,
   users: localStorage.getItem("UsersForAdmin") || [],
   orders: localStorage.getItem("adminOrders") || [],
+  message: "",
 };
 
 export const AdminProductsSlice = createSlice({
@@ -133,6 +167,24 @@ export const AdminProductsSlice = createSlice({
         }
       })
       .addCase(fetchUsersAdmin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(CreateProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(CreateProducts.fulfilled, (state, action) => {
+        const { err, users, message } = action.payload; // Corrected destructuring
+        if (err) {
+          state.error = err;
+          state.loading = false;
+        } else {
+          state.loading = false;
+          state.users = users;
+          state.message = message;
+        }
+      })
+      .addCase(CreateProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

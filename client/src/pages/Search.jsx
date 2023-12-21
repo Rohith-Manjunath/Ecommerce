@@ -1,12 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { GetProductDetails } from "../Redux/ProductDetailSlice";
+import { fetchProducts } from "../Redux/ProductSlice";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const trimmedKeyword = keyword.trim();
-    window.location.href = `/products/${trimmedKeyword}`;
+    dispatch(fetchProducts(trimmedKeyword));
+    navigate(`/products/${trimmedKeyword}`);
   };
 
   return (

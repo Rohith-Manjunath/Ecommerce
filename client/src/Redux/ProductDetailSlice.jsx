@@ -46,13 +46,14 @@ export const ProductDetailSlice = createSlice({
 
         if (err) {
           state.loading = false;
-          state.error = action.payload.err; // Adjust here
+          state.error = err;
         } else {
           state.loading = false;
           state.error = null;
           state.item = product;
         }
       })
+
       .addCase(GetProductDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Adjust here
