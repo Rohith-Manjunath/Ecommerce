@@ -7,6 +7,7 @@ import { DeleteProductAdmin } from "../Redux/DeleteProductSlice";
 import { useAlert } from "react-alert";
 import { fetchProductsAdmin } from "../Redux/AdminProductsSlice";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ProductsAdmin = () => {
   const { products, loading } = useSelector((state) => state.adminProducts);
@@ -65,7 +66,9 @@ const ProductsAdmin = () => {
                       <td className="border px-4 py-2 ">₹{product.price}</td>
                       {/* Add action buttons or links as needed */}
                       <td className="border px-4 py-2 flex items-center justify-center gap-2 text-[20px]">
-                        <MdEdit className="text-blue-700 z-[200]" />
+                        <Link to={`/admin/update/product/${product._id}`}>
+                          <MdEdit className="text-blue-700 z-[200]" />
+                        </Link>
 
                         <MdDelete
                           className="text-red-500 z-[200] hover:scale-120 transition-all duration-200 hover:cursor-pointer"
