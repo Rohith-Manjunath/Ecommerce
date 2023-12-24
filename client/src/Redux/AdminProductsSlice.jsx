@@ -64,6 +64,27 @@ export const fetchOrdersAdmin = createAsyncThunk(
         return jsonData; // Return the entire jsonData object
       }
     } catch (e) {
+      // Handle network errors or other exceptions
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
+export const deleteOrder = createAsyncThunk(
+  "admin/delete/order",
+  async (id, { rejectWithValue }) => {
+    try {
+      let response = await fetch(
+        `http://localhost:4000/api/orders/delete/${id}`,
+        {
+          credentials: "include",
+          method: "DELETE",
+        }
+      );
+      let jsonData = await response.json();
+
+      return jsonData;
+    } catch (e) {
       return rejectWithValue({ message: e.message });
     }
   }
@@ -135,15 +156,37 @@ export const UpdateProductAdmin = createAsyncThunk(
   }
 );
 
+export const updateOrderStatus = createAsyncThunk(
+  "order/status/update",
+  async ({ id, status }, { rejectWithValue }) => {
+    try {
+      const form = new FormData();
+      form.set("status", status);
+
+      let data = await fetch(`http://localhost:4000/api/orders/update/${id}`, {
+        credentials: "include",
+        method: "PUT",
+        body: form,
+      });
+      data = await data.json();
+
+      return data;
+    } catch (e) {
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
 // Try to get initial state from local storage
 const storedData = localStorage.getItem("adminProducts");
 const initialState = {
   products: storedData ? JSON.parse(storedData) : [],
   loading: false,
   error: null,
-  users: localStorage.getItem("UsersForAdmin") || [],
-  orders: localStorage.getItem("adminOrders") || [],
+  users: JSON.parse(localStorage.getItem("UsersForAdmin")) || [],
+  orders: JSON.parse(localStorage.getItem("adminOrders")) || [],
   message: "",
+  isUpdated: false,
 };
 
 export const AdminProductsSlice = createSlice({
@@ -190,13 +233,13 @@ export const AdminProductsSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchUsersAdmin.fulfilled, (state, action) => {
-        const { err, users } = action.payload; // Corrected destructuring
+        const { err, orders } = action.payload; // Corrected destructuring
         if (err) {
           state.error = err;
           state.loading = false;
         } else {
           state.loading = false;
-          state.users = users;
+          state.orders = orders;
         }
       })
       .addCase(fetchUsersAdmin.rejected, (state, action) => {
@@ -235,6 +278,38 @@ export const AdminProductsSlice = createSlice({
         }
       })
       .addCase(UpdateProductAdmin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteOrder.fulfilled, (state, action) => {
+        const { err } = action.payload; // Corrected destructuring
+        if (err) {
+          state.error = err;
+          state.loading = false;
+        } else {
+          state.loading = false;
+          state.message = "Order deleted successfully";
+        }
+      })
+      .addCase(updateOrderStatus.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        const { err, success } = action.payload;
+        if (!success) {
+          state.error = err;
+          state.loading = false;
+        } else {
+          state.loading = false;
+          state.message = "Order status updated successfull";
+          state.error = null;
+          state.isUpdated = true;
+        }
+      })
+      .addCase(updateOrderStatus.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
