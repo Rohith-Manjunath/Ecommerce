@@ -63,10 +63,6 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
     .sort("-createdAt")
     .populate("user", "_id name");
 
-  if (!orders || orders.length === 0) {
-    return next(new ErrorHandler("There are no orders", 401));
-  }
-
   // Calculate totalAmount using reduce
   const totalAmount = orders.reduce((acc, order) => acc + order.totalPrice, 0);
 

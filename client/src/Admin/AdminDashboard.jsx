@@ -75,7 +75,7 @@ const AdminDashboard = () => {
                 Products : {products.length}
               </span>
               <span className="p-5 mx-5 bg-yellow-300 text-black font-bold rounded-full">
-                Orders : {orders.length}
+                Orders :
               </span>
               <span className="p-5 mx-5 bg-gray-800 text-white font-bold rounded-full">
                 Users : {users.length}
