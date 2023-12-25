@@ -10,7 +10,6 @@ const MyOrders = () => {
   const { orders, error, loading } = useSelector((state) => state.myOrders);
   const dispatch = useDispatch();
   const alert = useAlert();
-  console.log(orders);
 
   useEffect(() => {
     dispatch(OrdersDispatch());

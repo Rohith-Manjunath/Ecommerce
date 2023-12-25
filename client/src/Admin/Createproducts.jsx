@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { CreateProducts } from "../Redux/AdminProductsSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
+import { Button, MenuItem, TextField } from "@mui/material";
 import Sidebar from "./Sidebar";
+import { useAlert } from "react-alert";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import {
+  CreateProducts,
+  clearError,
+  clearSuccess,
+} from "../Redux/AdminProductsSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateProduct = () => {
   const [formData, setFormData] = useState({
@@ -20,9 +23,12 @@ const CreateProduct = () => {
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
   const dispatch = useDispatch();
-  const { error, message, loading } = useSelector(
-    (state) => state.adminProducts
-  );
+  const {
+    error: createError,
+    loading,
+    success,
+  } = useSelector((state) => state.admin);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,23 +73,52 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check if every input is filled
+    if (
+      !formData.name ||
+      !formData.price ||
+      !formData.description ||
+      !formData.category ||
+      !formData.stock ||
+      images.length === 0
+    ) {
+      alert.error(
+        "Please fill in all the fields and select at least one image."
+      );
+      return;
+    }
+
     dispatch(CreateProducts(finalData));
   };
 
   useEffect(() => {
-    if (error) {
-      alert.error(error);
-    } else if (message) {
-      alert.success(message);
+    if (createError) {
+      alert.error(createError);
+      dispatch(clearError());
     }
-  }, [alert, error, message]);
+    if (success) {
+      alert.success("Product created successfully!");
+      setFormData({
+        name: "",
+        price: "",
+        description: "",
+        category: "",
+        stock: "",
+      });
+      setImages([]);
+      setImagesPreview([]);
+      navigate("/admin/products");
+      dispatch(clearSuccess());
+    }
+  }, [createError, success, alert, dispatch, navigate]);
 
   return (
-    <div className=" flex items-center justify-center">
-      <div className="w-[15%] h-full">
+    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
+      <div className="col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>
-      <div className="w-[50%] mx-auto mt-8 p-20 border rounded-md shadow-md bg-white">
+      <div className="col-span-4 flex items-center justify-center flex-col gap-6 ">
         <h2 className="text-2xl font-semibold mb-4 text-center">
           Create Product
         </h2>
@@ -191,8 +226,8 @@ const CreateProduct = () => {
             color="primary"
             type="submit"
             startIcon={<CloudUploadIcon />}
-            disabled={loading}
             className="w-full"
+            disabled={loading}
           >
             Upload
           </Button>

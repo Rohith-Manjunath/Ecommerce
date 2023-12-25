@@ -1,14 +1,6 @@
 // userSlice.js
 
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-// Define the initial state for the user slice
-const initialState = {
-  loading: false,
-  error: null,
-  message: "",
-  isUpdated: false,
-};
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 export const PostReview = createAsyncThunk(
   "review",
@@ -32,39 +24,45 @@ export const PostReview = createAsyncThunk(
   }
 );
 
+// Define the initial state for the user slice
+const initialState = {
+  loading: false,
+  error: null,
+  success: false,
+};
+
+export const updateSuccess = createAction("review/updateSuccess");
+
 // Create the user slice
 export const ReviewSlice = createSlice({
   name: "review",
   initialState,
-  reducers: {},
+  reducers: {
+    updateSuccess: (state) => {
+      state.success = false;
+    },
+  },
   extraReducers: (builder) => {
     // Handling the pending state while fetching user orders
-    builder.addCase(PostReview.pending, (state) => {
-      state.loading = true;
-      state.isUpdated = false;
-    });
+    builder
+      .addCase(PostReview.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(PostReview.fulfilled, (state, action) => {
+        const { success, err } = action.payload;
 
-    // Handling the fulfilled state after successfully fetching user orders
-    builder.addCase(PostReview.fulfilled, (state, action) => {
-      const { err, message } = action.payload;
-
-      if (err) {
-        state.error = err;
+        if (!success) {
+          state.error = err;
+          state.loading = false;
+        } else {
+          state.loading = false;
+          state.success = true;
+        }
+      })
+      .addCase(PostReview.rejected, (state, action) => {
+        state.error = action.payload;
         state.loading = false;
-        state.isUpdated = false;
-      } else {
-        state.loading = false;
-        state.message = message;
-        state.isUpdated = true;
-      }
-    });
-
-    // Handling the rejected state if there is an error fetching user orders
-    builder.addCase(PostReview.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-      state.isUpdated = false;
-    });
+      });
   },
 });
 

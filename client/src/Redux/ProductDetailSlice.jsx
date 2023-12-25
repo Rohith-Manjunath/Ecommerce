@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const GetProductDetails = createAsyncThunk(
   "productDetails",
-  async ({ id }, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(`http://localhost:4000/api/product/${id}`, {
         method: "GET",
