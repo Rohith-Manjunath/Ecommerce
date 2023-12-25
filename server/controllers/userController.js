@@ -79,7 +79,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const resetToken = user.getResetPasswordToken();
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `http://localhost:5173/reset/password/${resetToken}`;
+  const resetPasswordUrl = `https://ecommerce20.netlify.app/reset/password/${resetToken}`;
 
   const message = `Yout password reset token :- \n\n ${resetPasswordUrl} \n\n If You have not requested it then ,please ignore it`;
 

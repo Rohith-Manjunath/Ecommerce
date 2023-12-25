@@ -12,17 +12,18 @@ export const registerUser = createAsyncThunk(
       formDataFile.append("password", password);
       formDataFile.append("avatar", avatarPic);
 
-      const response = await fetch("http://localhost:4000/api/register", {
-        method: "POST",
-        body: formDataFile,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await fetch(
+        "https://ecommerce2-0.onrender.com/api/register",
+        {
+          method: "POST",
+          body: formDataFile,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       const data = await response.json();
-      const user = data.user;
-      console.log(user);
 
       return data;
     } catch (e) {
@@ -41,11 +42,14 @@ export const loginUser = createAsyncThunk(
       formDataFile.append("email", email);
       formDataFile.append("password", password);
 
-      const response = await fetch("http://localhost:4000/api/login", {
-        method: "POST",
-        body: formDataFile,
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://ecommerce2-0.onrender.com/api/login",
+        {
+          method: "POST",
+          body: formDataFile,
+          credentials: "include",
+        }
+      );
 
       const data = await response.json();
       const user = data.user;
@@ -67,7 +71,7 @@ export const loadUser = createAsyncThunk(
   "user/me",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:4000/api/me", {
+      const response = await fetch("https://ecommerce2-0.onrender.com/api/me", {
         method: "GET",
         credentials: "include",
       });
@@ -91,10 +95,13 @@ export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:4000/api/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://ecommerce2-0.onrender.com/api/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
 
       const data = await response.json();
       if (data.success) {
@@ -120,11 +127,14 @@ export const updateUserProfile = createAsyncThunk(
       formDataFile.append("name", name);
       formDataFile.append("email", email);
 
-      const response = await fetch("http://localhost:4000/api/update/profile", {
-        method: "PUT",
-        credentials: "include",
-        body: formDataFile,
-      });
+      const response = await fetch(
+        "https://ecommerce2-0.onrender.com/api/update/profile",
+        {
+          method: "PUT",
+          credentials: "include",
+          body: formDataFile,
+        }
+      );
 
       const data = await response.json();
       if (data.success) {
@@ -156,7 +166,7 @@ export const updatePassword = createAsyncThunk(
     formDataFile.set("confirmPassword", confirmPassword);
     try {
       const response = await fetch(
-        "http://localhost:4000/api/update/password",
+        "https://ecommerce2-0.onrender.com/api/update/password",
         {
           method: "PUT",
           credentials: "include",
@@ -191,7 +201,7 @@ export const forgotPassword = createAsyncThunk(
 
     try {
       const response = await fetch(
-        "http://localhost:4000/api/password/forgot",
+        "https://ecommerce2-0.onrender.com/api/password/forgot",
         {
           method: "POST",
           credentials: "include",
@@ -220,7 +230,7 @@ export const resetPassword = createAsyncThunk(
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/password/reset/${token}`,
+        `https://ecommerce2-0.onrender.com/api/password/reset/${token}`,
         {
           method: "PUT",
           body: formDataFile,
