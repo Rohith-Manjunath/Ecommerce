@@ -66,7 +66,7 @@ export default function UserOptions({ user }) {
         onClose={handleClose}
         onOpen={handleOpen}
         open={open}
-        direction="left"
+        direction="down"
       >
         {actions.map((action) => (
           <SpeedDialAction

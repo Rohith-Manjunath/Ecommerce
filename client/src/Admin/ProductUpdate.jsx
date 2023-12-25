@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { UpdateProductAdmin } from "../Redux/AdminProductsSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useAlert } from "react-alert";
 import Sidebar from "./Sidebar";
-import { useParams } from "react-router-dom";
+import Chart from "chart.js/auto";
+import { useEffect, useState } from "react";
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import {
+  UpdateProduct,
+  clearError,
+  clearUpdateStatus,
+} from "../Redux/AdminProductsSlice";
+import { Button, MenuItem, TextField } from "@mui/material";
 
 const ProductUpdate = () => {
-  const { products } = useSelector((state) => state.products.products);
+  const { products } = useSelector((state) => state.admin);
+  const { error, loading } = useSelector((state) => state.admin);
   const params = useParams();
   const { id } = params;
-  const { message, error, loading } = useSelector(
-    (state) => state.adminProducts
-  );
+  const { error: updateError, isUpdated } = useSelector((state) => state.admin);
 
   const product = products.find((item) => {
     return id === item._id;
@@ -33,6 +35,7 @@ const ProductUpdate = () => {
   const [imagesPreview, setImagesPreview] = useState(
     product.imageURLs.map((image) => image.url)
   );
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -79,24 +82,33 @@ const ProductUpdate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(UpdateProductAdmin({ finalData, id }));
-    console.log({ finalData, id });
+    dispatch(UpdateProduct({ finalData, id }));
   };
 
   useEffect(() => {
     if (error) {
       alert.error(error);
-    } else if (message) {
-      alert.success(message);
+      dispatch(clearError());
     }
-  }, [alert, error, message]);
+
+    if (updateError) {
+      alert.error(updateError);
+      dispatch(clearError());
+    }
+
+    if (isUpdated) {
+      alert.success("Product updated successfully");
+      navigate("/admin/products");
+      dispatch(clearUpdateStatus());
+    }
+  }, [updateError, alert, isUpdated, error, dispatch, navigate]);
 
   return (
-    <div className=" flex items-center justify-center">
-      <div className="w-[15%] h-full">
+    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
+      <div className="col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>
-      <div className="w-[50%] mx-auto mt-8 p-20 border rounded-md shadow-md bg-white">
+      <div className="col-span-4 flex items-center justify-start flex-col gap-6 ">
         <h2 className="text-2xl font-semibold mb-4 text-center">
           Update Product
         </h2>

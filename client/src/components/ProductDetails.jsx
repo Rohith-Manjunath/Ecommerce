@@ -2,7 +2,7 @@ import ReactStars from "react-rating-stars-component";
 import { LuUserSquare } from "react-icons/lu";
 import Loader from "../layouts/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addToCart } from "../Redux/CartSlice";
 import { useAlert } from "react-alert";
 
@@ -15,8 +15,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
-import { PostReview } from "../Redux/ReviewSlice";
-import { GetProductDetails } from "../Redux/ProductDetailSlice";
+import { PostReview, updateSuccess } from "../Redux/ReviewSlice";
 
 const ProductDetails = () => {
   const options = {
@@ -38,8 +37,14 @@ const ProductDetails = () => {
   const alert = useAlert();
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
-  const { error, message, loading } = useSelector((state) => state.review);
-  const { item } = useSelector((state) => state.productDetails);
+  const navigate = useNavigate();
+  const {
+    error: reviewError,
+    success,
+    loading,
+  } = useSelector((state) => state.review);
+  const { products } = useSelector((state) => state.products.products);
+  const item = products.find((item) => item._id === id);
   const AddtoCart = (product) => {
     dispatch(addToCart(product));
     alert.success("Product added to cart successfully");
@@ -63,14 +68,15 @@ const ProductDetails = () => {
   };
 
   useEffect(() => {
-    dispatch(GetProductDetails({ id }));
-    if (error) {
-      alert.error(error);
-    } else if (message) {
-      alert.success(message);
+    if (reviewError) {
+      alert.error(reviewError);
     }
-  }, [dispatch, error, alert, id, message]);
-
+    if (success) {
+      alert.success("Review updated successfully");
+      navigate("/");
+      dispatch(updateSuccess());
+    }
+  }, [dispatch, reviewError, success, alert, navigate]);
   return (
     <>
       {loading ? (
@@ -131,8 +137,8 @@ const ProductDetails = () => {
                 </Dialog>
               </>
 
-              <div className="product-details w-[100vw] h-[100vh] flex items-center justify-center mt-[10rem] sm:mt-0">
-                <div className="border border-slate-300 rounded-lg w-[full] h-[full] flex flex-col items-center justify-center p-5 sm:flex-row ">
+              <div className="product-details sm:w-screen sm:h-screen flex items-center justify-center mt-[10rem] sm:mt-0">
+                <div className="border border-slate-300 rounded-lg sm:w-screen sm:h-screen flex flex-col items-center justify-center p-5 sm:flex-row ">
                   <div className="w-full sm:w-1/2  h-1/2 sm:h-full flex items-center justify-center">
                     {item && item.imageURLs[0] && (
                       <img

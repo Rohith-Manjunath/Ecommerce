@@ -26,7 +26,6 @@ import MyOrders from "./pages/MyOrders";
 import Success from "./pages/Success";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import Loader from "./layouts/Loader";
 import SIngleOrderDetails from "./pages/SIngleOrderDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminDashboard from "./Admin/AdminDashboard";
@@ -34,10 +33,11 @@ import Users from "./Admin/Users";
 import Reviews from "./Admin/Reviews";
 import AdminProtected from "./components/AdminProtected";
 import ProductsAdmin from "./Admin/Products";
-import CreateProduct from "./Admin/Createproducts";
 import ProductUpdate from "./Admin/ProductUpdate";
 import AdminOrders from "./Admin/Orders";
 import OrderUpdate from "./Admin/OrderUpdate";
+import UpdateUser from "./Admin/UpdateUser";
+import Createproduct from "./Admin/Createproducts";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -62,6 +62,8 @@ const App = () => {
       console.error("Error fetching Stripe key:", error.message);
     }
   };
+
+  addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
     <>
@@ -91,7 +93,7 @@ const App = () => {
               <Route path="/admin/users" element={<Users />}></Route>
               <Route path="/admin/reviews" element={<Reviews />}></Route>
               <Route path="/admin/products" element={<ProductsAdmin />}></Route>
-              <Route path="/admin/create" element={<CreateProduct />}></Route>
+              <Route path="/admin/create" element={<Createproduct />}></Route>
               <Route
                 path="/admin/update/order/:id"
                 element={<OrderUpdate />}
@@ -101,6 +103,10 @@ const App = () => {
                 element={<ProductUpdate />}
               ></Route>
               <Route path="/admin/orders" element={<AdminOrders />}></Route>
+              <Route
+                path="/admin/update/user/:id"
+                element={<UpdateUser />}
+              ></Route>
             </Route>
 
             <Route
