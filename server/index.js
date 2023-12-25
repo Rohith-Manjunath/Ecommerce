@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cookie = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = {
-  origin: "http://localhost:5173", // Set this to the URL of your React app
+  origin: "https://ecommerce20.netlify.app/",
   credentials: true,
 };
 const fileUpload = require("express-fileupload");

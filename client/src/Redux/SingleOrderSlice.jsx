@@ -4,10 +4,13 @@ export const GetSingleOrder = createAsyncThunk(
   "order/singleOrder",
   async ({ id }, { rejectWithValue }) => {
     try {
-      let response = await fetch(`http://localhost:4000/api/orders/${id}`, {
-        method: "GET",
-        credentials: "include",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/orders/${id}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
       let jsonData = await response.json();
       if (jsonData.success) {
         localStorage.setItem(

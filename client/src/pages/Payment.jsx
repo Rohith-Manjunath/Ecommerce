@@ -55,14 +55,17 @@ const Payment = () => {
     e.preventDefault();
     payBtn.current.disabled = true;
     try {
-      let data = await fetch("http://localhost:4000/api/payment/checkout", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: paymentData.amount }),
-      });
+      let data = await fetch(
+        "https://ecommerce2-0.onrender.com/api/payment/checkout",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: paymentData.amount }),
+        }
+      );
       data = await data.json();
       const client_secret = data.client_secret;
       console.log(data);

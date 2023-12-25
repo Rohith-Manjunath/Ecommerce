@@ -4,10 +4,13 @@ export const fetchProductsAdmin = createAsyncThunk(
   "admin/products",
   async (_, { rejectWithValue }) => {
     try {
-      let response = await fetch(`http://localhost:4000/api/admin/products`, {
-        credentials: "include",
-        method: "GET",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/admin/products`,
+        {
+          credentials: "include",
+          method: "GET",
+        }
+      );
       let jsonData = await response.json();
 
       if (jsonData.success) {
@@ -28,10 +31,13 @@ export const fetchOrdersAdmin = createAsyncThunk(
   "admin/orders",
   async (_, { rejectWithValue }) => {
     try {
-      let response = await fetch(`http://localhost:4000/api/orders`, {
-        credentials: "include",
-        method: "GET",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/orders`,
+        {
+          credentials: "include",
+          method: "GET",
+        }
+      );
       let jsonData = await response.json();
       if (jsonData.success) {
         localStorage.setItem("adminOrders", JSON.stringify(jsonData.orders));
@@ -47,10 +53,13 @@ export const fetchUsersAdmin = createAsyncThunk(
   "admin/users",
   async (_, { rejectWithValue }) => {
     try {
-      let response = await fetch(`http://localhost:4000/api/admin/users`, {
-        credentials: "include",
-        method: "GET",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/admin/users`,
+        {
+          credentials: "include",
+          method: "GET",
+        }
+      );
       let jsonData = await response.json();
       if (jsonData.success) {
         localStorage.setItem("adminUsers", JSON.stringify(jsonData.users));
@@ -78,16 +87,19 @@ export const CreateProducts = createAsyncThunk(
     });
 
     try {
-      let response = await fetch(`http://localhost:4000/api/product/new`, {
-        credentials: "include",
-        method: "POST",
-        body: formData,
-        headers: {
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/product/new`,
+        {
+          credentials: "include",
+          method: "POST",
+          body: formData,
           headers: {
-            "Content-Type": "multipart/form-data",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           },
-        },
-      });
+        }
+      );
       response = await response.json();
       return response;
     } catch (e) {
@@ -101,7 +113,7 @@ export const deleteOrder = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `http://localhost:4000/api/orders/delete/${id}`,
+        `https://ecommerce2-0.onrender.com/api/orders/delete/${id}`,
         {
           credentials: "include",
           method: "DELETE",
@@ -120,10 +132,13 @@ export const deleteProduct = createAsyncThunk(
   "admin/delete/product",
   async (id, { rejectWithValue }) => {
     try {
-      let response = await fetch(`http://localhost:4000/api/product/${id}`, {
-        credentials: "include",
-        method: "DELETE",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        {
+          credentials: "include",
+          method: "DELETE",
+        }
+      );
       let jsonData = await response.json();
 
       return jsonData;
@@ -137,10 +152,13 @@ export const deleteUser = createAsyncThunk(
   "admin/delete/user",
   async (id, { rejectWithValue }) => {
     try {
-      let response = await fetch(`http://localhost:4000/api/admin/user/${id}`, {
-        credentials: "include",
-        method: "DELETE",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/admin/user/${id}`,
+        {
+          credentials: "include",
+          method: "DELETE",
+        }
+      );
       let jsonData = await response.json();
 
       return jsonData;
@@ -165,16 +183,19 @@ export const UpdateProduct = createAsyncThunk(
     });
 
     try {
-      let response = await fetch(`http://localhost:4000/api/product/${id}`, {
-        credentials: "include",
-        method: "PUT",
-        body: formData,
-        headers: {
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        {
+          credentials: "include",
+          method: "PUT",
+          body: formData,
           headers: {
-            "Content-Type": "multipart/form-data",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           },
-        },
-      });
+        }
+      );
       response = await response.json();
       return response;
     } catch (e) {
@@ -187,10 +208,13 @@ export const getProductDetails = createAsyncThunk(
   "admin/product",
   async (id, { rejectWithValue }) => {
     try {
-      let response = await fetch(`http://localhost:4000/api/product/${id}`, {
-        credentials: "include",
-        method: "GET",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        {
+          credentials: "include",
+          method: "GET",
+        }
+      );
       let jsonData = await response.json();
 
       return jsonData;
@@ -219,11 +243,14 @@ export const updateOrderStatus = createAsyncThunk(
       const form = new FormData();
       form.set("status", status);
 
-      let data = await fetch(`http://localhost:4000/api/orders/update/${id}`, {
-        credentials: "include",
-        method: "PUT",
-        body: form,
-      });
+      let data = await fetch(
+        `https://ecommerce2-0.onrender.com/api/orders/update/${id}`,
+        {
+          credentials: "include",
+          method: "PUT",
+          body: form,
+        }
+      );
       data = await data.json();
 
       return data;
@@ -240,11 +267,14 @@ export const updateUserRole = createAsyncThunk(
       const form = new FormData();
       form.set("role", role);
 
-      let data = await fetch(`http://localhost:4000/api/admin/user/${id}`, {
-        credentials: "include",
-        method: "PUT",
-        body: form,
-      });
+      let data = await fetch(
+        `https://ecommerce2-0.onrender.com/api/admin/user/${id}`,
+        {
+          credentials: "include",
+          method: "PUT",
+          body: form,
+        }
+      );
       data = await data.json();
 
       return data;

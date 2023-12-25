@@ -50,10 +50,13 @@ const App = () => {
 
   const getStripeKey = async () => {
     try {
-      let response = await fetch("http://localhost:4000/api/getStripe", {
-        method: "GET",
-        credentials: "include",
-      });
+      let response = await fetch(
+        "https://ecommerce2-0.onrender.com/api/getStripe",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
       let data = await response.json();
