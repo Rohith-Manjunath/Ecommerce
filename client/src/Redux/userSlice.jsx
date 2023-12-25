@@ -12,16 +12,13 @@ export const registerUser = createAsyncThunk(
       formDataFile.append("password", password);
       formDataFile.append("avatar", avatarPic);
 
-      const response = await fetch(
-        "https://ecommerce2-0.onrender.com/api/register",
-        {
-          method: "POST",
-          body: formDataFile,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await fetch("/api/register", {
+        method: "POST",
+        body: formDataFile,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       const data = await response.json();
 
@@ -42,14 +39,11 @@ export const loginUser = createAsyncThunk(
       formDataFile.append("email", email);
       formDataFile.append("password", password);
 
-      const response = await fetch(
-        "https://ecommerce2-0.onrender.com/api/login",
-        {
-          method: "POST",
-          body: formDataFile,
-          credentials: "include",
-        }
-      );
+      const response = await fetch("/api/login", {
+        method: "POST",
+        body: formDataFile,
+        credentials: "include",
+      });
 
       const data = await response.json();
       const user = data.user;
@@ -71,7 +65,7 @@ export const loadUser = createAsyncThunk(
   "user/me",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("https://ecommerce2-0.onrender.com/api/me", {
+      const response = await fetch("/api/me", {
         method: "GET",
         credentials: "include",
       });
@@ -95,13 +89,10 @@ export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        "https://ecommerce2-0.onrender.com/api/logout",
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
 
       const data = await response.json();
       if (data.success) {
@@ -127,14 +118,11 @@ export const updateUserProfile = createAsyncThunk(
       formDataFile.append("name", name);
       formDataFile.append("email", email);
 
-      const response = await fetch(
-        "https://ecommerce2-0.onrender.com/api/update/profile",
-        {
-          method: "PUT",
-          credentials: "include",
-          body: formDataFile,
-        }
-      );
+      const response = await fetch("/api/update/profile", {
+        method: "PUT",
+        credentials: "include",
+        body: formDataFile,
+      });
 
       const data = await response.json();
       if (data.success) {
@@ -165,14 +153,11 @@ export const updatePassword = createAsyncThunk(
     formDataFile.set("newPassword", newPassword);
     formDataFile.set("confirmPassword", confirmPassword);
     try {
-      const response = await fetch(
-        "https://ecommerce2-0.onrender.com/api/update/password",
-        {
-          method: "PUT",
-          credentials: "include",
-          body: formDataFile,
-        }
-      );
+      const response = await fetch("/api/update/password", {
+        method: "PUT",
+        credentials: "include",
+        body: formDataFile,
+      });
 
       const data = await response.json();
       if (data.success) {
@@ -200,14 +185,11 @@ export const forgotPassword = createAsyncThunk(
     formData.set("email", email);
 
     try {
-      const response = await fetch(
-        "https://ecommerce2-0.onrender.com/api/password/forgot",
-        {
-          method: "POST",
-          credentials: "include",
-          body: formData,
-        }
-      );
+      const response = await fetch("/api/password/forgot", {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
 
       const data = await response.json();
 
@@ -229,13 +211,10 @@ export const resetPassword = createAsyncThunk(
     formDataFile.set("confirmPassword", confirmPassword);
 
     try {
-      const response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/password/reset/${token}`,
-        {
-          method: "PUT",
-          body: formDataFile,
-        }
-      );
+      const response = await fetch(`/api/password/reset/${token}`, {
+        method: "PUT",
+        body: formDataFile,
+      });
 
       const data = await response.json();
 
