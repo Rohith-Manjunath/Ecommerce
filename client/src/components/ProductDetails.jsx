@@ -171,7 +171,7 @@ const ProductDetails = () => {
                     )}
                     <div className="flex items-center justify-center gap-3">
                       <button
-                        className="bg-red-500 text-white p-1 rounded"
+                        className="bg-red-500 text-white p-2 rounded font-bold shadow-sm hover:bg-red-600 transition-all duration-300 "
                         onClick={() => AddtoCart(item)}
                       >
                         Add to Cart

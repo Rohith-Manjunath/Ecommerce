@@ -18,6 +18,7 @@ export default function UserOptions({ user }) {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const alert = useAlert();
 
   const dashboard = () => {
     navigate("/admin/dashboard");
@@ -29,6 +30,7 @@ export default function UserOptions({ user }) {
     navigate("/myorders");
   };
   const logout = () => {
+    alert.success("Logged out successfully");
     dispatch(logoutUser());
     navigate("/login");
   };

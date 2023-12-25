@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Loader from "../layouts/Loader";
-import { loginUser } from "../Redux/userSlice";
+import { loginUser, resetMessage } from "../Redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -36,6 +36,7 @@ const Login = () => {
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");
+      dispatch(resetMessage());
     }
 
     if (message) {
@@ -47,6 +48,7 @@ const Login = () => {
         email: "",
         password: "",
       });
+      dispatch(resetMessage());
       navigate("/");
     } else if (error) {
       alert.error(error, {
@@ -54,7 +56,7 @@ const Login = () => {
         type: "error",
       });
     }
-  }, [message, error, alert, navigate, isAuthenticated]);
+  }, [message, error, alert, navigate, isAuthenticated, dispatch]);
 
   return (
     <>

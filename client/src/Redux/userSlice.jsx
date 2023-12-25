@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -240,6 +240,8 @@ export const resetPassword = createAsyncThunk(
 const storedData = localStorage.getItem("userData");
 const auth = localStorage.getItem("auth");
 
+export const resetMessage = createAction("user/resetMessage");
+
 const initialState = {
   user: storedData ? JSON.parse(storedData) : {},
   error: null,
@@ -256,6 +258,9 @@ const userSlice = createSlice({
     resetUser: (state) => {
       state.user = {};
       state.isAuthenticated = false;
+      state.message = "";
+    },
+    resetMessage: (state) => {
       state.message = "";
     },
   },
