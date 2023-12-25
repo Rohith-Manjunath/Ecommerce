@@ -17,7 +17,7 @@ export const fetchProducts = createAsyncThunk(
   ) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}&ratings[gte]=${ratingsRange[0]}&ratings[lte]=${ratingsRange[1]}` +
+        `/api/products?keyword=${keyword}&page=${currentPage}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}&ratings[gte]=${ratingsRange[0]}&ratings[lte]=${ratingsRange[1]}` +
           (category ? `&category=${category}` : "")
       );
       let jsonData = await response.json();
