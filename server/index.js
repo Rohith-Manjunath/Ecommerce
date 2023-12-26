@@ -29,6 +29,7 @@ app.use(
 
 // File upload middleware
 app.use(fileUpload());
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(cookie());
 app.use(cors(corsOptions));

@@ -21,7 +21,6 @@ export const fetchProducts = createAsyncThunk(
           (category ? `&category=${category}` : "")
       );
       let jsonData = await response.json();
-      console.log(jsonData);
 
       // Save the fetched data to local storage
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(jsonData));
@@ -55,7 +54,7 @@ export const Slice = createSlice({
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload.message;
       });
   },
 });
