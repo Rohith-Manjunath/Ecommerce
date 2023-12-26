@@ -55,20 +55,16 @@ const Payment = () => {
     e.preventDefault();
     payBtn.current.disabled = true;
     try {
-      let data = await fetch(
-        "https://ecommerce2-0.onrender.com/api/payment/checkout",
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ amount: paymentData.amount }),
-        }
-      );
+      let data = await fetch("/api/payment/checkout", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: paymentData.amount }),
+      });
       data = await data.json();
       const client_secret = data.client_secret;
-      console.log(data);
       if (!stripe || !elements) return;
       const result = await stripe.confirmCardPayment(client_secret, {
         payment_method: {
@@ -104,9 +100,11 @@ const Payment = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen p-24 flex-col">
+    <div className="flex items-center justify-center w-full h-screen p-4 md:p-24 flex-col">
       <div className="max-w-md mx-auto bg-white p-8 rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Payment Details</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-orange-500">
+          Payment Details
+        </h2>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -114,7 +112,7 @@ const Payment = () => {
               htmlFor="cardNumber"
               className="block text-sm font-medium text-gray-700"
             >
-              <CiCreditCard1 className="inline-block mr-2" />
+              <CiCreditCard1 className="inline-block mr-2 text-xl text-gray-500" />
               Card Number
             </label>
             <CardNumberElement className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
@@ -126,7 +124,7 @@ const Payment = () => {
                 htmlFor="expiry"
                 className="block text-sm font-medium text-gray-700"
               >
-                <RiPassExpiredFill className="inline-block mr-2" />
+                <RiPassExpiredFill className="inline-block mr-2 text-xl text-gray-500" />
                 Expiry
               </label>
               <CardExpiryElement className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
@@ -137,7 +135,7 @@ const Payment = () => {
                 htmlFor="cvv"
                 className="block text-sm font-medium text-gray-700"
               >
-                <IoMdKey className="inline-block mr-2" />
+                <IoMdKey className="inline-block mr-2 text-xl text-gray-500" />
                 CVV
               </label>
               <CardCvcElement className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300" />
@@ -147,7 +145,7 @@ const Payment = () => {
           <button
             ref={payBtn}
             type="submit"
-            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 font-semibold"
+            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 font-semibold transition-all duration-300"
           >
             Pay {TotalWithGST}
           </button>

@@ -45,7 +45,7 @@ const AdminDashboard = () => {
   };
 
   const doughnutState = {
-    labels: ["Out of stock", "InStock"],
+    labels: ["Out of stock", "In Stock"],
     datasets: [
       {
         backgroundColor: ["#00a6b4", "#640094"],
@@ -83,44 +83,45 @@ const AdminDashboard = () => {
       dispatch(clearError());
     }
   }, [usersError, alert, dispatch]);
+
   if (loading) {
     return <Loader />;
   }
 
   return (
-    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
-      <div className="col-span-1 flex items-center justify-center">
+    <div className="grid grid-cols-1 md:grid-cols-5 h-screen mt-24">
+      <div className="md:col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>
-      <div className="col-span-4 flex items-center justify-center flex-col gap-6 ">
-        <h2 className="text-slate-500 text-2xl">Dashboard</h2>
-        <p className="font-bold bg-blue-600 text-white p-6 w-1/2 text-center">
+      <div className="md:col-span-4 flex flex-col items-center justify-center gap-6 p-6">
+        <h2 className="text-slate-500 text-2xl mt-10">Dashboard</h2>
+        <p className="font-bold bg-blue-600 text-white p-2 md:p-6 md:w-1/2 text-center">
           Total Amount: {totalAmount}
         </p>
-        <div className="inline mt-5">
+        <div className="flex flex-wrap mt-5">
           <Link
             to={"/admin/products"}
-            className="p-5 mx-5 bg-red-500 text-white font-bold rounded-full"
+            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-red-500 text-white font-bold rounded-full"
           >
             Products: {products && products.length}
           </Link>
           <Link
             to={"/admin/orders"}
-            className="p-5 mx-5 bg-yellow-300 text-black font-bold rounded-full"
+            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-yellow-300 text-black font-bold rounded-full"
           >
             Orders: {orders && orders.length}
           </Link>
           <Link
             to={"/admin/users"}
-            className="p-5 mx-5 bg-gray-800 text-white font-bold rounded-full"
+            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-gray-800 text-white font-bold rounded-full"
           >
             Users: {users && users.length}
           </Link>
         </div>
-        <div className="w-[60%] mt-10">
+        <div className="w-full md:w-[60%] mt-10">
           <Line data={initialState} />
         </div>
-        <div className="">
+        <div className="w-full md:w-1/4 mt-6">
           <Doughnut data={doughnutState} />
         </div>
       </div>

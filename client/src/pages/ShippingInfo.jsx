@@ -57,11 +57,13 @@ const ShippingInfo = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center border border-red-500 flex-col">
+    <div className="w-full h-screen flex items-center justify-center flex-col mt-24">
       <CheckoutSteps activeStep={step} />
-      <div className="max-w-[50%] mx-auto p-6 bg-white shadow-md rounded-md border">
-        <h2 className="text-2xl font-semibold mb-8">Shipping Information</h2>
-        <form onSubmit={handleSubmit}>
+      <div className="w-[100%] mx-auto p-6 bg-white shadow-md rounded-md border">
+        <h2 className="text-2xl flex items-center justify-center font-semibold mb-8 text-[1rem] md:text-xl">
+          Shipping Information
+        </h2>
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
           <div className="mb-1 flex items-center justify-between gap-4 w-full px-2">
             <label
               htmlFor="address"

@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   IncreaseQuantity,
-  addToCart,
   DecreaseQuantity,
   removeFromCart,
 } from "../Redux/CartSlice";
@@ -12,11 +10,14 @@ import { useAlert } from "react-alert";
 const Cart = () => {
   const items = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.loading);
   const alert = useAlert();
 
   const increaseQuantity = (item) => {
-    dispatch(IncreaseQuantity(item));
+    if (item.stock <= item.quantity) {
+      alert.error("Out of stock");
+    } else {
+      dispatch(IncreaseQuantity(item));
+    }
   };
   const decreaseQuantity = (item) => {
     dispatch(DecreaseQuantity(item));

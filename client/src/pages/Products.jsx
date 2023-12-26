@@ -29,7 +29,7 @@ const Products = () => {
   const loading = productsData.loading;
   const [currentPage, setCurrentPage] = useState(1);
   const alert = useAlert(); // Initialize the hook
-  const [priceRange, setPriceRange] = useState([1000, 100000]);
+  const [priceRange, setPriceRange] = useState([1000, 200000]);
   const [productName, setProductName] = useState("");
   const categories = [
     "Laptops",
@@ -87,8 +87,6 @@ const Products = () => {
     keyword,
     activeCategory,
   ]);
-
-  console.log(productsData);
 
   return (
     <>
@@ -177,7 +175,7 @@ const Products = () => {
                 valueLabelDisplay="auto"
                 valueLabelFormat={(value) => `₹${value}`}
                 min={1000}
-                max={100000}
+                max={200000}
                 step={1000}
                 sx={{
                   color: "tomato", // Customize the color

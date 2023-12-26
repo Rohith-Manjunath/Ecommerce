@@ -49,21 +49,21 @@ const Orders = () => {
   }, [orderError, isDeleted, alert, deleteError, navigate, dispatch]);
 
   return (
-    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
-      <div className="col-span-1 flex items-center justify-center">
+    <div className="grid grid-cols-1 md:grid-cols-5 h-screen mt-24">
+      <div className="md:col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>
-      <div className="col-span-4 flex items-center justify-start flex-col gap-6">
-        <div className="col-span-4 flex items-center justify-start flex-col gap-6">
-          <h2 className="font-bold text-2xl">All Orders</h2>
+      <div className="md:col-span-4 flex flex-col items-center justify-start gap-6 p-6">
+        <h2 className="font-bold text-2xl">All Orders</h2>
 
-          {loading ? (
-            <Loader />
-          ) : orders && orders.length > 0 ? (
+        {loading ? (
+          <Loader />
+        ) : orders && orders.length > 0 ? (
+          <div className="overflow-x-auto max-w-full">
             <table className="w-full font-bold">
               <thead>
                 <tr
-                  className=" text-white"
+                  className="text-white"
                   style={{ backgroundColor: "tomato" }}
                 >
                   <th className="border px-4 py-2">Order ID</th>
@@ -106,12 +106,10 @@ const Orders = () => {
                 ))}
               </tbody>
             </table>
-          ) : (
-            <h2 className="text-2xl text-gray-500 font-bold">
-              No Orders Found
-            </h2>
-          )}
-        </div>
+          </div>
+        ) : (
+          <h2 className="text-2xl text-gray-500 font-bold">No Orders Found</h2>
+        )}
       </div>
     </div>
   );

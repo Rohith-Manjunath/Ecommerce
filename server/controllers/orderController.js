@@ -81,9 +81,11 @@ exports.udpateOrder = catchAsyncErrors(async (req, res, next) => {
     );
   }
 
-  order.orderItems.forEach(async (order) => {
-    await updateStock(order.product, order.quantity);
-  });
+  if (order.orderStatus === "Shipped") {
+    order.orderItems.forEach(async (orderItem) => {
+      await updateStock(orderItem.product, orderItem.quantity);
+    });
+  }
 
   order.orderStatus = req.body.status;
 

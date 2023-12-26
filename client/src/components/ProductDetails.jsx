@@ -171,7 +171,12 @@ const ProductDetails = () => {
                     )}
                     <div className="flex items-center justify-center gap-3">
                       <button
-                        className="bg-red-500 text-white p-2 rounded font-bold shadow-sm hover:bg-red-600 transition-all duration-300 "
+                        disabled={item && item.stock <= 0}
+                        className={`p-2 rounded font-bold shadow-sm ${
+                          item && item.stock <= 0
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed border"
+                            : "bg-red-500 text-white hover:bg-red-600 transition-all duration-300"
+                        }`}
                         onClick={() => AddtoCart(item)}
                       >
                         Add to Cart

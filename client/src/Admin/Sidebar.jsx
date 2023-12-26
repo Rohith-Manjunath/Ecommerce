@@ -22,7 +22,7 @@ const Sidebar = () => {
         height: "100%",
       }}
     >
-      <div className="flex items-center justify-center flex-col h-auto w-full font-bold text-gray-500 text-[14px] gap-12 ">
+      <div className="flex items-center justify-center flex-col h-auto font-bold text-gray-500 text-[14px] gap-12">
         <Link
           to={"/admin/dashboard"}
           className="sidebar-item flex items-center justify-center gap-2"

@@ -6,18 +6,21 @@ import Loader from "../layouts/Loader";
 import { GetSingleOrder } from "../Redux/SingleOrderSlice";
 
 const SIngleOrderDetails = () => {
-  const { item, loading, error } = useSelector((state) => state.singleorder);
-  const { shippingInfo } = item;
-  const dispatch = useDispatch();
   const params = useParams();
   const { id } = params;
+  const { loading, error } = useSelector((state) => state.singleorder);
+  const { orders } = useSelector((state) => state.myOrders);
+  const item = orders.find((order) => order._id === id);
+  const { shippingInfo } = item;
+  const dispatch = useDispatch();
+
   const alert = useAlert();
 
   useEffect(() => {
-    dispatch(GetSingleOrder({ id }));
     if (error) {
       alert.error(error);
     }
+    dispatch(GetSingleOrder(id));
   }, [dispatch, error, alert, id]);
 
   return (
@@ -68,10 +71,10 @@ const SIngleOrderDetails = () => {
             </h2>
             <div className="flex flex-col items-start justify-start gap-4">
               <p
-                className={`text-gray-700 ${
+                className={` ${
                   item.orderStatus === "Delivered"
                     ? "text-green-500"
-                    : "text-blue-400"
+                    : "text-blue-500"
                 } font-bold`}
               >
                 {item.orderStatus}
