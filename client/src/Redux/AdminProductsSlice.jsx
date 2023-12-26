@@ -166,10 +166,9 @@ export const UpdateProduct = createAsyncThunk(
         credentials: "include",
         method: "PUT",
         body: formData,
+
         headers: {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          "Content-Type": "multipart/form-data",
         },
       });
       response = await response.json();
