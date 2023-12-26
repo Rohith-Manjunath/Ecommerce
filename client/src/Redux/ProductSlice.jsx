@@ -9,7 +9,7 @@ export const fetchProducts = createAsyncThunk(
     {
       keyword = "",
       currentPage = 1,
-      priceRange = [1000, 100000],
+      priceRange = [1000, 200000],
       category = "",
       ratingsRange = [0, 5],
     },

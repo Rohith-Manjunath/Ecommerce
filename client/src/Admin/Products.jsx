@@ -55,17 +55,17 @@ const Products = () => {
   }, [isDeleted, alert, navigate, dispatch]);
 
   return (
-    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
-      <div className="col-span-1 flex items-center justify-center">
+    <div className="w-[100vw] h-screen md:grid md:grid-cols-5 pt-[7rem]">
+      <div className="col-span-1 flex items-center justify-center mb-20">
         <Sidebar />
       </div>
-      <div className="col-span-4 flex items-center justify-start flex-col gap-6 ">
-        <div className="col-span-4 flex items-center justify-start flex-col gap-6">
+      <div className="col-span-4 flex items-center justify-start flex-col gap-6 overflow-x-scroll">
+        <div className="col-span-4 flex items-center justify-start flex-col gap-6 mx-auto ">
           <h2 className="font-bold text-2xl">All Products</h2>
           {loading ? (
             <Loader />
           ) : products && products.length > 0 ? (
-            <table className="w-full font-bold">
+            <table className="w-full font-bold text-[12px] md:text-[15px]">
               <thead>
                 <tr
                   className=" text-white"

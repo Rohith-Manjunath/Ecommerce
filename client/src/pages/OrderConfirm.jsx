@@ -120,6 +120,7 @@ const OrderConfirm = () => {
 
           {/* Submit Button */}
           <button
+            onClick={NavigateToPayment}
             type="button"
             className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
           >

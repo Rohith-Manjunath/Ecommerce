@@ -79,7 +79,7 @@ export const loadUser = createAsyncThunk(
 
       return data;
     } catch (e) {
-      console.error({ message: e.message });
+      console.log({ message: e.message });
       return rejectWithValue({ message: e.message });
     }
   }

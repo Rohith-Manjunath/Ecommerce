@@ -23,8 +23,9 @@ const MyOrders = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-full h-screen p-20">
-          <table className="w-full border-collapse border">
+        <div className="w-full h-screen pt-20 sm:p-20 overflow-x-scroll">
+          <h2 className="font-bold text-xl mb-4 text-center">My Orders</h2>
+          <table className="w-full border-collapse border text-[12px] sm:text-[15px] font-bold">
             <thead>
               <tr className="border-b">
                 <th className="p-2 text-left">Order ID</th>

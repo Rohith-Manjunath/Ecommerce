@@ -1,5 +1,4 @@
 import Sidebar from "./Sidebar";
-import Chart from "chart.js/auto";
 import { useEffect } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,58 +44,63 @@ const Users = () => {
       dispatch(clearDeleteStatus());
     }
   }, [error, isDeleted, alert, deleteError, navigate, dispatch]);
+
   return (
-    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
-      <div className="col-span-1 flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center mt-24 md:flex-row">
+      <div className="flex items-center justify-center w-full md:w-[20%]">
         <Sidebar />
       </div>
-      <div className="col-span-4 flex items-center justify-start flex-col gap-6 ">
-        <div className="col-span-4 flex items-center justify-start flex-col gap-6">
-          <h2 className="font-bold text-2xl">All Users</h2>
+      <div className="flex items-center justify-start flex-col gap-6 mt-10 w-full md:w-[80%] overflow-x-scroll">
+        <div className="col-span-4 flex items-center justify-start flex-col gap-6 overflow-x-auto mx-auto">
+          <h2 className="font-bold text-2xl self-start md:self-center">
+            All Users
+          </h2>
           {loading ? (
             <Loader />
           ) : (
-            <table className="w-full font-bold">
-              <thead>
-                <tr
-                  className=" text-white"
-                  style={{ backgroundColor: "tomato" }}
-                >
-                  <th className="border px-4 py-2 ">User ID</th>
-                  <th className="border px-4 py-2 ">Email</th>
-                  <th className="border px-4 py-2 ">Role</th>
-                  <th className="border px-4 py-2 ">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((product) => (
-                  <tr key={product.id}>
-                    <td className="border px-4 py-2 ">{product._id}</td>
-                    <td className="border px-4 py-2 ">{product.email}</td>
-                    <td
-                      className={`border px-4 py-2 ${
-                        product.role === "admin"
-                          ? "text-green-500"
-                          : "text-blue-500"
-                      }`}
-                    >
-                      {product.role}
-                    </td>
-
-                    <td className="border px-4 py-2 flex items-center justify-center gap-2 text-[20px]">
-                      <Link to={`/admin/update/user/${product._id}`}>
-                        <MdEdit className="text-blue-700 z-[200]" />
-                      </Link>
-
-                      <MdDelete
-                        onClick={() => DeleteUser(product._id)}
-                        className="text-red-500 z-[200] hover:scale-120 transition-all duration-200 hover:cursor-pointer"
-                      />
-                    </td>
+            <div className="max-w-full">
+              <table className="w-full font-bold text-[12px] md:text-[15px]">
+                <thead>
+                  <tr
+                    className="text-white"
+                    style={{ backgroundColor: "tomato" }}
+                  >
+                    <th className="border px-4 py-2">User ID</th>
+                    <th className="border px-4 py-2">Email</th>
+                    <th className="border px-4 py-2">Role</th>
+                    <th className="border px-4 py-2">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user._id}>
+                      <td className="border px-4 py-2">{user._id}</td>
+                      <td className="border px-4 py-2">{user.email}</td>
+                      <td
+                        className={`border px-4 py-2 ${
+                          user.role === "admin"
+                            ? "text-green-500"
+                            : "text-blue-500"
+                        }`}
+                      >
+                        {user.role}
+                      </td>
+
+                      <td className="border px-4 py-2 flex items-center justify-center gap-2 text-[20px]">
+                        <Link to={`/admin/update/user/${user._id}`}>
+                          <MdEdit className="text-blue-700 z-[200]" />
+                        </Link>
+
+                        <MdDelete
+                          onClick={() => DeleteUser(user._id)}
+                          className="text-red-500 z-[200] hover:scale-120 transition-all duration-200 hover:cursor-pointer"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </div>

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const GetSingleOrder = createAsyncThunk(
   "order/singleOrder",
-  async ({ id }, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(`/api/orders/${id}`, {
         method: "GET",
