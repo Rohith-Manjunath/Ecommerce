@@ -16,9 +16,6 @@ export const OrdersDispatch = createAsyncThunk(
       let response = await fetch(`/api/orders/me`, {
         method: "GET",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
       let jsonData = await response.json();
       if (jsonData.success) {

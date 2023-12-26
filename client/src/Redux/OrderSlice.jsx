@@ -40,9 +40,6 @@ export const NewOrder = createAsyncThunk(
           orderStatus,
         }),
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
       let jsonData = await response.json();
 

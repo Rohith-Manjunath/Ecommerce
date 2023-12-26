@@ -10,9 +10,7 @@ export const PostReview = createAsyncThunk(
       let response = await fetch(`/api/review`, {
         method: "PUT",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         body: JSON.stringify(reviewData),
       });
       let jsonData = await response.json();

@@ -51,7 +51,6 @@ const App = () => {
   const getStripeKey = async () => {
     try {
       let response = await fetch("/api/getStripe", {
-        method: "GET",
         credentials: "include",
       });
       if (!response.ok)
