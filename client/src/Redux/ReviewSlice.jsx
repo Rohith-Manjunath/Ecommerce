@@ -5,15 +5,21 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 export const PostReview = createAsyncThunk(
   "review",
   async (reviewData, { rejectWithValue }) => {
-    console.log(reviewData);
     try {
+      const { productId, comment, rating } = reviewData;
+
+      const form = new FormData();
+      form.set("productId", productId);
+      form.set("comment", comment);
+      form.set("rating", rating);
+
       let response = await fetch(
         `https://ecommerce2-0.onrender.com/api/review`,
         {
           method: "PUT",
           credentials: "include",
 
-          body: JSON.stringify(reviewData),
+          body: form,
         }
       );
       let jsonData = await response.json();
