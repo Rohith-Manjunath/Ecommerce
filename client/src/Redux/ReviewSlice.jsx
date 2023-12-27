@@ -7,12 +7,15 @@ export const PostReview = createAsyncThunk(
   async (reviewData, { rejectWithValue }) => {
     console.log(reviewData);
     try {
-      let response = await fetch(`/api/review`, {
-        method: "PUT",
-        credentials: "include",
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/review`,
+        {
+          method: "PUT",
+          credentials: "include",
 
-        body: JSON.stringify(reviewData),
-      });
+          body: JSON.stringify(reviewData),
+        }
+      );
       let jsonData = await response.json();
 
       return jsonData;

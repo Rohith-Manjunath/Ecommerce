@@ -4,10 +4,13 @@ export const DeleteProductAdmin = createAsyncThunk(
   "product/delete",
   async (id, { rejectWithValue }) => {
     try {
-      let response = await fetch(`/api/product/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
       let jsonData = await response.json();
 
       return jsonData;
