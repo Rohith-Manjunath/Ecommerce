@@ -16,13 +16,14 @@ const ShippingInfo = () => {
     : {};
 
   const [formData, setFormData] = useState({
-    address: shippingInfoData.address,
-    state: shippingInfoData.state,
-    phoneNo: shippingInfoData.phoneNo,
-    pincode: shippingInfoData.pincode,
-    country: shippingInfoData.country,
-    city: shippingInfoData.city,
+    address: shippingInfoData.address || "",
+    state: shippingInfoData.state || "",
+    phoneNo: shippingInfoData.phoneNo || "",
+    pincode: shippingInfoData.pincode || "",
+    country: shippingInfoData.country || null, // Assuming country is selected from a dropdown
+    city: shippingInfoData.city || "",
   });
+
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
 
