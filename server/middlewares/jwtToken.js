@@ -1,11 +1,10 @@
 exports.jwtToken = async (message, statusCode, user, res) => {
   const token = await user.getJwtToken();
   const options = {
-    secure: true,
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+      Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true, //it is to prevent the access of cookie from browser console
+    httpOnly: true,
   };
 
   res.cookie("token", token, options).status(statusCode).json({
