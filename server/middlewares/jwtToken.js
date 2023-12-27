@@ -4,7 +4,8 @@ exports.jwtToken = async (message, statusCode, user, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true,
+    sameSite: "None", // Allow cross-domain cookies
+    httpOnly: true, // Only accessible via HTTP(S), not JS/browser access
   };
 
   res.cookie("token", token, options).status(statusCode).json({
