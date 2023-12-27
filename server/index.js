@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const cookie = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = {
-  origin: "https://ecommerce20.netlify.app/",
+  origin: "https://ecommerce20.netlify.app",
   credentials: true,
 };
 const fileUpload = require("express-fileupload");

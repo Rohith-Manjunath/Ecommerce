@@ -26,21 +26,24 @@ export const NewOrder = createAsyncThunk(
 
       const { status } = paymentInfo;
 
-      let response = await fetch(`/api/order/new`, {
-        method: "POST",
-        body: JSON.stringify({
-          shippingInfo,
-          phoneNo,
-          orderItems: mappedOrderItems,
-          paymentInfo: { id: "sample", status },
-          itemsPrice,
-          taxPrice,
-          shippingPrice,
-          totalPrice,
-          orderStatus,
-        }),
-        credentials: "include",
-      });
+      let response = await fetch(
+        `https://ecommerce2-0.onrender.com/api/order/new`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            shippingInfo,
+            phoneNo,
+            orderItems: mappedOrderItems,
+            paymentInfo: { id: "sample", status },
+            itemsPrice,
+            taxPrice,
+            shippingPrice,
+            totalPrice,
+            orderStatus,
+          }),
+          credentials: "include",
+        }
+      );
       let jsonData = await response.json();
 
       return jsonData;
