@@ -31,6 +31,8 @@ yarn-error.log
 # React build output
 /build
 /dist
+/server/config/config.env
+
 
 # IDE and editor-specific files (Optional, depending on your IDE/editor)
 .vscode/

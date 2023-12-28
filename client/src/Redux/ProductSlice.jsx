@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 // Create a unique key for storing data in local storage
 const LOCAL_STORAGE_KEY = "productsData";
@@ -40,9 +40,16 @@ const initialState = {
   error: null,
 };
 
+export const clearError = createAction("products/clearError");
+
 export const Slice = createSlice({
   name: "users",
   initialState,
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {

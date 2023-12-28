@@ -52,13 +52,11 @@ const Users = () => {
       </div>
       <div className="flex items-center justify-start flex-col gap-6 mt-10 w-full md:w-[80%] overflow-x-scroll">
         <div className="col-span-4 flex items-center justify-start flex-col gap-6 overflow-x-auto mx-auto">
-          <h2 className="font-bold text-2xl self-start md:self-center">
-            All Users
-          </h2>
+          <h2 className="font-bold text-2xl">All Users</h2>
           {loading ? (
             <Loader />
           ) : (
-            <div className="max-w-full">
+            <div className="w-screen overflow-x-auto md:w-full">
               <table className="w-full font-bold text-[12px] md:text-[15px]">
                 <thead>
                   <tr

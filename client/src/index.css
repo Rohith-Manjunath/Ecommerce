@@ -52,8 +52,7 @@ body,html{
     display: flex;
     justify-content: center;
     margin-top: 20px;
-    padding: 6vmax ;
-
+    padding: 6vmax;
   }
   
   /* Pagination Styles */
@@ -68,6 +67,7 @@ body,html{
     padding: 1rem;
     border: 1px solid grey;
     border-radius: 5px;
+    margin: 0 3px;
   }
   
   .page-item:hover {
@@ -88,11 +88,30 @@ body,html{
   .pageLinkActive {
     text-decoration: underline;
   }
-
+  
   .sidebar-item:hover {
     color: tomato;
     transition: all 0.3s ease-in-out;
     transform: scale(1.1);
   }
   
+  /* Responsive Styles for Small Devices */
+  @media only screen and (max-width: 767px) {
+    .paginationBox {
+      padding: 2vmax; /* Adjust the padding for small devices */
+    }
+  
+    .page-item {
+      font-size: 14px; /* Adjust the font size for small devices */
+      margin-right: 4px; /* Adjust the margin for small devices */
+    }
+  
+    .sidebar-item:hover {
+      transform: none; /* Remove the scale transform for small devices */
+    }
 
+    .page-item {
+      padding: 0.5rem;
+    }
+  }
+  

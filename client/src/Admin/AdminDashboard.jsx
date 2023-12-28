@@ -96,7 +96,7 @@ const AdminDashboard = () => {
       <div className="md:col-span-4 flex flex-col items-center justify-center gap-6 p-6">
         <h2 className="text-slate-500 text-2xl mt-10">Dashboard</h2>
         <p className="font-bold bg-blue-600 text-white p-2 md:p-6 md:w-1/2 text-center">
-          Total Amount: {totalAmount}
+          Total Amount: {totalAmount.toLocaleString("en-IN")}
         </p>
         <div className="flex flex-wrap mt-5">
           <Link
@@ -121,7 +121,7 @@ const AdminDashboard = () => {
         <div className="w-full md:w-[60%] mt-10">
           <Line data={initialState} />
         </div>
-        <div className="w-full md:w-1/4 mt-6">
+        <div className="w-[80%] md:w-1/4 mt-6">
           <Doughnut data={doughnutState} />
         </div>
       </div>
