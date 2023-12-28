@@ -26,18 +26,21 @@ const Products = () => {
 
   const dispatch = useDispatch();
   const productsData = useSelector((state) => state.products.products);
-  const loading = productsData.loading;
+  const { loading } = useSelector((state) => state.products);
   const [currentPage, setCurrentPage] = useState(1);
   const alert = useAlert(); // Initialize the hook
-  const [priceRange, setPriceRange] = useState([1000, 200000]);
+  const [priceRange, setPriceRange] = useState([10, 200000]);
   const [productName, setProductName] = useState("");
   const categories = [
     "Laptops",
     "Shoes",
-    "Outfits",
+    "Outfit",
     "Mobiles",
     "Music",
     "Games",
+    "Electronics",
+    "Clothing",
+    "Books",
   ];
   const [activeCategory, setActiveCategory] = useState("");
   const [ratingsRange, setRatingsRange] = useState([0, 5]); // Default ratings range
@@ -88,6 +91,10 @@ const Products = () => {
     activeCategory,
   ]);
 
+  if (loading) {
+    <Loader />;
+  }
+
   return (
     <>
       {loading ? (
@@ -115,7 +122,9 @@ const Products = () => {
                     <h3 className="text-xl font-semibold mb-2 w-full whitespace-nowrap overflow-hidden text-ellipsis">
                       {product.name}
                     </h3>
-                    <p className="text-gray-600 mb-2">{product.description}</p>
+                    <p className="text-gray-600 mb-2 w-full whitespace-nowrap text-ellipsis overflow-hidden">
+                      {product.description}
+                    </p>
                     <p className="text-green-600 font-semibold">
                       Price: &#x20B9;{product.price.toLocaleString("en-IN")}
                     </p>
@@ -174,7 +183,7 @@ const Products = () => {
                 onChange={handlePriceChange}
                 valueLabelDisplay="auto"
                 valueLabelFormat={(value) => `₹${value}`}
-                min={1000}
+                min={10}
                 max={200000}
                 step={1000}
                 sx={{

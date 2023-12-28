@@ -170,29 +170,14 @@ export const deleteUser = createAsyncThunk(
 
 export const UpdateProduct = createAsyncThunk(
   "admin/update",
-  async ({ finalData, id }, { rejectWithValue }) => {
-    const { name, stock, price, description, category, images } = finalData;
-    const formData = new FormData();
-    formData.set("name", name);
-    formData.set("stock", stock);
-    formData.set("price", price);
-    formData.set("description", description);
-    formData.set("category", category);
-    images.forEach((image) => {
-      formData.append("images", image);
-    });
-
+  async ({ myForm, id }, { rejectWithValue }) => {
     try {
       let response = await fetch(
         `https://ecommerce2-0.onrender.com/api/product/${id}`,
         {
           credentials: "include",
           method: "PUT",
-          body: formData,
-
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          body: myForm,
         }
       );
       response = await response.json();
@@ -318,16 +303,19 @@ export const updateReview = createAsyncThunk(
   "update/review",
   async ({ comment, rating, productId, reviewId }, { rejectWithValue }) => {
     try {
+      console.log({ comment, rating, productId, reviewId });
+
       const form = new FormData();
 
       form.set("comment", comment);
-      form.set("rating", rating);
+      form.set("rating", Number(rating));
 
       let data = await fetch(
         `https://ecommerce2-0.onrender.com/api/reviews?productId=${productId}&reviewId=${reviewId}`,
         {
           method: "PUT",
           credentials: "include",
+          body: form,
         }
       );
       data = await data.json();
@@ -354,6 +342,7 @@ export const clearError = createAction("admin/clearError");
 export const clearDeleteStatus = createAction("admin/clearDeleteStatus");
 export const clearUpdateStatus = createAction("admin/clearUpdateStatus");
 export const clearSuccess = createAction("admin/clearSuccess");
+export const clearReviewStatus = createAction("admin/clearReviews");
 
 export const AdminSlice = createSlice({
   name: "admin",
@@ -382,6 +371,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.products = products;
           state.loading = false;
@@ -399,6 +389,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.orders = orders;
           state.loading = false;
@@ -416,6 +407,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.users = users;
           state.loading = false;
@@ -430,6 +422,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.success = true;
@@ -450,6 +443,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.isDeleted = true;
@@ -467,6 +461,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.isDeleted = true;
@@ -484,6 +479,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.isDeleted = true;
@@ -519,6 +515,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.isUpdated = true;
@@ -536,6 +533,7 @@ export const AdminSlice = createSlice({
 
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.product = product;
@@ -552,6 +550,7 @@ export const AdminSlice = createSlice({
         const { success, err } = action.payload;
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.isUpdated = true;
@@ -568,6 +567,7 @@ export const AdminSlice = createSlice({
         const { success, err, reviews } = action.payload;
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
           state.reviews = reviews;
@@ -584,6 +584,7 @@ export const AdminSlice = createSlice({
         const { success, err } = action.payload;
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
         }
@@ -599,6 +600,7 @@ export const AdminSlice = createSlice({
         const { success, err } = action.payload;
         if (!success) {
           state.error = err;
+          state.loading = false;
         } else {
           state.loading = false;
         }
