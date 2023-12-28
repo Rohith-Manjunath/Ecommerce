@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../Redux/ProductSlice";
+import { clearError, fetchProducts } from "../Redux/ProductSlice";
 import Loader from "../layouts/Loader";
 import ReactStars from "react-rating-stars-component";
 import { Link, useParams } from "react-router-dom";
@@ -26,7 +26,7 @@ const Products = () => {
 
   const dispatch = useDispatch();
   const productsData = useSelector((state) => state.products.products);
-  const { loading } = useSelector((state) => state.products);
+  const { loading, error } = useSelector((state) => state.products);
   const [currentPage, setCurrentPage] = useState(1);
   const alert = useAlert(); // Initialize the hook
   const [priceRange, setPriceRange] = useState([10, 200000]);
@@ -80,6 +80,10 @@ const Products = () => {
         ratingsRange,
       })
     );
+    if (error) {
+      alert.error(error);
+      dispatch(clearError());
+    }
   }, [
     dispatch,
     currentPage,
@@ -89,6 +93,7 @@ const Products = () => {
     ratingsRange,
     keyword,
     activeCategory,
+    error,
   ]);
 
   if (loading) {
@@ -104,7 +109,7 @@ const Products = () => {
           {loading ? (
             <Loader />
           ) : (
-            <div className="flex flex-col sm:flex-row sm:justify-around items-start justify-center gap-5 flex-wrap w-[100%] mx-auto">
+            <div className="flex flex-col sm:flex-row sm:justify-around items-center sm:items-start justify-center gap-5 flex-wrap w-[100%] mx-auto">
               {productsData &&
               productsData.products &&
               productsData.products.length > 0 ? (

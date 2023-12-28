@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../Redux/userSlice";
+import { registerUser, resetError } from "../Redux/userSlice";
 import Loader from "../layouts/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
@@ -45,21 +45,11 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (message) {
-      alert.success(message, {
-        timeout: 5000,
-        type: "success",
-      });
-      setFormData({
-        email: "",
-        password: "",
-      });
+    if (error) {
+      alert.error(error);
+      resetError();
+    } else {
       navigate("/login");
-    } else if (error) {
-      alert.error(error, {
-        timeout: 5000,
-        type: "error",
-      });
     }
   }, [message, error, alert, navigate]);
 

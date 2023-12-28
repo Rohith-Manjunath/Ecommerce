@@ -22,7 +22,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
   const [productId, setProductId] = useState("");
@@ -162,7 +161,7 @@ const Reviews = () => {
                       <td className="px-6 py-3 text-sm border-b-2">
                         {review.name}
                       </td>
-                      <td className="px-6 py-3 text-sm border-b-2">
+                      <td className="px-6 py-3 text-sm border-b-2 max-h-[10px] overflow-auto">
                         {review.comment}
                       </td>
                       <td className="border px-4 py-2 flex items-center justify-center gap-3 text-[20px]">

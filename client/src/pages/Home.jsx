@@ -2,13 +2,13 @@ import { CiDesktopMouse1 } from "react-icons/ci";
 import Product from "../components/Product";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../Redux/ProductSlice";
+import { clearError, fetchProducts } from "../Redux/ProductSlice";
 import Loader from "../layouts/Loader";
 import { useAlert } from "react-alert"; // Import the hook
 
 const Home = () => {
   const { products } = useSelector((state) => state.products.products);
-  const { loading } = useSelector((state) => state.products);
+  const { loading, error } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
   const alert = useAlert(); // Initialize the hook
@@ -19,7 +19,12 @@ const Home = () => {
       // Show an alert if an error occurs
       alert.error(`Error: ${err.message}`);
     });
-  }, [dispatch, alert]);
+
+    if (error) {
+      alert.error(error);
+      dispatch(clearError());
+    }
+  }, [dispatch, alert, error]);
   // Check if products is undefined before mapping
   const productsToDisplay = products || [];
 

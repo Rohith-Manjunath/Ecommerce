@@ -247,6 +247,7 @@ const storedData = localStorage.getItem("userData");
 const auth = localStorage.getItem("auth");
 
 export const resetMessage = createAction("user/resetMessage");
+export const resetError = createAction("user/resetError");
 
 const initialState = {
   user: storedData ? JSON.parse(storedData) : {},
@@ -268,6 +269,9 @@ const userSlice = createSlice({
     },
     resetMessage: (state) => {
       state.message = "";
+    },
+    resetError: (state) => {
+      state.error = null;
     },
   },
   extraReducers: (builder) => {

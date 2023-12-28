@@ -114,15 +114,15 @@ const CreateProduct = () => {
   }, [createError, success, alert, dispatch, navigate]);
 
   return (
-    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
+    <div className="w-[100vw] h-screen sm:grid grid-cols-5 pt-[7rem]">
       <div className="col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>
       <div className="col-span-4 flex items-center justify-center flex-col gap-6 ">
-        <h2 className="text-2xl font-semibold mb-4 text-center">
+        <h2 className="text-2xl font-semibold mb-4 text-center mt-10">
           Create Product
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-2">
+        <form onSubmit={handleSubmit} className="space-y-2 w-[80%] pb-10">
           <TextField
             fullWidth
             label="Name"
