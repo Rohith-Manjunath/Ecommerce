@@ -22,6 +22,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
   const [productId, setProductId] = useState("");
@@ -74,7 +75,6 @@ const Reviews = () => {
     setOpen(false);
     alert.success("Review updated successfully");
     dispatch(updateReview({ comment: review, rating, productId, reviewId }));
-    console.log({ comment: review, rating, productId, reviewId });
   };
 
   useEffect(() => {

@@ -82,7 +82,18 @@ const ProductUpdate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(UpdateProduct({ finalData, id }));
+    const myForm = new FormData();
+
+    myForm.set("name", formData.name);
+    myForm.set("price", formData.price);
+    myForm.set("description", formData.description);
+    myForm.set("category", formData.category);
+    myForm.set("stock", formData.stock);
+
+    images.forEach((image) => {
+      myForm.append("images", image);
+    });
+    dispatch(UpdateProduct({ myForm, id }));
   };
 
   useEffect(() => {
