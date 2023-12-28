@@ -103,13 +103,13 @@ const Payment = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen p-4 md:p-24 flex-col">
-      <div className="max-w-md mx-auto bg-white p-8 rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold mb-4 text-orange-500">
+    <div className="flex items-center justify-center w-full h-screen p-4 md:p-24 flex-col ">
+      <div className="max-w-md mx-auto bg-white p-12 rounded-md shadow-md border border-slate-300">
+        <h2 className="text-2xl font-semibold mb-4" style={{ color: "tomato" }}>
           Payment Details
         </h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div className="mb-4">
             <label
               htmlFor="cardNumber"
@@ -146,11 +146,12 @@ const Payment = () => {
           </div>
 
           <button
+            style={{ backgroundColor: "tomato" }}
             ref={payBtn}
             type="submit"
-            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 font-semibold transition-all duration-300"
+            className="tracking-widest text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 font-semibold transition-all duration-300"
           >
-            Pay {TotalWithGST}
+            Pay {TotalWithGST.toLocaleString("en-IN")}
           </button>
         </form>
       </div>

@@ -223,18 +223,6 @@ export const getProductDetails = createAsyncThunk(
   }
 );
 
-const initialState = {
-  products: JSON.parse(localStorage.getItem("adminProducts")) || [],
-  orders: JSON.parse(localStorage.getItem("adminOrders")) || [],
-  users: JSON.parse(localStorage.getItem("adminUsers")) || [],
-  loading: false,
-  error: "",
-  success: false,
-  isDeleted: false,
-  isUpdated: false,
-  product: {},
-};
-
 export const updateOrderStatus = createAsyncThunk(
   "order/status/update",
   async ({ id, status }, { rejectWithValue }) => {
@@ -283,6 +271,85 @@ export const updateUserRole = createAsyncThunk(
   }
 );
 
+export const fetchReviews = createAsyncThunk(
+  "product/review",
+  async (id, { rejectWithValue }) => {
+    try {
+      let data = await fetch(
+        `https://ecommerce2-0.onrender.com/api/reviews?id=${id}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
+
+      data = await data.json();
+
+      return data;
+    } catch (e) {
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
+export const deleteReview = createAsyncThunk(
+  "delete/review",
+  async ({ productId, reviewId }, { rejectWithValue }) => {
+    console.log({ productId, reviewId });
+
+    try {
+      let data = await fetch(
+        `https://ecommerce2-0.onrender.com/api/reviews?productId=${productId}&id=${reviewId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      data = await data.json();
+      return data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
+export const updateReview = createAsyncThunk(
+  "update/review",
+  async ({ comment, rating, productId, reviewId }, { rejectWithValue }) => {
+    try {
+      const form = new FormData();
+
+      form.set("comment", comment);
+      form.set("rating", rating);
+
+      let data = await fetch(
+        `https://ecommerce2-0.onrender.com/api/reviews?productId=${productId}&reviewId=${reviewId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+        }
+      );
+      data = await data.json();
+      return data;
+    } catch (e) {
+      return rejectWithValue({ message: e.message });
+    }
+  }
+);
+
+const initialState = {
+  products: JSON.parse(localStorage.getItem("adminProducts")) || [],
+  orders: JSON.parse(localStorage.getItem("adminOrders")) || [],
+  users: JSON.parse(localStorage.getItem("adminUsers")) || [],
+  loading: false,
+  error: "",
+  success: false,
+  isDeleted: false,
+  isUpdated: false,
+  product: {},
+  reviews: [],
+};
 export const clearError = createAction("admin/clearError");
 export const clearDeleteStatus = createAction("admin/clearDeleteStatus");
 export const clearUpdateStatus = createAction("admin/clearUpdateStatus");
@@ -491,6 +558,52 @@ export const AdminSlice = createSlice({
         }
       })
       .addCase(updateOrderStatus.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchReviews.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchReviews.fulfilled, (state, action) => {
+        const { success, err, reviews } = action.payload;
+        if (!success) {
+          state.error = err;
+        } else {
+          state.loading = false;
+          state.reviews = reviews;
+        }
+      })
+      .addCase(fetchReviews.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      .addCase(deleteReview.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteReview.fulfilled, (state, action) => {
+        const { success, err } = action.payload;
+        if (!success) {
+          state.error = err;
+        } else {
+          state.loading = false;
+        }
+      })
+      .addCase(deleteReview.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      .addCase(updateReview.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateReview.fulfilled, (state, action) => {
+        const { success, err } = action.payload;
+        if (!success) {
+          state.error = err;
+        } else {
+          state.loading = false;
+        }
+      })
+      .addCase(updateReview.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
       });

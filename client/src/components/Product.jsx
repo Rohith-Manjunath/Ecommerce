@@ -13,7 +13,7 @@ const Product = ({ product }) => {
   return (
     <Link
       to={`/product/${product._id}`}
-      className="w-full sm:w-1/3 lg:w-1/4 xl:w-1/5 bg-white border p-3  rounded-lg flex items-center justify-center flex-col gap-4 hover:scale-110 transition-all duration-300 border-slate-300 "
+      className="w-full sm:w-1/2 lg:w-1/4 xl:w-1/5 bg-white border p-3  rounded-lg flex items-center justify-center flex-col gap-4 hover:scale-110 transition-all duration-300 border-slate-300 sm:h-[30rem]"
     >
       <img
         src={product.imageURLs[0].url}
@@ -24,7 +24,7 @@ const Product = ({ product }) => {
         {product.name}
       </h2>
       <p className="font-semibold text-[14px]">
-        Price : &#x20B9;{product.price}
+        Price : &#x20B9;{product.price.toLocaleString("en-IN")}
       </p>
       <p className="font-semibold text-[14px]">Ratings : {product.ratings}</p>
 

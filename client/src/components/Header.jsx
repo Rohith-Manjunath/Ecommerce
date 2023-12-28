@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="px-4 py-4 bg-slate-400 flex items-center justify-between text-white fixed top-0 w-full z-50">
+    <header className="px-4 py-4 bg-gray-500 flex items-center justify-between text-white fixed top-0 w-screen z-50">
       <NavLink to={"/"}>
         <h1 className="ecommerce font-bold text-white text-3xl hover:text-green-300 transition-all duration-300 hover:cursor-pointer">
           {" "}
@@ -60,7 +60,10 @@ const Header = () => {
         <li className="hover:text-green-300 transition-all duration-300">
           <NavLink to={"/cart"} className="relative">
             <IoBagHandleSharp className="text-2xl" />
-            <span className="absolute bg-red-600 px-2 rounded-full -top-[0.5rem] -right-[0.8rem]">
+            <span
+              style={{ backgroundColor: "tomato" }}
+              className="absolute px-2 rounded-full -top-[0.5rem] -right-[0.8rem]"
+            >
               {items.length}
             </span>
           </NavLink>
@@ -73,7 +76,7 @@ const Header = () => {
       </ul>
 
       <ul
-        className={`flex flex-col items-center justify-evenly absolute left-0 top-[4.3rem] bg-slate-400 w-screen h-[55vh] z-10 ${
+        className={`flex flex-col items-center justify-evenly absolute left-0 top-[4.3rem] bg-gray-500 w-screen h-[55vh] z-10 ${
           show ? "translate-x-[0%]" : "-translate-x-[100%]"
         } transition-all duration-300 md:hidden`}
       >
@@ -103,7 +106,7 @@ const Header = () => {
         </li>
       </ul>
       <ul
-        className={`absolute left-0 top-[22.8rem] z-10 w-screen h-[11rem] flex items-center justify-evenly flex-col bg-slate-400 ${
+        className={`font-bold absolute left-0 top-[22.8rem] z-10 w-screen h-[45vh] flex items-center justify-evenly flex-col bg-gray-500 ${
           show ? "translate-x-[0%]" : "-translate-x-[100%]"
         } transition-all duration-300 md:hidden`}
       >
@@ -127,7 +130,7 @@ const Header = () => {
           className="hover:text-green-300 transition-all duration-300"
           onClick={toggleNavbar}
         >
-          <NavLink className={"/login"}>
+          <NavLink to={"/login"}>
             <LuUserSquare className="text-xl" />
           </NavLink>
         </li>

@@ -172,8 +172,9 @@ const ShippingInfo = () => {
           </div>
 
           <button
+            style={{ backgroundColor: "tomato" }}
             type="submit"
-            className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 w-full mt-3 font-bold tracking-widest"
+            className=" text-white py-2 px-4 rounded-md transition duration-300 w-full mt-3 font-bold tracking-widest"
           >
             Submit
           </button>

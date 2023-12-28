@@ -44,7 +44,6 @@ const App = () => {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   useEffect(() => {
-    store.dispatch(loadUser());
     getStripeKey();
   }, []);
 

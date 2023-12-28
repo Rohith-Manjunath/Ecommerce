@@ -77,7 +77,8 @@ const OrderConfirm = () => {
                   <span>
                     {item.quantity} x {item.price} ={" "}
                     <span className="font-semibold">
-                      {item.price * item.quantity}
+                      &#8377;
+                      {(item.price * item.quantity).toLocaleString("en-IN")}
                     </span>
                   </span>
                 </div>
@@ -93,28 +94,30 @@ const OrderConfirm = () => {
           {/* Subtotal */}
           <div className="flex justify-between mb-2 w-full">
             <span>Subtotal:</span>
-            <span>&#8377;{TotalPrice}</span>{" "}
+            <span>&#8377;{TotalPrice.toLocaleString("en-IN")}</span>{" "}
             {/* Replace with your actual subtotal value */}
           </div>
 
           {/* Shipping Charges */}
           <div className="flex justify-between mb-2 w-full">
             <span>Shipping Charges:</span>
-            <span>&#8377;{shippingCharges}</span>{" "}
+            <span>&#8377;{shippingCharges.toLocaleString("en-IN")}</span>{" "}
             {/* Replace with your actual shipping charges value */}
           </div>
 
           {/* GST */}
           <div className="flex justify-between mb-2 w-full">
             <span>GST (18%):</span>
-            <span>&#8377;{GSTAmount}</span>{" "}
+            <span>&#8377;{GSTAmount.toLocaleString("en-IN")}</span>{" "}
             {/* Replace with your actual GST value */}
           </div>
 
           {/* Total */}
           <div className="flex justify-between mb-4 w-full">
             <span className="font-semibold">Total:</span>
-            <span className="font-semibold">{TotalWithGST}</span>{" "}
+            <span className="font-semibold">
+              {TotalWithGST.toLocaleString("en-IN")}
+            </span>{" "}
             {/* Replace with your actual total value */}
           </div>
 
@@ -136,36 +139,40 @@ const OrderConfirm = () => {
           {/* Subtotal */}
           <div className="flex justify-between mb-2 w-full">
             <span>Subtotal:</span>
-            <span>&#8377;{TotalPrice}</span>{" "}
+            <span>&#8377;{TotalPrice.toLocaleString("en-IN")}</span>{" "}
             {/* Replace with your actual subtotal value */}
           </div>
 
           {/* Shipping Charges */}
           <div className="flex justify-between mb-2 w-full">
             <span>Shipping Charges:</span>
-            <span>&#8377;{shippingCharges}</span>{" "}
+            <span>&#8377;{shippingCharges.toLocaleString("en-IN")}</span>{" "}
             {/* Replace with your actual shipping charges value */}
           </div>
 
           {/* GST */}
           <div className="flex justify-between mb-2 w-full">
             <span>GST (18%):</span>
-            <span>&#8377;{GSTAmount}</span>{" "}
+            <span>&#8377;{GSTAmount.toLocaleString("en-IN")}</span>{" "}
             {/* Replace with your actual GST value */}
           </div>
 
           {/* Total */}
           <div className="flex justify-between mb-4 w-full">
             <span className="font-semibold">Total:</span>
-            <span className="font-semibold">{TotalWithGST}</span>{" "}
+            <span className="font-semibold">
+              {" "}
+              {TotalWithGST.toLocaleString("en-IN")}
+            </span>{" "}
             {/* Replace with your actual total value */}
           </div>
 
           {/* Submit Button */}
           <button
+            style={{ backgroundColor: "tomato" }}
             onClick={NavigateToPayment}
             type="button"
-            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
+            className="font-bold tracking-widest text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
           >
             Proceed to payment
           </button>
