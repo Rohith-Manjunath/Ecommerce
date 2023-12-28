@@ -166,7 +166,7 @@ const ProductDetails = () => {
                     </div>
                     {item && (
                       <h3 className="text-xl font-bold">
-                        &#x20B9;{item.price}
+                        &#x20B9;{item.price.toLocaleString("en-IN")}
                       </h3>
                     )}
                     <div className="flex items-center justify-center gap-3">

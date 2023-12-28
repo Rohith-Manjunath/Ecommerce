@@ -58,7 +58,7 @@ export default function UserOptions({ user }) {
       sx={{
         position: "fixed", // Change to "fixed" for a consistent position
         top: "5rem",
-        right: "3rem",
+        right: "1rem",
         zIndex: 100,
       }}
     >

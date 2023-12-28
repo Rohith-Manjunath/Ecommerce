@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "../layouts/Loader";
 import { useEffect } from "react";
 import { loadUser } from "../Redux/userSlice";
@@ -7,15 +7,10 @@ import { loadUser } from "../Redux/userSlice";
 const Profile = () => {
   const { user, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  const handleUpdateProfile = () => {
-    // Add logic to navigate to the update profile page
-    console.log("Navigate to update profile page");
-  };
+  const navigate = useNavigate();
 
   const handleMyOrders = () => {
-    // Add logic to navigate to the my orders page
-    console.log("Navigate to my orders page");
+    navigate("/myorders");
   };
 
   useEffect(() => {
@@ -55,7 +50,10 @@ const Profile = () => {
               </span>
             </span>
             <div className="flex w-full items-center justify-center gap-5">
-              <button className="p-2 w-1/3 bg-slate-700 text-white font-semibold rounded-sm">
+              <button
+                onClick={handleMyOrders}
+                className="p-2 w-1/3 bg-slate-700 text-white font-semibold rounded-sm"
+              >
                 Orders
               </button>
               <Link

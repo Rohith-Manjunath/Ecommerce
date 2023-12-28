@@ -61,7 +61,7 @@ const SIngleOrderDetails = () => {
 
               <p className="text-gray-700">
                 <span className="font-bold text-black ">Amount : </span>
-                &#8377;{item.totalPrice}
+                &#8377;{item.totalPrice.toLocaleString("en-IN")}
               </p>
             </div>
           </div>
@@ -102,8 +102,11 @@ const SIngleOrderDetails = () => {
                   className="w-[6rem] h-[7rem] rounded-md"
                 />
                 <p className="font-bold">
-                  {orderItem.quantity} x {orderItem.price} ={" "}
-                  {orderItem.quantity * orderItem.price}
+                  {orderItem.quantity} x{" "}
+                  {orderItem.price.toLocaleString("en-IN")} = &#8377;
+                  {(orderItem.quantity * orderItem.price).toLocaleString(
+                    "en-IN"
+                  )}
                 </p>
               </div>
             ))}

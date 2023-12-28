@@ -117,7 +117,7 @@ const Products = () => {
                     </h3>
                     <p className="text-gray-600 mb-2">{product.description}</p>
                     <p className="text-green-600 font-semibold">
-                      Price: &#x20B9;{product.price}
+                      Price: &#x20B9;{product.price.toLocaleString("en-IN")}
                     </p>
                     <div className="flex flex-col md:flex-row gap-2 items-center justify-center">
                       <ReactStars {...options} value={product.ratings} />

@@ -58,7 +58,7 @@ const Cart = () => {
                   <div className="flex items-start justify-center flex-col gap-1">
                     <p className="text-green-600 font-bold">{item.name}</p>
                     <span className="text-red-600 font-bold">
-                      Price : ₹{item.price}
+                      Price : ₹{item.price.toLocaleString("en-IN")}
                     </span>
                   </div>
                   <div className="flex items-center justify-center gap-3">
@@ -76,7 +76,8 @@ const Cart = () => {
                       -
                     </button>
                     <button
-                      className="font-bold bg-red-600 px-2 py-1 rounded-sm text-white transition-all duration-300 hover:scale-105 active:scale-95"
+                      style={{ backgroundColor: "tomato" }}
+                      className="font-bold px-2 py-1 rounded-sm text-white transition-all duration-300 hover:scale-105 active:scale-95"
                       onClick={() => RemoveFromCart(item)}
                     >
                       Remove
@@ -88,11 +89,12 @@ const Cart = () => {
           })}
           <div className="flex items-end justify-end flex-col gap-4 pb-5">
             <h2 className="text-end border-t-2 border-t-slate-300 mt-3 pt-2 pr-2 font-bold">
-              Total : ₹{TotalPrice}
+              Total : ₹{TotalPrice.toLocaleString("en-IN")}
             </h2>
             <Link
               to={"/shipping"}
-              className="bg-orange-500 text-white p-2 rounded-sm font-bold tracking-wider transition-all duration-300 hover:bg-blue-500 hover:scale-105"
+              style={{ backgroundColor: "tomato" }}
+              className="text-white p-2 rounded-sm font-bold tracking-wider transition-all duration-300 hover:bg-blue-500 hover:scale-105"
             >
               Proceed to pay
             </Link>

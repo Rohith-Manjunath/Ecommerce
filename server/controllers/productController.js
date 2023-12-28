@@ -226,3 +226,44 @@ exports.deleteProductReview = catchAsyncErrors(async (req, res, next) => {
     message: "Review deleted successfully!",
   });
 });
+
+exports.updateReview = catchAsyncErrors(async (req, res, next) => {
+  const { productId, reviewId } = req.query;
+  const { comment, rating } = req.body;
+  const product = await Product.findById(productId);
+
+  if (!product) {
+    return next(new ErrorHandler("The product is not available", 404));
+  }
+
+  const review = product.reviews.find((rev) => {
+    return rev._id.toString() === reviewId.toString();
+  });
+  if (!review) {
+    return next(
+      new ErrorHandler(`This review does not belong to the product`, 404)
+    );
+  }
+
+  review.comment = comment;
+  review.rating = parseFloat(rating);
+
+  await product.save();
+
+  // Recalculate the overall product rating
+  const totalRatings = product.reviews.reduce(
+    (sum, rev) => sum + rev.rating,
+    0
+  );
+  const overallRating = totalRatings / product.reviews.length;
+
+  // Update the product's overall rating
+  product.ratings = overallRating;
+
+  await product.save();
+
+  res.status(201).json({
+    success: true,
+    message: "Review upadted successfully",
+  });
+});
