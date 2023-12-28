@@ -1,6 +1,6 @@
 import { CiDesktopMouse1 } from "react-icons/ci";
 import Product from "../components/Product";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
 import Loader from "../layouts/Loader";
@@ -8,8 +8,7 @@ import { useAlert } from "react-alert"; // Import the hook
 
 const Home = () => {
   const { products } = useSelector((state) => state.products.products);
-
-  const loading = useSelector((state) => state.loading);
+  const { loading } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
   const alert = useAlert(); // Initialize the hook
@@ -23,6 +22,10 @@ const Home = () => {
   }, [dispatch, alert]);
   // Check if products is undefined before mapping
   const productsToDisplay = products || [];
+
+  if (loading) {
+    <Loader />;
+  }
 
   return (
     <div className="w-full h-auto overflow-scroll flex items-center justify-center flex-col gap-10 banner relative">
@@ -44,7 +47,7 @@ const Home = () => {
         Featured Products
       </h2>
       <div
-        className="flex flex-col items-start justify-evenly w-[90%] gap-5 sm:flex-row sm:flex-wrap"
+        className="flex flex-col items-start justify-evenly w-[90%] gap-5 sm:flex-row sm:flex-wrap h-auto p-10"
         id="container"
       >
         {!loading ? (

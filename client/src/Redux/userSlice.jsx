@@ -17,9 +17,6 @@ export const registerUser = createAsyncThunk(
         {
           method: "POST",
           body: formDataFile,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
         }
       );
 

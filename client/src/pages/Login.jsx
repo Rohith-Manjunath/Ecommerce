@@ -1,9 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Loader from "../layouts/Loader";
 import { loginUser, resetMessage } from "../Redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +31,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
     dispatch(loginUser({ formData }));
   };
 
@@ -69,48 +70,42 @@ const Login = () => {
             onSubmit={handleSubmit}
           >
             <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-gray-800 text-lg font-semibold mb-2"
-              >
-                Email
-              </label>
-              <input
+              <TextField
+                fullWidth
                 id="email"
+                label="Email"
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-[16px]"
-                placeholder="Enter your email"
+                variant="outlined"
+                size="small"
                 required
               />
             </div>
             <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-gray-800 text-lg font-semibold mb-2"
-              >
-                Password
-              </label>
-              <input
+              <TextField
+                fullWidth
                 id="password"
+                label="Password"
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-[16px]"
-                placeholder="Enter your password"
+                variant="outlined"
+                size="small"
                 required
               />
             </div>
             <div className="flex items-center justify-between">
-              <button
+              <Button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline text-[16px]"
+                variant="contained"
+                color="primary"
+                size="large"
               >
                 Login
-              </button>
+              </Button>
             </div>
             <div className="mt-5 flex items-start justify-center flex-col gap-3">
               <Link

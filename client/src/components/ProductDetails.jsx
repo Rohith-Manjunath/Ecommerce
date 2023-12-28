@@ -193,7 +193,9 @@ const ProductDetails = () => {
                       </span>
                     )}
                     {item && (
-                      <p className="text-slate-600">{item.description}</p>
+                      <p className="text-slate-600 max-h-[200px] overflow-auto">
+                        {item.description}
+                      </p>
                     )}
                     <div className="flex items-center justify-center gap-4">
                       <a

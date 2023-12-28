@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { forgotPassword } from "../Redux/userSlice";
 import Loader from "../layouts/Loader";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -11,24 +13,28 @@ const ForgotPassword = () => {
   const { loading } = useSelector((state) => state.user);
   const alert = useAlert();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(forgotPassword({ email }));
   };
+
   useEffect(() => {
     if (message) {
       alert.success(message, {
         timeout: 5000,
         type: "success",
       });
+      // Optionally, navigate to a different page after successful submission
+      navigate("/login");
     } else if (error) {
       alert.error(error, {
         timeout: 5000,
         type: "error",
       });
     }
-  }, [message, error, alert]);
+  }, [message, error, alert, navigate]);
 
   return (
     <>
@@ -41,29 +47,27 @@ const ForgotPassword = () => {
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-600"
-                >
-                  Email Address
-                </label>
-                <input
-                  type="email"
+                <TextField
+                  fullWidth
                   id="email"
-                  name="email"
+                  label="Email Address"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-1 p-2 w-full border rounded-md"
+                  variant="outlined"
+                  size="small"
                   required
                 />
               </div>
 
-              <button
+              <Button
                 type="submit"
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+                variant="contained"
+                color="primary"
+                className="hover:bg-blue-600 transition duration-300"
               >
                 Send
-              </button>
+              </Button>
             </form>
           </div>
         </div>
