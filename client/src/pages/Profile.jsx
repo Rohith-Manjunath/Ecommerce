@@ -22,7 +22,7 @@ const Profile = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-[80vw] h-[80vh] flex items-center justify-center mx-auto border shadow-lg mt-[6rem] rounded-md">
+        <div className="w-[80vw] h-auto md:h-[80vh] flex flex-col md:flex-row items-center justify-center mx-auto border shadow-lg mt-[6rem] rounded-md">
           <div className="w-1/2 h-full flex items-center justify-center flex-col gap-5">
             <img
               src={user.avatar.url}
@@ -31,12 +31,12 @@ const Profile = () => {
             />
             <Link
               to={"/update/profile"}
-              className="bg-orange-500 text-center text-white rounded-sm p-2 font-semibold w-1/2"
+              className="bg-orange-500 text-center text-white rounded-sm p-2 font-semibold w-full md:w-1/2"
             >
               Update Profile
             </Link>
           </div>
-          <div className="w-1/2 h-full flex items-center justify-center gap-5 flex-col">
+          <div className="md:w-1/2 h-full flex items-center justify-center gap-5 flex-col mt-10">
             <h3 className="font-semibold">
               Full Name : <span className="text-slate-500">{user.name}</span>
             </h3>
@@ -58,7 +58,7 @@ const Profile = () => {
               </button>
               <Link
                 to={"/update/password"}
-                className=" text-center p-2 w-1/3 bg-slate-700 text-white font-semibold rounded-sm"
+                className=" text-center p-2 w-full bg-slate-700 text-white font-semibold rounded-sm"
               >
                 Update Password
               </Link>

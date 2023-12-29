@@ -282,15 +282,13 @@ const userSlice = createSlice({
         state.success = false;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        const { user, err, message } = action.payload;
+        const { err } = action.payload;
 
         if (err) {
           state.error = err;
           state.loading = false;
         } else {
           state.isAuthenticated = false;
-          state.user = user;
-          state.message = message;
           state.loading = false;
           state.success = true;
         }
