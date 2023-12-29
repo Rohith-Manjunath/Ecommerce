@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
+import MetaData from "../layouts/MetaData";
 
 const Register = () => {
   const { error, success, loading } = useSelector((state) => state.user);
@@ -60,6 +61,8 @@ const Register = () => {
         <Loader />
       ) : (
         <div className="flex items-center justify-center h-screen">
+          <MetaData title="Register" />
+
           <form
             className="bg-white p-8 rounded shadow-md w-full sm:w-1/2 lg:w-1/3 mt-auto"
             onSubmit={handleSubmit}

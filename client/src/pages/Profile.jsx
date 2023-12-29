@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../layouts/Loader";
 import { useEffect } from "react";
 import { loadUser } from "../Redux/userSlice";
+import MetaData from "../layouts/MetaData";
 
 const Profile = () => {
   const { user, loading } = useSelector((state) => state.user);
@@ -22,12 +23,14 @@ const Profile = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="w-[80vw] h-auto md:h-[80vh] flex flex-col md:flex-row items-center justify-center mx-auto border shadow-lg mt-[6rem] rounded-md">
+        <div className="w-full p-5  h-auto md:h-[80vh] flex flex-col md:flex-row items-center justify-center mx-auto border shadow-lg mt-[6rem] rounded-md">
+          <MetaData title="User Profile" />
+
           <div className="w-1/2 h-full flex items-center justify-center flex-col gap-5">
             <img
               src={user.avatar.url}
               alt=""
-              className="w-[10rem] h-[10rem] rounded-full"
+              className="w-[10rem] md:w-[12rem] rounded-full"
             />
             <Link
               to={"/update/profile"}
@@ -36,12 +39,15 @@ const Profile = () => {
               Update Profile
             </Link>
           </div>
-          <div className="md:w-1/2 h-full flex items-center justify-center gap-5 flex-col mt-10">
+          <div className="md:w-1/2 h-full flex items-start justify-center gap-5 flex-col mt-10 md:mt-0">
             <h3 className="font-semibold">
               Full Name : <span className="text-slate-500">{user.name}</span>
             </h3>
             <p className="font-semibold">
-              Email : <span className="text-slate-500">{user.email}</span>
+              Email :{" "}
+              <span className="text-slate-500 text-center text-[14px]">
+                {user.email}
+              </span>
             </p>
             <span>
               Joined on:{" "}

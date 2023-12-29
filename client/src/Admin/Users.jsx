@@ -11,6 +11,7 @@ import {
   deleteUser,
   fetchUsersAdmin,
 } from "../Redux/AdminProductsSlice";
+import MetaData from "../layouts/MetaData";
 
 const Users = () => {
   const { error, loading, users } = useSelector((state) => state.admin);
@@ -47,6 +48,8 @@ const Users = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-24 md:flex-row">
+      <MetaData title="Admin - All Users" />
+
       <div className="flex items-center justify-center w-full md:w-[20%]">
         <Sidebar />
       </div>

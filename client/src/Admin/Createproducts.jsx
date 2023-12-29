@@ -10,6 +10,7 @@ import {
   clearSuccess,
 } from "../Redux/AdminProductsSlice";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../layouts/MetaData";
 
 const CreateProduct = () => {
   const [formData, setFormData] = useState({
@@ -115,6 +116,8 @@ const CreateProduct = () => {
 
   return (
     <div className="w-[100vw] h-screen sm:grid grid-cols-5 pt-[7rem]">
+      <MetaData title="Dashboard - Create Product" />
+
       <div className="col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>

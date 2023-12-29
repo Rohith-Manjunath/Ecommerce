@@ -6,6 +6,7 @@ import { loginUser, resetMessage } from "../Redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import MetaData from "../layouts/MetaData";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -65,6 +66,8 @@ const Login = () => {
         <Loader />
       ) : (
         <div className="flex items-center justify-center h-screen bg-gray-100">
+          <MetaData title="Login" />
+
           <form
             className="bg-white p-8 rounded shadow-md w-full sm:w-1/2 lg:w-1/3"
             onSubmit={handleSubmit}

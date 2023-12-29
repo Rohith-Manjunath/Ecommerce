@@ -9,6 +9,7 @@ import {
   clearUpdateStatus,
   updateOrderStatus,
 } from "../Redux/AdminProductsSlice";
+import MetaData from "../layouts/MetaData";
 
 const OrderUpdate = () => {
   const { orders, loading, error, isUpdated } = useSelector(
@@ -49,6 +50,8 @@ const OrderUpdate = () => {
 
   return (
     <div className="w-[100vw] h-screen grid grid-cols-7 pt-[7rem]">
+      <MetaData title="Admin - Order Update" />
+
       <div className="col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>

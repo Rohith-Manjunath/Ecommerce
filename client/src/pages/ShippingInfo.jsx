@@ -9,6 +9,7 @@ import { FaPhone } from "react-icons/fa";
 import { FaPersonWalkingArrowRight } from "react-icons/fa6";
 import CheckoutSteps from "../layouts/CheckoutSteps";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../layouts/MetaData";
 
 const ShippingInfo = () => {
   const shippingInfoData = JSON.parse(localStorage.getItem("shippingInfo"))
@@ -59,6 +60,8 @@ const ShippingInfo = () => {
 
   return (
     <div className="w-full h-screen flex items-center justify-center flex-col mt-24">
+      <MetaData title="Shipping Info" />
+
       <CheckoutSteps activeStep={step} />
       <div className="w-[100%] mx-auto p-6 bg-white shadow-md rounded-md border">
         <h2 className="text-2xl flex items-center justify-center font-semibold mb-8 text-[1rem] md:text-xl">

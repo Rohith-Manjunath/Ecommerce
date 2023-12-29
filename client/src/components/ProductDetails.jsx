@@ -1,5 +1,4 @@
 import ReactStars from "react-rating-stars-component";
-import { LuUserSquare } from "react-icons/lu";
 import Loader from "../layouts/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,6 +15,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { PostReview, updateSuccess } from "../Redux/ReviewSlice";
+import MetaData from "../layouts/MetaData";
 
 const ProductDetails = () => {
   const options = {
@@ -150,6 +150,8 @@ const ProductDetails = () => {
               </>
 
               <div className="product-details sm:w-screen sm:h-screen flex items-center justify-center mt-[10rem] sm:mt-0">
+                <MetaData title="Product Details" />
+
                 <div className="border border-slate-300 rounded-lg sm:w-screen sm:h-screen flex flex-col items-center justify-center p-5 sm:flex-row ">
                   <div className="w-full sm:w-1/2  h-1/2 sm:h-full flex items-center justify-center">
                     {item && item.imageURLs[0] && (
@@ -234,38 +236,40 @@ const ProductDetails = () => {
                   Reviews
                 </h2>
                 {item && item.reviews.length > 0 ? (
-                  <div className="w-full flex flex-col sm:flex-row overflow-x-auto gap-5">
-                    {item.reviews.map((rev) => (
-                      <div
-                        className="flex flex-col items-center justify-center md:justify-start gap-2 border p-4 rounded-lg w-full sm:w-1/3"
-                        key={rev._id}
-                      >
-                        <h2 className="font-bold tracking-wider flex items-center justify-center">
-                          <img
-                            src={rev.image}
-                            alt=""
-                            className="w-12 h-12 rounded-full"
-                          />
-                        </h2>
-                        <h3 className="font-bold text-center">{rev.name}</h3>
-                        <ReactStars {...options} value={rev.rating} />
-                        <p
-                          className={`line-clamp-3 ${
-                            showFullComments ? "" : "line-clamp-2"
-                          }`}
+                  <div className="max-h-[300px] overflow-y-scroll w-full">
+                    <div className="w-full flex flex-col items-center justify-center overflow-x-auto gap-5 ">
+                      {item.reviews.map((rev) => (
+                        <div
+                          className="flex flex-col items-center justify-center md:justify-start gap-2 border p-4 rounded-lg w-full sm:w-1/3"
+                          key={rev._id}
                         >
-                          {rev.comment}
-                        </p>
-                        {!showFullComments && rev.comment.length > 40 && (
-                          <button
-                            className="text-blue-500 underline"
-                            onClick={() => setShowFullComments(true)}
+                          <h2 className="font-bold tracking-wider flex items-center justify-center">
+                            <img
+                              src={rev.image}
+                              alt=""
+                              className="w-12 h-12 rounded-full"
+                            />
+                          </h2>
+                          <h3 className="font-bold text-center">{rev.name}</h3>
+                          <ReactStars {...options} value={rev.rating} />
+                          <div
+                            className={`max-h-20 overflow-hidden ${
+                              showFullComments ? "" : "line-clamp-2"
+                            }`}
                           >
-                            Show more
-                          </button>
-                        )}
-                      </div>
-                    ))}
+                            <p className="text-center">{rev.comment}</p>
+                          </div>
+                          {!showFullComments && rev.comment.length > 20 && (
+                            <button
+                              className="text-blue-500 underline"
+                              onClick={() => setShowFullComments(true)}
+                            >
+                              Show more
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   <h2 className="text-xl text-slate-400">No Reviews yet</h2>

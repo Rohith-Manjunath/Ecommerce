@@ -22,6 +22,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import MetaData from "../layouts/MetaData";
 
 const Reviews = () => {
   const [productId, setProductId] = useState("");
@@ -107,6 +108,8 @@ const Reviews = () => {
 
   return (
     <div className="md:grid grid-cols-10 h-screen w-screen">
+      <MetaData title="Admin - All Reviews" />
+
       <div className="col-span-2 flex items-center justify-center h-full border border-r-gray-300 pt-[7rem]">
         <Sidebar />
       </div>

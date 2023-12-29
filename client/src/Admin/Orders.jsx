@@ -11,6 +11,7 @@ import {
   fetchOrdersAdmin,
 } from "../Redux/AdminProductsSlice";
 import Loader from "../layouts/Loader";
+import MetaData from "../layouts/MetaData";
 
 const Orders = () => {
   const {
@@ -50,6 +51,8 @@ const Orders = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 h-screen mt-24">
+      <MetaData title="Admin - All Orders" />
+
       <div className="md:col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>

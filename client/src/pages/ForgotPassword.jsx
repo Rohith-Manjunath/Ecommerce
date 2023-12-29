@@ -6,6 +6,7 @@ import { forgotPassword } from "../Redux/userSlice";
 import Loader from "../layouts/Loader";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import MetaData from "../layouts/MetaData";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -42,6 +43,8 @@ const ForgotPassword = () => {
         <Loader />
       ) : (
         <div className="flex items-center justify-center h-screen">
+          <MetaData title="Forgot Password" />
+
           <div className="bg-white p-8 rounded shadow-md w-96">
             <h2 className="text-2xl font-semibold mb-6">Forgot Password</h2>
 

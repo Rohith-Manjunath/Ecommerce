@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import CheckoutSteps from "../layouts/CheckoutSteps";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../layouts/MetaData";
 
 const OrderConfirm = () => {
   const { user } = useSelector((state) => state.user);
@@ -37,6 +38,8 @@ const OrderConfirm = () => {
 
   return (
     <div className="flex items-center flex-col mt-[5rem] justify-start gap-10 h-[100vh] p-5 sm:items-start">
+      <MetaData title="Confirm Order" />
+
       <CheckoutSteps activeStep={1} />
       <div className="w-full h-auto flex items-center justify-center flex-col p-5 sm:justify-between md:w-1/2">
         <div className="w-full flex flex-col">

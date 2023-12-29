@@ -5,6 +5,7 @@ import { useAlert } from "react-alert";
 import Loader from "../layouts/Loader";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import MetaData from "../layouts/MetaData";
 
 const MyOrders = () => {
   const { orders, error, loading } = useSelector((state) => state.myOrders);
@@ -24,6 +25,8 @@ const MyOrders = () => {
         <Loader />
       ) : (
         <div className="w-full h-screen pt-20 sm:p-20 flex items-center justify-start flex-col ">
+          <MetaData title="My Orders" />
+
           <h2 className="font-bold text-xl mb-4 text-center">My Orders</h2>
           <div className="w-screen overflow-x-auto px-6">
             <table className="w-full border-collapse border text-[12px] sm:text-[15px] font-bold">

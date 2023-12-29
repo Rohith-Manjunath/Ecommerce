@@ -11,6 +11,7 @@ import {
 } from "../Redux/AdminProductsSlice";
 import { Link } from "react-router-dom";
 import Loader from "../layouts/Loader";
+import MetaData from "../layouts/MetaData";
 
 const AdminDashboard = () => {
   const {
@@ -90,6 +91,8 @@ const AdminDashboard = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 h-screen mt-24">
+      <MetaData title="Dashboard - Admin Panel" />
+
       <div className="md:col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>

@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Slider from "@mui/material/Slider";
 import { IoOptionsSharp } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
+import MetaData from "../layouts/MetaData";
 
 const Products = () => {
   const { productsPerPage, productsCount } = useSelector(
@@ -106,6 +107,8 @@ const Products = () => {
         <Loader />
       ) : (
         <div className="container mx-auto mt-[8rem] w-[100%]">
+          <MetaData title="Products" />
+
           {loading ? (
             <Loader />
           ) : (
@@ -124,13 +127,13 @@ const Products = () => {
                       alt=""
                       className="w-[80%] rounded-md"
                     />
-                    <h3 className="text-xl font-semibold mb-2 w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                    <h3 className="text-center text-xl font-semibold mb-2 w-full whitespace-nowrap overflow-hidden text-ellipsis">
                       {product.name}
                     </h3>
-                    <p className="text-gray-600 mb-2 w-full whitespace-nowrap text-ellipsis overflow-hidden">
+                    <p className="text-center text-gray-600 mb-2 w-full whitespace-nowrap text-ellipsis overflow-hidden">
                       {product.description}
                     </p>
-                    <p className="text-green-600 font-semibold">
+                    <p className="text-center text-green-600 font-semibold">
                       Price: &#x20B9;{product.price.toLocaleString("en-IN")}
                     </p>
                     <div className="flex flex-col md:flex-row gap-2 items-center justify-center">
@@ -177,7 +180,7 @@ const Products = () => {
           <div
             className={`z-[200] ${
               !show ? "-translate-x-[20rem]" : "translate-x-[-0rem]"
-            } items-center justify-start gap-5 flex-wrap w-[15rem] h-screen top-[5rem] left-10 bg-white p-8 rounded-md shadow-md transition-all duration-400 fixed`}
+            } items-center justify-start gap-5 flex-wrap w-[15rem] h-auto top-[5rem] left-10 bg-white p-8 rounded-md shadow-md transition-all duration-400 fixed border border-gray-300`}
           >
             <div className="w-full">
               <Typography variant="h6" className="mb-2 text-gray-700">
@@ -222,7 +225,7 @@ const Products = () => {
               <h2 className="font-bold text-blue-500 underline underline-offset-2">
                 Products
               </h2>
-              <ul>
+              <ul className="max-h-[200px] overflow-auto border border-gray-300 mt-2 rounded-sm">
                 {categories.map((category) => (
                   <li
                     key={category}
@@ -231,7 +234,7 @@ const Products = () => {
                       activeCategory === category
                         ? "text-blue-500 underline"
                         : ""
-                    } hover:underline-offset-4 transition-all duration-200 hover:underline hover:text-blue-400 hover:cursor-pointer mt-2`}
+                    } hover:underline-offset-4 transition-all duration-200 hover:underline hover:text-blue-400 hover:cursor-pointer mt-2 px-2 py-1`}
                   >
                     {category}
                   </li>

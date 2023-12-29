@@ -12,6 +12,7 @@ import {
   fetchProductsAdmin,
 } from "../Redux/AdminProductsSlice";
 import Loader from "../layouts/Loader";
+import MetaData from "../layouts/MetaData";
 
 const Products = () => {
   const { error, loading, products } = useSelector((state) => state.admin);
@@ -56,6 +57,8 @@ const Products = () => {
 
   return (
     <div className="w-[100vw] h-screen md:grid md:grid-cols-5 pt-[7rem]">
+      <MetaData title="Admin - All Products" />
+
       <div className="col-span-1 flex items-center justify-center mb-20">
         <Sidebar />
       </div>
