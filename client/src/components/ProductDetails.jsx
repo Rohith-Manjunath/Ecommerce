@@ -38,6 +38,7 @@ const ProductDetails = () => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("userData"));
   const {
     error: reviewError,
     success,
@@ -55,6 +56,10 @@ const ProductDetails = () => {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleClickOpen = () => {
+    if (!user) {
+      alert.error("Please login to submit or update review");
+      return;
+    }
     setOpen(true);
   };
 
