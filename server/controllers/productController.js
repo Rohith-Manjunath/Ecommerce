@@ -135,7 +135,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
 exports.createReview = catchAsyncErrors(async (req, res, next) => {
   const { rating, comment, productId } = req.body;
-  const { _id, name } = req.user;
+  const { _id, name, avatar } = req.user;
 
   try {
     let product = await Product.findById(productId);
@@ -149,6 +149,7 @@ exports.createReview = catchAsyncErrors(async (req, res, next) => {
       rating: Number(rating),
       comment: String(comment),
       user: _id,
+      image: avatar.url,
     };
 
     const isReviewed = product.reviews.find(

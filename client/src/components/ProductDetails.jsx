@@ -235,7 +235,11 @@ const ProductDetails = () => {
                           key={rev._id}
                         >
                           <h2 className="font-bold tracking-wider flex items-center justify-center ">
-                            <LuUserSquare className=" text-slate-500 text-5xl rounded-lg" />{" "}
+                            <img
+                              src={rev.image}
+                              alt=""
+                              className="w-[3rem] rounded-full"
+                            />
                           </h2>
                           <h3 className="font-bold">{rev.name}</h3>
                           <ReactStars {...options} value={rev.rating} />
