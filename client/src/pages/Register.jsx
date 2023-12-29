@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 
 const Register = () => {
-  const { error, message, loading } = useSelector((state) => state.user);
+  const { error, success, loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,9 +38,9 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    alert.success("Registration successful");
     dispatch(registerUser({ formData, avatarPic }));
   };
 
@@ -48,10 +48,11 @@ const Register = () => {
     if (error) {
       alert.error(error);
       resetError();
-    } else {
+    }
+    if (success) {
       navigate("/login");
     }
-  }, [message, error, alert, navigate]);
+  }, [error, alert, navigate, success]);
 
   return (
     <>

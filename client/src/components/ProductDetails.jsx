@@ -52,6 +52,8 @@ const ProductDetails = () => {
   };
 
   const [open, setOpen] = useState(false);
+  const [showFullComments, setShowFullComments] = useState(false);
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -68,8 +70,13 @@ const ProductDetails = () => {
   };
 
   const submitReview = () => {
-    dispatch(PostReview({ comment: review, rating, productId: id }));
-    setOpen(false);
+    if (review.length > 100) {
+      setOpen(false);
+      alert.error("Comment can't exceed 100 characters");
+    } else {
+      dispatch(PostReview({ comment: review, rating, productId: id }));
+      setOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -221,32 +228,44 @@ const ProductDetails = () => {
               </div>
               <div
                 id="reviews"
-                className=" flex items-center justify-center flex-col gap-5 border shadow-lg mt-[10rem] sm:mt-0"
+                className="flex flex-col items-center justify-center gap-5 border shadow-lg mt-10 sm:mt-0 p-5"
               >
                 <h2 className="text-center font-bold underline underline-offset-4 text-slate-500 text-xl">
                   Reviews
                 </h2>
                 {item && item.reviews.length > 0 ? (
-                  <div className="w-full flex flex-col sm:flex-row overflow-x-scroll gap-5">
-                    {item.reviews.map((rev) => {
-                      return (
-                        <div
-                          className="flex flex-col items-center justify-center gap-2 border p-7 rounded-lg w-full md:w-1/3"
-                          key={rev._id}
+                  <div className="w-full flex flex-col sm:flex-row overflow-x-auto gap-5">
+                    {item.reviews.map((rev) => (
+                      <div
+                        className="flex flex-col items-center justify-center md:justify-start gap-2 border p-4 rounded-lg w-full sm:w-1/3"
+                        key={rev._id}
+                      >
+                        <h2 className="font-bold tracking-wider flex items-center justify-center">
+                          <img
+                            src={rev.image}
+                            alt=""
+                            className="w-12 h-12 rounded-full"
+                          />
+                        </h2>
+                        <h3 className="font-bold text-center">{rev.name}</h3>
+                        <ReactStars {...options} value={rev.rating} />
+                        <p
+                          className={`line-clamp-3 ${
+                            showFullComments ? "" : "line-clamp-2"
+                          }`}
                         >
-                          <h2 className="font-bold tracking-wider flex items-center justify-center ">
-                            <img
-                              src={rev.image}
-                              alt=""
-                              className="w-[3rem] rounded-full"
-                            />
-                          </h2>
-                          <h3 className="font-bold">{rev.name}</h3>
-                          <ReactStars {...options} value={rev.rating} />
-                          <p>{rev.comment}</p>
-                        </div>
-                      );
-                    })}
+                          {rev.comment}
+                        </p>
+                        {!showFullComments && rev.comment.length > 40 && (
+                          <button
+                            className="text-blue-500 underline"
+                            onClick={() => setShowFullComments(true)}
+                          >
+                            Show more
+                          </button>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <h2 className="text-xl text-slate-400">No Reviews yet</h2>
