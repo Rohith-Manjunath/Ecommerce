@@ -13,6 +13,7 @@ import { RiPassExpiredFill } from "react-icons/ri";
 import { IoMdKey } from "react-icons/io";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import CheckoutSteps from "../layouts/CheckoutSteps";
 
 const Payment = () => {
   const Amount = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -103,7 +104,9 @@ const Payment = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen p-4 md:p-24 flex-col ">
+    <div className="flex items-center justify-center w-full h-screen p-4 md:p-24 flex-col pt-24">
+      <CheckoutSteps activeStep={3} />
+
       <div className="max-w-md mx-auto bg-white p-12 rounded-md shadow-md border border-slate-300">
         <h2 className="text-2xl font-semibold mb-4" style={{ color: "tomato" }}>
           Payment Details
