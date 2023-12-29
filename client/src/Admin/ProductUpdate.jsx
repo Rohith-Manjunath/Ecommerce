@@ -11,6 +11,7 @@ import {
   clearUpdateStatus,
 } from "../Redux/AdminProductsSlice";
 import { Button, MenuItem, TextField } from "@mui/material";
+import MetaData from "../layouts/MetaData";
 
 const ProductUpdate = () => {
   const { products } = useSelector((state) => state.admin);
@@ -116,6 +117,8 @@ const ProductUpdate = () => {
 
   return (
     <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
+      <MetaData title="Admin - Product Update" />
+
       <div className="col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>

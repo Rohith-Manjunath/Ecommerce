@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
 import { useNavigate } from "react-router-dom";
 import { style } from "@mui/system";
+import MetaData from "../layouts/MetaData";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
@@ -18,9 +19,11 @@ const Search = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
+      <MetaData title="Search" />
+
       <form
         onSubmit={(e) => handleSubmit(e)}
-        className="bg-white p-8 rounded shadow-md w-full md:w-1/2 flex flex-col items-center"
+        className="bg-white p-2 rounded shadow-md w-full md:w-1/2 flex flex-col items-center"
       >
         <h2 className="text-2xl font-semibold mb-4">Search Products</h2>
         <div className="flex items-center w-full mb-4">

@@ -7,13 +7,13 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import MetaData from "../layouts/MetaData";
 
 const Contact = () => {
   return (
     <div className="w-screen h-screen mt-24">
-      <h2 className="text-3xl text-center text-gray-500 px-10 font-bold mb-10 sm:mb-0">
-        Contact Me
-      </h2>
+      <MetaData title="Contact" />
+
       <div className="w-full h-auto sm:flex sm:flex-row items-center justify-center sm:h-1/2">
         <div className="px-10 sm:w-1/2 flex items-center justify-start sm:items-center sm:justify-center">
           <img

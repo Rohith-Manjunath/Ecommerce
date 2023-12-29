@@ -76,7 +76,7 @@ const Header = () => {
       </ul>
 
       <ul
-        className={`flex flex-col items-center justify-evenly absolute left-0 top-[4.3rem] bg-gray-500 w-screen h-[55vh] z-10 ${
+        className={`flex flex-col items-center justify-evenly absolute left-0 top-[4.3rem] bg-gray-500 w-screen h-[50vh] z-10 ${
           show ? "translate-x-[0%]" : "-translate-x-[100%]"
         } transition-all duration-300 md:hidden`}
       >

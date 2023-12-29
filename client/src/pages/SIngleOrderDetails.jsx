@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Loader from "../layouts/Loader";
 import { GetSingleOrder } from "../Redux/SingleOrderSlice";
+import MetaData from "../layouts/MetaData";
 
 const SIngleOrderDetails = () => {
   const params = useParams();
@@ -29,6 +30,8 @@ const SIngleOrderDetails = () => {
         <Loader />
       ) : (
         <div className="w-full h-full flex flex-col gap-10 pt-10 mt-[4rem] p-10">
+          <MetaData title="Order Details" />
+
           <h3 className="text-[15px] text-red-500 sm:text-3xl md:text-3xl">
             Order #{id}
           </h3>

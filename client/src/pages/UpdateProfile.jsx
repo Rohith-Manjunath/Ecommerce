@@ -4,12 +4,11 @@ import { updateUserProfile } from "../Redux/userSlice";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Loader from "../layouts/Loader";
+import MetaData from "../layouts/MetaData";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
-  const { error, success, message, user, loading } = useSelector(
-    (state) => state.user
-  );
+  const { error, message, user, loading } = useSelector((state) => state.user);
   const alert = useAlert();
   const navigate = useNavigate();
 
@@ -60,6 +59,8 @@ const UpdateProfile = () => {
         <Loader />
       ) : (
         <div className="flex items-center justify-center h-screen flex-col">
+          <MetaData title="User Profile Update" />
+
           <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">

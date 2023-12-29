@@ -4,6 +4,7 @@ import { updatePassword } from "../Redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import Loader from "../layouts/Loader";
+import MetaData from "../layouts/MetaData";
 
 const UpdatePassword = () => {
   const { error, success, loading, message } = useSelector(
@@ -57,6 +58,8 @@ const UpdatePassword = () => {
         <Loader />
       ) : (
         <div className="flex items-center justify-center h-[100vh] w-[100vw]">
+          <MetaData title="Update Password" />
+
           <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Update Password</h2>
             <form onSubmit={handleSubmit}>

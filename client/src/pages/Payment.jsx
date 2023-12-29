@@ -14,6 +14,7 @@ import { IoMdKey } from "react-icons/io";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "../layouts/CheckoutSteps";
+import MetaData from "../layouts/MetaData";
 
 const Payment = () => {
   const Amount = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -105,6 +106,8 @@ const Payment = () => {
 
   return (
     <div className="flex items-center justify-center w-full h-screen p-4 md:p-24 flex-col pt-24">
+      <MetaData title="Payment" />
+
       <CheckoutSteps activeStep={3} />
 
       <div className="max-w-md mx-auto bg-white p-12 rounded-md shadow-md border border-slate-300">

@@ -1,8 +1,11 @@
 import React from "react";
+import MetaData from "../layouts/MetaData";
 
 const About = () => {
   return (
     <div className="container mx-auto p-8 mt-20">
+      <MetaData title="About" />
+
       <h2 className="text-3xl font-bold mb-4">
         Welcome to Our E-commerce Platform
       </h2>

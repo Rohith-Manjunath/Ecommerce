@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearError, fetchProducts } from "../Redux/ProductSlice";
 import Loader from "../layouts/Loader";
 import { useAlert } from "react-alert"; // Import the hook
+import MetaData from "../layouts/MetaData";
 
 const Home = () => {
   const { products } = useSelector((state) => state.products.products);
@@ -34,6 +35,8 @@ const Home = () => {
 
   return (
     <div className="w-full h-auto overflow-scroll flex items-center justify-center flex-col gap-10 banner relative">
+      <MetaData title="Home" />
+
       <div className="w-full flex items-center justify-center flex-col gap-10 h-[100vh]">
         <h2 className="text-[1.3rem] text-center md:text-[1.5rem] lg:text-3xl font-semibold">
           Welcome To Ecommerce

@@ -6,6 +6,8 @@ import {
 } from "../Redux/CartSlice";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
+import MetaData from "../layouts/MetaData";
+import { MdRemoveShoppingCart } from "react-icons/md";
 
 const Cart = () => {
   const items = useSelector((state) => state.cart.cart);
@@ -35,6 +37,8 @@ const Cart = () => {
 
   return (
     <>
+      <MetaData title="Cart" />
+
       {items.length > 0 ? (
         <div className="mt-[6rem] w-[90vw] h-[90vh] mx-auto">
           {items.map((item) => {
@@ -101,10 +105,21 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="w-full h-screen flex items-center justify-center">
-          <h2 className="text-4xl text-slate-400">
+        <div className="w-full h-screen flex flex-col items-center justify-center gap-4">
+          <MdRemoveShoppingCart
+            className="text-4xl mr-2"
+            style={{ color: "tomato" }}
+          />
+          <h2 className="text-4xl text-slate-400 text-[2rem]">
             No Products Yet &#58;&#40;
           </h2>
+          <Link
+            to={"/products"}
+            className="text-xl sm:text-2xl text-white p-2 rounded-md hover:scale-105 active:scale-90 transition-all duration-200"
+            style={{ backgroundColor: "tomato" }}
+          >
+            Add Products
+          </Link>
         </div>
       )}
     </>
