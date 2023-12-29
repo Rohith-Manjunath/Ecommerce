@@ -31,7 +31,6 @@ yarn-error.log
 # React build output
 /build
 /dist
-/server/config/config.env
 
 
 # IDE and editor-specific files (Optional, depending on your IDE/editor)
@@ -49,8 +48,8 @@ yarn-error.log
 .env.development.local
 .env.test.local
 .env.production.local
-config.env
-client/.env*
+server/config/config.env
+
 
 # Local Netlify folder
 .netlify
