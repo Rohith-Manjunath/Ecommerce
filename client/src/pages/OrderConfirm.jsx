@@ -31,7 +31,6 @@ const OrderConfirm = () => {
     };
     const orderInfoString = JSON.stringify(orderInfo);
 
-    // Store the JSON string in sessionStorage with the key "orderInfo"
     sessionStorage.setItem("orderInfo", orderInfoString);
     navigate("/order/payment");
   };
@@ -56,8 +55,8 @@ const OrderConfirm = () => {
             </p>
           </div>
         </div>
-        <div className="w-full flex-col px-10 mt-10">
-          <h2 className="font-semibold text-xl md:text-2xl mb-5 ">
+        <div className="w-full flex-col md:px-10 mt-10">
+          <h2 className="font-semibold text-xl md:text-2xl mb-5 text-center">
             Your Cart Items :{" "}
           </h2>
           <div className="max-h-[250px] overflow-y-scroll p-5 ">
@@ -65,7 +64,7 @@ const OrderConfirm = () => {
               return (
                 <div
                   key={item._id}
-                  className="flex items-center justify-between"
+                  className="flex flex-col md:flex-row gap-5 items-center justify-between my-4"
                 >
                   <img
                     src={item.imageURLs[0].url}
@@ -86,7 +85,7 @@ const OrderConfirm = () => {
             })}
           </div>
         </div>
-        <div className="w-full flex items-start justify-center flex-col px-10 mt-10 md:hidden">
+        <div className="w-full flex items-start justify-center flex-col md:px-10 mt-10 md:hidden">
           <h2 className="font-semibold text-xl md:text-2xl mb-3">
             Order Summary
           </h2>
@@ -123,15 +122,16 @@ const OrderConfirm = () => {
 
           {/* Submit Button */}
           <button
+            style={{ backgroundColor: "tomato" }}
             onClick={NavigateToPayment}
             type="button"
-            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
+            className="text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300"
           >
             Proceed to payment
           </button>
         </div>
 
-        <div className="items-start justify-center flex-col px-10 mt-10 md:flex hidden absolute w-1/2 right-0">
+        <div className="items-start justify-center flex-col md:px-10 mt-10 md:flex hidden absolute w-1/2 right-0">
           <h2 className="font-semibold text-xl md:text-2xl mb-3">
             Order Summary
           </h2>
