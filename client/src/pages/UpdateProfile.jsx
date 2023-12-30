@@ -1,14 +1,26 @@
+// UpdateProfile.jsx
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserProfile } from "../Redux/userSlice";
+import {
+  loadUser,
+  resetError,
+  resetSuccess,
+  updateUserProfile,
+} from "../Redux/userSlice";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import Loader from "../layouts/Loader";
 import MetaData from "../layouts/MetaData";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
-  const { error, message, user, loading } = useSelector((state) => state.user);
+  const { error, user, loading, success } = useSelector((state) => state.user);
   const alert = useAlert();
   const navigate = useNavigate();
 
@@ -27,82 +39,82 @@ const UpdateProfile = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    alert.success("Profile updated successfully");
 
     dispatch(updateUserProfile({ formData }));
+    dispatch(loadUser());
+    navigate("/profile");
   };
 
   useEffect(() => {
-    if (message) {
-      alert.success(message, {
-        timeout: 5000,
-        type: "success",
-      });
-      setFormData({
-        email: "",
-        password: "",
-      });
-      navigate("/profile");
-    } else if (error) {
-      alert.error(error, {
-        timeout: 5000,
-        type: "error",
-      });
+    if (error) {
+      alert.error(error);
+      dispatch(resetError());
     }
-  }, [message, error, alert, navigate]);
+    if (success) {
+      dispatch(resetSuccess());
+    }
+  }, [error, alert, dispatch, navigate, success]);
 
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
-        <div className="flex items-center justify-center h-screen flex-col">
+        <Container component="main" maxWidth="xs">
           <MetaData title="User Profile Update" />
-
-          <h2 className="text-2xl font-semibold mb-4">Update Profile</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Name:
-              </label>
-              <input
-                type="text"
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center", // Center vertically
+              height: "100vh", // Full height of the viewport
+            }}
+          >
+            <Typography component="h2" variant="h4">
+              Update Profile
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="name"
+                label="Name"
                 name="name"
+                autoFocus
                 value={formData.name}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-2 w-full rounded-md"
               />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Email:
-              </label>
-              <input
-                type="email"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="email"
+                label="Email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="border border-gray-300 p-2 w-full rounded-md"
               />
-            </div>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-            >
-              Update Profile
-            </button>
-          </form>
-        </div>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Update Profile
+              </Button>
+            </Box>
+          </Box>
+        </Container>
       )}
     </>
   );

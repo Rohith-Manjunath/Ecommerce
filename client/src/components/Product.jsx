@@ -13,12 +13,12 @@ const Product = ({ product }) => {
   return (
     <Link
       to={`/product/${product._id}`}
-      className="w-full sm:w-1/2 lg:w-1/4 xl:w-1/5 bg-white border p-3  rounded-lg flex items-center justify-center flex-col gap-4 hover:scale-110 transition-all duration-300 border-slate-300 sm:h-[28rem]"
+      className="w-full sm:w-1/3 lg:w-1/4 xl:w-1/5 bg-white border p-3  rounded-lg flex items-center justify-center flex-col gap-4 hover:scale-110 transition-all duration-300 border-slate-300 sm:h-[28rem]"
     >
       <img
         src={product.imageURLs[0].url}
         alt=""
-        className="rounded-lg w-[80%] sm:w-[90%] h-[50%]"
+        className="rounded-lg w-full aspect-square object-contain"
       />
       <h2 className="text-[15px] font-semibold text-ellipsis w-full whitespace-nowrap overflow-hidden text-center">
         {product.name}

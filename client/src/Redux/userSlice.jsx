@@ -248,6 +248,7 @@ const auth = localStorage.getItem("auth");
 
 export const resetMessage = createAction("user/resetMessage");
 export const resetError = createAction("user/resetError");
+export const resetSuccess = createAction("user/resetSuccess");
 
 const initialState = {
   user: storedData ? JSON.parse(storedData) : {},
@@ -272,6 +273,9 @@ const userSlice = createSlice({
     },
     resetError: (state) => {
       state.error = null;
+    },
+    resetSuccess: (state) => {
+      state.success = false;
     },
   },
   extraReducers: (builder) => {
@@ -384,7 +388,6 @@ const userSlice = createSlice({
           state.loading = false;
         } else {
           state.isAuthenticated = true;
-          state.message = "Profile updated successfully";
           state.loading = false;
           state.success = true;
         }

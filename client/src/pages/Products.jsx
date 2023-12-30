@@ -74,7 +74,7 @@ const Products = () => {
   useEffect(() => {
     dispatch(
       fetchProducts({
-        keyword: keyword,
+        keyword: keyword && keyword,
         currentPage,
         priceRange,
         category: activeCategory,
@@ -125,8 +125,9 @@ const Products = () => {
                     <img
                       src={product.imageURLs[0].url}
                       alt=""
-                      className="w-[80%] rounded-md"
+                      className="w-full aspect-square object-contain rounded-md"
                     />
+
                     <h3 className="text-center text-xl font-semibold mb-2 w-full whitespace-nowrap overflow-hidden text-ellipsis">
                       {product.name}
                     </h3>
