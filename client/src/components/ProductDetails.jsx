@@ -236,11 +236,11 @@ const ProductDetails = () => {
                   Reviews
                 </h2>
                 {item && item.reviews.length > 0 ? (
-                  <div className="max-h-[300px] overflow-y-scroll w-full">
+                  <div className="max-h-[300px] overflow-y-scroll w-full border border-slate-300 rounded-md py-4">
                     <div className="w-full flex flex-col items-center justify-center overflow-x-auto gap-5 ">
                       {item.reviews.map((rev) => (
                         <div
-                          className="flex flex-col items-center justify-center md:justify-start gap-2 border p-4 rounded-lg w-full sm:w-1/3"
+                          className="flex flex-col items-center justify-center md:justify-start gap-2 border border-slate-300 p-4 rounded-lg w-full sm:w-1/3"
                           key={rev._id}
                         >
                           <h2 className="font-bold tracking-wider flex items-center justify-center">

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -38,6 +38,7 @@ import AdminOrders from "./Admin/Orders";
 import OrderUpdate from "./Admin/OrderUpdate";
 import UpdateUser from "./Admin/UpdateUser";
 import Createproduct from "./Admin/Createproducts";
+import NotFound from "./layouts/NotFound";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -128,6 +129,7 @@ const App = () => {
                 path="/order/details/:id"
                 element={<SIngleOrderDetails />}
               ></Route>
+              <Route path="/*" element={<NotFound />}></Route>{" "}
             </Route>
           </Routes>
         </BrowserRouter>

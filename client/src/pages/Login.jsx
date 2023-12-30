@@ -72,6 +72,7 @@ const Login = () => {
             className="bg-white p-8 rounded shadow-md w-full sm:w-1/2 lg:w-1/3"
             onSubmit={handleSubmit}
           >
+            <h2 className=" text-3xl text-slate-600 font-bold mb-5">Login </h2>
             <div className="mb-4">
               <TextField
                 fullWidth
