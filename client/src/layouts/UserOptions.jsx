@@ -60,6 +60,7 @@ export default function UserOptions({ user }) {
         top: "5rem",
         right: "1rem",
         zIndex: 100,
+        height: open ? "auto" : "2rem",
       }}
     >
       <SpeedDial
@@ -77,6 +78,7 @@ export default function UserOptions({ user }) {
             tooltipTitle={action.name}
             tooltipOpen
             onClick={action.func}
+            style={{ visibility: open ? "visible" : "hidden" }}
           />
         ))}
       </SpeedDial>
