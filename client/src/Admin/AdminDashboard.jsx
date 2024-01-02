@@ -104,19 +104,19 @@ const AdminDashboard = () => {
         <div className="flex flex-wrap mt-5">
           <Link
             to={"/admin/products"}
-            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-red-500 text-white font-bold rounded-full"
+            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-red-500 text-white font-bold rounded-full tracking-widest shadow-xl  active:shadow-none transition-all duration-200 "
           >
             Products: {products && products.length}
           </Link>
           <Link
             to={"/admin/orders"}
-            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-yellow-300 text-black font-bold rounded-full"
+            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-yellow-300 text-black font-bold rounded-full tracking-widest shadow-xl  active:shadow-none transition-all duration-200 "
           >
             Orders: {orders && orders.length}
           </Link>
           <Link
             to={"/admin/users"}
-            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-gray-800 text-white font-bold rounded-full"
+            className="p-2 mx-2 my-1 md:p-5 md:mx-5 bg-gray-800 text-white font-bold rounded-full tracking-widest shadow-xl  active:shadow-none transition-all duration-200 "
           >
             Users: {users && users.length}
           </Link>

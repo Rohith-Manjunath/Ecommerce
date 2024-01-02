@@ -91,6 +91,11 @@ const ProductUpdate = () => {
     myForm.set("category", formData.category);
     myForm.set("stock", formData.stock);
 
+    if (images.length === 0) {
+      alert.error("Please select atleast one image");
+      return;
+    }
+
     images.forEach((image) => {
       myForm.append("images", image);
     });
@@ -116,17 +121,15 @@ const ProductUpdate = () => {
   }, [updateError, alert, isUpdated, error, dispatch, navigate]);
 
   return (
-    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
+    <div className="w-[100vw] h-screen md:grid grid-cols-5 pt-[7rem]">
       <MetaData title="Admin - Product Update" />
 
       <div className="col-span-1 flex items-center justify-center">
         <Sidebar />
       </div>
-      <div className="col-span-4 flex items-center justify-start flex-col gap-6 ">
-        <h2 className="text-2xl font-semibold mb-4 text-center">
-          Update Product
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-2">
+      <div className="col-span-4 flex items-center justify-start flex-col gap-6 mt-10">
+        <h2 className="text-2xl font-semibold text-center">Update Product</h2>
+        <form onSubmit={handleSubmit} className="space-y-2 p-4">
           <TextField
             fullWidth
             label="Name"

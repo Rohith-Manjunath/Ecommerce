@@ -30,7 +30,7 @@ const Search = () => {
           <input
             required
             type="text"
-            placeholder="Enter keyword"
+            placeholder="Search by name"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             className="flex-1 border p-2 rounded-l-md outline-gray-300"

@@ -42,6 +42,7 @@ const Products = () => {
     "Electronics",
     "Clothing",
     "Books",
+    "Cameras",
   ];
   const [activeCategory, setActiveCategory] = useState("");
   const [ratingsRange, setRatingsRange] = useState([0, 5]); // Default ratings range
@@ -69,6 +70,16 @@ const Products = () => {
 
   const toggleFilter = () => {
     setShow(!show);
+  };
+
+  const handlePriceChangeCommitted = (event, newValue) => {
+    setPriceRange(newValue);
+    dispatch(fetchProducts());
+  };
+
+  const handleRatingsChangeCommitted = (event, newValue) => {
+    setRatingsRange(newValue);
+    dispatch(fetchProducts());
   };
 
   useEffect(() => {
@@ -189,7 +200,7 @@ const Products = () => {
               </Typography>
               <Slider
                 value={priceRange}
-                onChange={handlePriceChange}
+                onChangeCommitted={handlePriceChangeCommitted}
                 valueLabelDisplay="auto"
                 valueLabelFormat={(value) => `₹${value}`}
                 min={10}
@@ -215,7 +226,7 @@ const Products = () => {
               </Typography>
               <Slider
                 value={ratingsRange}
-                onChange={handleRatingsChange}
+                onChangeCommitted={handleRatingsChangeCommitted}
                 valueLabelDisplay="auto"
                 valueLabelFormat={(value) => `${value}+`}
                 min={0}
