@@ -50,10 +50,7 @@ const Register = () => {
       alert.error(error);
       resetError();
     }
-    if (success) {
-      navigate("/login");
-    }
-  }, [error, alert, navigate, success]);
+  }, [error, alert, navigate]);
 
   return (
     <>
