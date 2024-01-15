@@ -72,10 +72,10 @@ const Products = () => {
   };
 
   return (
-    <div className="w-[100vw] h-screen grid grid-cols-5 pt-[7rem]">
+    <div className="w-[100vw] h-screen md:grid grid-cols-5 pt-[7rem]">
       <MetaData title="Admin - User Update" />
 
-      <div className="col-span-1 flex items-center justify-center">
+      <div className="col-span-1 flex items-center justify-center mb-10 md:mb-0">
         <Sidebar />
       </div>
       <div className="col-span-4 flex items-center justify-start flex-col gap-6 ">
