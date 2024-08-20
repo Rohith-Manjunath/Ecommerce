@@ -5,7 +5,7 @@ export const fetchProductsAdmin = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/admin/products`,
+        `https://ecommerce-ev4m.onrender.com/api/admin/products`,
         {
           credentials: "include",
           method: "GET",
@@ -32,7 +32,7 @@ export const fetchOrdersAdmin = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/orders`,
+        `https://ecommerce-ev4m.onrender.com/api/orders`,
         {
           credentials: "include",
           method: "GET",
@@ -54,7 +54,7 @@ export const fetchUsersAdmin = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/admin/users`,
+        `https://ecommerce-ev4m.onrender.com/api/admin/users`,
         {
           credentials: "include",
           method: "GET",
@@ -88,7 +88,7 @@ export const CreateProducts = createAsyncThunk(
 
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/product/new`,
+        `https://ecommerce-ev4m.onrender.com/api/product/new`,
         {
           credentials: "include",
           method: "POST",
@@ -113,7 +113,7 @@ export const deleteOrder = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/orders/delete/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/orders/delete/${id}`,
         {
           credentials: "include",
           method: "DELETE",
@@ -133,7 +133,7 @@ export const deleteProduct = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/product/${id}`,
         {
           credentials: "include",
           method: "DELETE",
@@ -153,7 +153,7 @@ export const deleteUser = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/admin/user/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/admin/user/${id}`,
         {
           credentials: "include",
           method: "DELETE",
@@ -173,7 +173,7 @@ export const UpdateProduct = createAsyncThunk(
   async ({ myForm, id }, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/product/${id}`,
         {
           credentials: "include",
           method: "PUT",
@@ -193,7 +193,7 @@ export const getProductDetails = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/product/${id}`,
         {
           credentials: "include",
           method: "GET",
@@ -216,7 +216,7 @@ export const updateOrderStatus = createAsyncThunk(
       form.set("status", status);
 
       let data = await fetch(
-        `https://ecommerce2-0.onrender.com/api/orders/update/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/orders/update/${id}`,
         {
           credentials: "include",
           method: "PUT",
@@ -240,7 +240,7 @@ export const updateUserRole = createAsyncThunk(
       form.set("role", role);
 
       let data = await fetch(
-        `https://ecommerce2-0.onrender.com/api/admin/user/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/admin/user/${id}`,
         {
           credentials: "include",
           method: "PUT",
@@ -261,7 +261,7 @@ export const fetchReviews = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let data = await fetch(
-        `https://ecommerce2-0.onrender.com/api/reviews?id=${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/reviews?id=${id}`,
         {
           method: "GET",
           credentials: "include",
@@ -284,7 +284,7 @@ export const deleteReview = createAsyncThunk(
 
     try {
       let data = await fetch(
-        `https://ecommerce2-0.onrender.com/api/reviews?productId=${productId}&id=${reviewId}`,
+        `https://ecommerce-ev4m.onrender.com/api/reviews?productId=${productId}&id=${reviewId}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -311,7 +311,7 @@ export const updateReview = createAsyncThunk(
       form.set("rating", Number(rating));
 
       let data = await fetch(
-        `https://ecommerce2-0.onrender.com/api/reviews?productId=${productId}&reviewId=${reviewId}`,
+        `https://ecommerce-ev4m.onrender.com/api/reviews?productId=${productId}&reviewId=${reviewId}`,
         {
           method: "PUT",
           credentials: "include",

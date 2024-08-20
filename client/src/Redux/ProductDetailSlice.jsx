@@ -5,7 +5,7 @@ export const GetProductDetails = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/product/${id}`,
+        `https://ecommerce-ev4m.onrender.com/api/product/${id}`,
         {
           method: "GET",
           credentials: "include",

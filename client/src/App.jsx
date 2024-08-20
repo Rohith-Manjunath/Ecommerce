@@ -51,7 +51,7 @@ const App = () => {
   const getStripeKey = async () => {
     try {
       let response = await fetch(
-        "https://ecommerce2-0.onrender.com/api/getStripe",
+        "https://ecommerce-ev4m.onrender.com/api/getStripe",
         {
           credentials: "include",
         }
