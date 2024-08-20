@@ -14,7 +14,7 @@ export const PostReview = createAsyncThunk(
       form.set("rating", rating);
 
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/review`,
+        `https://ecommerce-ev4m.onrender.com/api/review`,
         {
           method: "PUT",
           credentials: "include",

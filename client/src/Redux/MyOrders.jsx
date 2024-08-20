@@ -14,7 +14,7 @@ export const OrdersDispatch = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/orders/me`,
+        `https://ecommerce-ev4m.onrender.com/api/orders/me`,
         {
           method: "GET",
           credentials: "include",

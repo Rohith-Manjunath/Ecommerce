@@ -58,7 +58,7 @@ const Payment = () => {
     payBtn.current.disabled = true;
     try {
       let data = await fetch(
-        "https://ecommerce2-0.onrender.com/api/payment/checkout",
+        "https://ecommerce-ev4m.onrender.com/api/payment/checkout",
         {
           method: "POST",
           credentials: "include",

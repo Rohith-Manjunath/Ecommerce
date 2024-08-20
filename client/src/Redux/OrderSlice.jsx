@@ -27,7 +27,7 @@ export const NewOrder = createAsyncThunk(
       const { status } = paymentInfo;
 
       let response = await fetch(
-        `https://ecommerce2-0.onrender.com/api/order/new`,
+        `https://ecommerce-ev4m.onrender.com/api/order/new`,
         {
           method: "POST",
           body: JSON.stringify({
