@@ -18,9 +18,6 @@ const OrderRoute = require("./router/orderRoute");
 const PaymentRoute = require("./router/PaymentRoute");
 
 dotenv.config({ path: "server/config/config.env" });
-
-// Add middleware
-// Body parser middleware
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -28,13 +25,13 @@ app.use(
 );
 
 // File upload middleware
-app.use(fileUpload());
-app.set("trust proxy", 1);
 app.use(
   express.json({
     limit: "50mb",
   })
 );
+app.use(fileUpload());
+app.set("trust proxy", 1);
 app.use(cookie());
 app.use(cors(corsOptions));
 app.use("/api", productRoute);
